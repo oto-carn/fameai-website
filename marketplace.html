@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FameAI – AI Agent Marketplace</title>
+  <link rel="stylesheet" href="marketplace.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Prebuilt Agents – MAIN -->
+  <section class="prebuilt-agents">
+    <div class="container">
+      <h1 class="main-title">Choose Your AI Agent</h1>
+      <p class="main-desc">Pre-built, industry-specific AI agents – ready to deploy in minutes.</p>
+
+      <div class="agents-grid">
+        <!-- 1 -->
+        <div class="agent-card" data-agent="Barber / Salon">
+          <div class="agent-icon">✂️</div>
+          <h3>Barber / Salon</h3>
+          <p>Bookings, availability, service details.</p>
+          <button class="btn-primary" onclick="openPlanModal('Barber / Salon')">Select</button>
+        </div>
+        <!-- 2 -->
+        <div class="agent-card" data-agent="Restaurant">
+          <div class="agent-icon">🍽️</div>
+          <h3>Restaurant</h3>
+          <p>Reservations, menu, opening hours.</p>
+          <button class="btn-primary" onclick="openPlanModal('Restaurant')">Select</button>
+        </div>
+        <!-- 3 -->
+        <div class="agent-card" data-agent="Dental Clinic">
+          <div class="agent-icon">🦷</div>
+          <h3>Dental Clinic</h3>
+          <p>Appointments, reminders, FAQs.</p>
+          <button class="btn-primary" onclick="openPlanModal('Dental Clinic')">Select</button>
+        </div>
+        <!-- 4 -->
+        <div class="agent-card" data-agent="Hotel Booking">
+          <div class="agent-icon">🏨</div>
+          <h3>Hotel Booking</h3>
+          <p>Room inquiries, availability, bookings.</p>
+          <button class="btn-primary" onclick="openPlanModal('Hotel Booking')">Select</button>
+        </div>
+        <!-- 5 -->
+        <div class="agent-card" data-agent="Auto Service">
+          <div class="agent-icon">🚗</div>
+          <h3>Auto Service</h3>
+          <p>Maintenance, services, slot booking.</p>
+          <button class="btn-primary" onclick="openPlanModal('Auto Service')">Select</button>
+        </div>
+        <!-- 6 -->
+        <div class="agent-card" data-agent="E‑commerce Support">
+          <div class="agent-icon">🛒</div>
+          <h3>E‑commerce Support</h3>
+          <p>Orders, shipping, returns.</p>
+          <button class="btn-primary" onclick="openPlanModal('E‑commerce Support')">Select</button>
+        </div>
+        <!-- 7 -->
+        <div class="agent-card" data-agent="Lead Qualifier">
+          <div class="agent-icon">💼</div>
+          <h3>Lead Qualifier</h3>
+          <p>Qualify leads, book sales calls.</p>
+          <button class="btn-primary" onclick="openPlanModal('Lead Qualifier')">Select</button>
+        </div>
+        <!-- 8 -->
+        <div class="agent-card" data-agent="Fitness / Gym">
+          <div class="agent-icon">💪</div>
+          <h3>Fitness / Gym</h3>
+          <p>Memberships, class bookings, info.</p>
+          <button class="btn-primary" onclick="openPlanModal('Fitness / Gym')">Select</button>
+        </div>
+        <!-- 9 -->
+        <div class="agent-card" data-agent="Real Estate Agent">
+          <div class="agent-icon">🏠</div>
+          <h3>Real Estate Agent</h3>
+          <p>Property inquiries, viewings, listings.</p>
+          <button class="btn-primary" onclick="openPlanModal('Real Estate Agent')">Select</button>
+        </div>
+        <!-- 10 -->
+        <div class="agent-card" data-agent="Medical Clinic">
+          <div class="agent-icon">🏥</div>
+          <h3>Medical Clinic</h3>
+          <p>Appointments, insurance, triage.</p>
+          <button class="btn-primary" onclick="openPlanModal('Medical Clinic')">Select</button>
+        </div>
+        <!-- 11 -->
+        <div class="agent-card" data-agent="Cleaning Service">
+          <div class="agent-icon">🧹</div>
+          <h3>Cleaning Service</h3>
+          <p>Bookings, quotes, recurring clients.</p>
+          <button class="btn-primary" onclick="openPlanModal('Cleaning Service')">Select</button>
+        </div>
+        <!-- 12 -->
+        <div class="agent-card" data-agent="Property Management">
+          <div class="agent-icon">🏢</div>
+          <h3>Property Management</h3>
+          <p>Tenant inquiries, maintenance, leases.</p>
+          <button class="btn-primary" onclick="openPlanModal('Property Management')">Select</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Agent -->
+  <section class="custom-agent">
+    <div class="container">
+      <div class="custom-content">
+        <div class="custom-text">
+          <h2>Need something custom?</h2>
+          <p>We’ll build a bespoke AI agent for your unique business.</p>
+        </div>
+        <div class="custom-form">
+          <input type="text" placeholder="Your Name" />
+          <input type="email" placeholder="Your Email" required />
+          <input type="text" placeholder="Business Type" />
+          <textarea placeholder="Describe your needs..."></textarea>
+          <button class="btn-secondary">Request Custom Agent</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plan Modal -->
+  <div class="modal" id="planModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">×</button>
+      <div class="modal-header">
+        <h2 id="modal-agent-title">Select Plan</h2>
+        <p>Choose the perfect plan for your business</p>
+      </div>
+      <div class="modal-plans">
+        <div class="plan-card">
+          <h3>Basic – 199 €/month</h3>
+          <div class="plan-price">199 €<span>/month</span></div>
+          <ul class="plan-features">
+            <li>100 min calls</li>
+            <li>Simple voice</li>
+            <li>Basic responses</li>
+          </ul>
+          <button class="btn-primary">Confirm</button>
+        </div>
+        <div class="plan-card featured">
+          <h3>Pro – 349 €/month ⭐</h3>
+          <div class="plan-price">349 €<span>/month</span></div>
+          <ul class="plan-features">
+            <li>400 min calls</li>
+            <li>Custom AI voice</li>
+            <li>Smart logic + dashboard</li>
+          </ul>
+          <button class="btn-primary">Confirm</button>
+        </div>
+        <div class="plan-card">
+          <h3>Business – 549 €/month</h3>
+          <div class="plan-price">549 €<span>/month</span></div>
+          <ul class="plan-features">
+            <li>900 min calls</li>
+            <li>Fully custom behavior</li>
+            <li>Multilingual + CRM</li>
+          </ul>
+          <button class="btn-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fade-in on scroll
+    document.addEventListener("DOMContentLoaded", function () {
+      const cards = document.querySelectorAll('.agent-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+        observer.observe(card);
+      });
+    });
+
+    function openPlanModal(agentName) {
+      document.getElementById('modal-agent-title').textContent = `Select Plan for ${agentName}`;
+      document.getElementById('planModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('planModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.getElementById('planModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('planModal')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
