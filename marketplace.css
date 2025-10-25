@@ -19,6 +19,45 @@ body {
   padding: 0 24px;
 }
 
+/* === MARKETPLACE HEADER === */
+.marketplace-header {
+  padding: 20px 0;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #334155;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.marketplace-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.marketplace-header .logo {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.back-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
 /* === MAIN TITLE === */
 .main-title {
   text-align: center;
