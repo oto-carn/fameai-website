@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – FameAI</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="container">
+      <a href="index.html" class="logo">FameAI</a>
+      <div class="user-info">
+        <span>john@restaurant.sk</span>
+        <div class="user-avatar">JD</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <div class="container">
+      <!-- Welcome & Plan -->
+      <div class="welcome-card">
+        <h1>Welcome back, John!</h1>
+        <p>Your AI agents are working 24/7.</p>
+        <div class="plan-badge">
+          <span>Pro Plan</span>
+          <span>349 €/month</span>
+        </div>
+      </div>
+
+      <!-- Usage Stats -->
+      <div class="usage-section">
+        <h2>Usage</h2>
+        <div class="usage-bar">
+          <div class="usage-fill" style="width: 68%"></div>
+        </div>
+        <p class="usage-text">273 / 400 minutes used</p>
+        <button class="btn-primary">Buy more minutes</button>
+      </div>
+
+      <!-- Phone Number Section -->
+      <div class="phone-section">
+        <h2>Phone Number</h2>
+        <p>AI agents will answer calls to this number:</p>
+        <div class="phone-input">
+          <input type="text" value="+421 908 123 456" id="phoneNumber" />
+          <button class="btn-secondary" onclick="editPhoneNumber()">Edit</button>
+        </div>
+      </div>
+
+      <!-- Active Agents -->
+      <div class="agents-section">
+        <div class="section-header">
+          <h2>Your AI Agents</h2>
+          <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add Agent</button>
+        </div>
+
+        <div class="agent-list">
+          <!-- Agent 1 -->
+          <div class="agent-item">
+            <div class="agent-icon">🍽️</div>
+            <div class="agent-info">
+              <h3>Restaurant AI</h3>
+              <p>+421 908 123 456</p>
+              <span class="status active">Active</span>
+            </div>
+            <button class="btn-ghost">Settings</button>
+          </div>
+
+          <!-- Agent 2 -->
+          <div class="agent-item">
+            <div class="agent-icon">🦷</div>
+            <div class="agent-info">
+              <h3>Dental Clinic AI</h3>
+              <p>+421 908 123 456</p>
+              <span class="status active">Active</span>
+            </div>
+            <button class="btn-ghost">Settings</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="actions-grid">
+          <button class="action-card">
+            <i class="fas fa-chart-line"></i>
+            <span>Analytics</span>
+          </button>
+          <button class="action-card">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </button>
+          <button class="action-card">
+            <i class="fas fa-headset"></i>
+            <span>Support</span>
+          </button>
+          <button class="action-card">
+            <i class="fas fa-file-invoice"></i>
+            <span>Billing</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function editPhoneNumber() {
+      const input = document.getElementById('phoneNumber');
+      const currentValue = input.value;
+      const newValue = prompt("Enter your phone number:", currentValue);
+      if (newValue !== null) {
+        input.value = newValue;
+        alert("Phone number updated!");
+      }
+    }
+  </script>
+</body>
+</html>
