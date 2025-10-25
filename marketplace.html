@@ -29,84 +29,84 @@
           <div class="agent-icon">✂️</div>
           <h3>Barber / Salon</h3>
           <p>Bookings, availability, service details.</p>
-          <button class="btn-primary" onclick="openPlanModal('Barber / Salon')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Barber / Salon')">Select</button>
         </div>
         <!-- 2 -->
         <div class="agent-card" data-agent="Restaurant">
           <div class="agent-icon">🍽️</div>
           <h3>Restaurant</h3>
           <p>Reservations, menu, opening hours.</p>
-          <button class="btn-primary" onclick="openPlanModal('Restaurant')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Restaurant')">Select</button>
         </div>
         <!-- 3 -->
         <div class="agent-card" data-agent="Dental Clinic">
           <div class="agent-icon">🦷</div>
           <h3>Dental Clinic</h3>
           <p>Appointments, reminders, FAQs.</p>
-          <button class="btn-primary" onclick="openPlanModal('Dental Clinic')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Dental Clinic')">Select</button>
         </div>
         <!-- 4 -->
         <div class="agent-card" data-agent="Hotel Booking">
           <div class="agent-icon">🏨</div>
           <h3>Hotel Booking</h3>
           <p>Room inquiries, availability, bookings.</p>
-          <button class="btn-primary" onclick="openPlanModal('Hotel Booking')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Hotel Booking')">Select</button>
         </div>
         <!-- 5 -->
         <div class="agent-card" data-agent="Auto Service">
           <div class="agent-icon">🚗</div>
           <h3>Auto Service</h3>
           <p>Maintenance, services, slot booking.</p>
-          <button class="btn-primary" onclick="openPlanModal('Auto Service')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Auto Service')">Select</button>
         </div>
         <!-- 6 -->
         <div class="agent-card" data-agent="E‑commerce Support">
           <div class="agent-icon">🛒</div>
           <h3>E‑commerce Support</h3>
           <p>Orders, shipping, returns.</p>
-          <button class="btn-primary" onclick="openPlanModal('E‑commerce Support')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('E‑commerce Support')">Select</button>
         </div>
         <!-- 7 -->
         <div class="agent-card" data-agent="Lead Qualifier">
           <div class="agent-icon">💼</div>
           <h3>Lead Qualifier</h3>
           <p>Qualify leads, book sales calls.</p>
-          <button class="btn-primary" onclick="openPlanModal('Lead Qualifier')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Lead Qualifier')">Select</button>
         </div>
         <!-- 8 -->
         <div class="agent-card" data-agent="Fitness / Gym">
           <div class="agent-icon">💪</div>
           <h3>Fitness / Gym</h3>
           <p>Memberships, class bookings, info.</p>
-          <button class="btn-primary" onclick="openPlanModal('Fitness / Gym')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Fitness / Gym')">Select</button>
         </div>
         <!-- 9 -->
         <div class="agent-card" data-agent="Real Estate Agent">
           <div class="agent-icon">🏠</div>
           <h3>Real Estate Agent</h3>
           <p>Property inquiries, viewings, listings.</p>
-          <button class="btn-primary" onclick="openPlanModal('Real Estate Agent')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Real Estate Agent')">Select</button>
         </div>
         <!-- 10 -->
         <div class="agent-card" data-agent="Medical Clinic">
           <div class="agent-icon">🏥</div>
           <h3>Medical Clinic</h3>
           <p>Appointments, insurance, triage.</p>
-          <button class="btn-primary" onclick="openPlanModal('Medical Clinic')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Medical Clinic')">Select</button>
         </div>
         <!-- 11 -->
         <div class="agent-card" data-agent="Cleaning Service">
           <div class="agent-icon">🧹</div>
           <h3>Cleaning Service</h3>
           <p>Bookings, quotes, recurring clients.</p>
-          <button class="btn-primary" onclick="openPlanModal('Cleaning Service')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Cleaning Service')">Select</button>
         </div>
         <!-- 12 -->
         <div class="agent-card" data-agent="Property Management">
           <div class="agent-icon">🏢</div>
           <h3>Property Management</h3>
           <p>Tenant inquiries, maintenance, leases.</p>
-          <button class="btn-primary" onclick="openPlanModal('Property Management')">Select</button>
+          <button class="btn-primary" onclick="openLoginModal('Property Management')">Select</button>
         </div>
       </div>
     </div>
@@ -131,46 +131,49 @@
     </div>
   </section>
 
-  <!-- Plan Modal -->
-  <div class="modal" id="planModal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeModal()">×</button>
+  <!-- LOGIN MODAL -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content login-modal">
+      <button class="close-modal" onclick="closeLoginModal()">×</button>
       <div class="modal-header">
-        <h2 id="modal-agent-title">Select Plan</h2>
-        <p>Choose the perfect plan for your business</p>
+        <h2>Sign in to FameAI</h2>
+        <p>Access your AI agents and dashboard</p>
       </div>
-      <div class="modal-plans">
-        <div class="plan-card">
-          <h3>Basic – 199 €/month</h3>
-          <div class="plan-price">199 €<span>/month</span></div>
-          <ul class="plan-features">
-            <li>100 min calls</li>
-            <li>Simple voice</li>
-            <li>Basic responses</li>
-          </ul>
-          <button class="btn-primary">Confirm</button>
-        </div>
-        <div class="plan-card featured">
-          <h3>Pro – 349 €/month ⭐</h3>
-          <div class="plan-price">349 €<span>/month</span></div>
-          <ul class="plan-features">
-            <li>400 min calls</li>
-            <li>Custom AI voice</li>
-            <li>Smart logic + dashboard</li>
-          </ul>
-          <button class="btn-primary">Confirm</button>
-        </div>
-        <div class="plan-card">
-          <h3>Business – 549 €/month</h3>
-          <div class="plan-price">549 €<span>/month</span></div>
-          <ul class="plan-features">
-            <li>900 min calls</li>
-            <li>Fully custom behavior</li>
-            <li>Multilingual + CRM</li>
-          </ul>
-          <button class="btn-primary">Confirm</button>
-        </div>
+
+      <div class="auth-tabs">
+        <button class="tab active" data-tab="signin">Sign in</button>
+        <button class="tab" data-tab="signup">Sign up</button>
       </div>
+
+      <!-- Sign In Form -->
+      <form id="signinForm" class="auth-form active">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit" class="btn-primary">Continue</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="auth-form">
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit" class="btn-primary">Create Account</button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <!-- Social Login -->
+      <div class="social-login">
+        <button class="social-btn google">Google</button>
+        <button class="social-btn apple">Apple</button>
+      </div>
+
+      <p class="modal-footer-text">
+        By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      </p>
     </div>
   </div>
 
@@ -192,22 +195,44 @@
         card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
         observer.observe(card);
       });
+
+      // Auth tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+          tab.classList.add('active');
+          const target = tab.dataset.tab;
+          document.getElementById(target + 'Form').classList.add('active');
+        });
+      });
+
+      // Form submit → redirect to dashboard
+      document.getElementById('signinForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        window.location.href = 'dashboard.html';
+      });
+      document.getElementById('signupForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        window.location.href = 'dashboard.html';
+      });
     });
 
-    function openPlanModal(agentName) {
-      document.getElementById('modal-agent-title').textContent = `Select Plan for ${agentName}`;
-      document.getElementById('planModal').classList.add('active');
+    // Open login modal
+    function openLoginModal(agentName) {
+      window.selectedAgent = agentName;
+      document.getElementById('loginModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeModal() {
-      document.getElementById('planModal').classList.remove('active');
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    document.getElementById('planModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('planModal')) {
-        closeModal();
+    document.getElementById('loginModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('loginModal')) {
+        closeLoginModal();
       }
     });
   </script>
