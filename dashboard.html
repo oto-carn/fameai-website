@@ -10,117 +10,164 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="dashboard-header">
-    <div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="logo">FameAI</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="#" class="nav-item active" data-view="overview">
+        <i class="fas fa-home"></i> Overview
+      </a>
+      <a href="#" class="nav-item" data-view="agents">
+        <i class="fas fa-robot"></i> My Agents
+      </a>
+      <a href="#" class="nav-item" data-view="analytics">
+        <i class="fas fa-chart-line"></i> Analytics
+      </a>
+      <a href="#" class="nav-item" data-view="billing">
+        <i class="fas fa-credit-card"></i> Billing
+      </a>
+      <a href="#" class="nav-item" data-view="settings">
+        <i class="fas fa-cog"></i> Settings
+      </a>
+    </nav>
+    <div class="sidebar-footer">
       <div class="user-info">
-        <span>john@restaurant.sk</span>
         <div class="user-avatar">JD</div>
+        <div>
+          <div class="user-name">John Doe</div>
+          <div class="user-email">john@restaurant.sk</div>
+        </div>
       </div>
     </div>
-  </header>
+  </aside>
 
   <!-- Main Content -->
-  <main class="dashboard-main">
-    <div class="container">
-      <!-- Welcome & Plan -->
-      <div class="welcome-card">
+  <main class="main-content">
+    <div class="view" id="overview-view">
+      <!-- Welcome -->
+      <div class="card welcome-card">
         <h1>Welcome back, John!</h1>
-        <p>Your AI agents are working 24/7.</p>
-        <div class="plan-badge">
-          <span>Pro Plan</span>
-          <span>349 €/month</span>
+        <p>Your AI agents are working 24/7 to grow your business.</p>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">273 / 400</div>
+          <div class="stat-label">Minutes used</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Active agents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">98%</div>
+          <div class="stat-label">Customer satisfaction</div>
         </div>
       </div>
 
-      <!-- Usage Stats -->
-      <div class="usage-section">
-        <h2>Usage</h2>
-        <div class="usage-bar">
-          <div class="usage-fill" style="width: 68%"></div>
+      <!-- Phone Number -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Phone Number</h2>
+          <button class="btn-icon" id="editPhoneBtn">✏️</button>
         </div>
-        <p class="usage-text">273 / 400 minutes used</p>
-        <button class="btn-primary">Buy more minutes</button>
-      </div>
-
-      <!-- Phone Number Section -->
-      <div class="phone-section">
-        <h2>Phone Number</h2>
-        <p>AI agents will answer calls to this number:</p>
-        <div class="phone-input">
-          <input type="text" value="+421 908 123 456" id="phoneNumber" />
-          <button class="btn-secondary" onclick="editPhoneNumber()">Edit</button>
+        <p class="card-desc">AI agents will answer calls to this number.</p>
+        <div class="phone-display" id="phoneDisplay">+421 908 123 456</div>
+        <div class="phone-edit" id="phoneEdit" style="display:none;">
+          <input type="text" id="phoneInput" value="+421 908 123 456" />
+          <div class="phone-actions">
+            <button class="btn-secondary" onclick="cancelEditPhone()">Cancel</button>
+            <button class="btn-primary" onclick="savePhone()">Save</button>
+          </div>
         </div>
       </div>
 
-      <!-- Active Agents -->
-      <div class="agents-section">
-        <div class="section-header">
-          <h2>Your AI Agents</h2>
+      <!-- Quick Agents -->
+      <div class="card">
+        <div class="card-header">
+          <h2>My AI Agents</h2>
           <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add Agent</button>
         </div>
-
         <div class="agent-list">
-          <!-- Agent 1 -->
           <div class="agent-item">
             <div class="agent-icon">🍽️</div>
             <div class="agent-info">
               <h3>Restaurant AI</h3>
               <p>+421 908 123 456</p>
-              <span class="status active">Active</span>
             </div>
-            <button class="btn-ghost">Settings</button>
+            <span class="status-badge status-active">Active</span>
           </div>
-
-          <!-- Agent 2 -->
           <div class="agent-item">
             <div class="agent-icon">🦷</div>
             <div class="agent-info">
               <h3>Dental Clinic AI</h3>
               <p>+421 908 123 456</p>
-              <span class="status active">Active</span>
             </div>
-            <button class="btn-ghost">Settings</button>
+            <span class="status-badge status-active">Active</span>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <h2>Quick Actions</h2>
-        <div class="actions-grid">
-          <button class="action-card">
-            <i class="fas fa-chart-line"></i>
-            <span>Analytics</span>
-          </button>
-          <button class="action-card">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-          </button>
-          <button class="action-card">
-            <i class="fas fa-headset"></i>
-            <span>Support</span>
-          </button>
-          <button class="action-card">
-            <i class="fas fa-file-invoice"></i>
-            <span>Billing</span>
-          </button>
-        </div>
-      </div>
+    <!-- Other views (hidden by default) -->
+    <div class="view" id="analytics-view" style="display:none;">
+      <h1>Analytics</h1>
+      <p>Coming soon – detailed call logs, conversion rates, sentiment analysis.</p>
+    </div>
+
+    <div class="view" id="billing-view" style="display:none;">
+      <h1>Billing</h1>
+      <p>Manage your subscription, payment method, and invoices.</p>
+    </div>
+
+    <div class="view" id="settings-view" style="display:none;">
+      <h1>Settings</h1>
+      <p>Customize your AI agents, voice, prompts, and integrations.</p>
+    </div>
+
+    <div class="view" id="agents-view" style="display:none;">
+      <h1>My Agents</h1>
+      <p>Full list of your AI agents with detailed controls.</p>
     </div>
   </main>
 
   <script>
-    function editPhoneNumber() {
-      const input = document.getElementById('phoneNumber');
-      const currentValue = input.value;
-      const newValue = prompt("Enter your phone number:", currentValue);
-      if (newValue !== null) {
-        input.value = newValue;
-        alert("Phone number updated!");
-      }
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+        item.classList.add('active');
+        const view = item.dataset.view;
+        document.getElementById(view + '-view').style.display = 'block';
+      });
+    });
+
+    // Phone edit
+    function toggleEditPhone() {
+      document.getElementById('phoneDisplay').style.display = 'none';
+      document.getElementById('phoneEdit').style.display = 'block';
     }
+
+    function cancelEditPhone() {
+      document.getElementById('phoneDisplay').style.display = 'block';
+      document.getElementById('phoneEdit').style.display = 'none';
+    }
+
+    function savePhone() {
+      const newNumber = document.getElementById('phoneInput').value;
+      document.getElementById('phoneDisplay').textContent = newNumber;
+      cancelEditPhone();
+      alert('Phone number updated!');
+    }
+
+    document.getElementById('editPhoneBtn').addEventListener('click', toggleEditPhone);
   </script>
 </body>
 </html>
