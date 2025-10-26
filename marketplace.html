@@ -24,84 +24,73 @@
       <p class="main-desc">Pre-built, industry-specific AI agents – ready to deploy in minutes.</p>
 
       <div class="agents-grid">
-        <!-- 1 -->
+        <!-- 12 agent cards (rovnaké ako predtým) -->
         <div class="agent-card" data-agent="Barber / Salon">
           <div class="agent-icon">✂️</div>
           <h3>Barber / Salon</h3>
           <p>Bookings, availability, service details.</p>
           <button class="btn-primary" onclick="openLoginModal('Barber / Salon')">Select</button>
         </div>
-        <!-- 2 -->
         <div class="agent-card" data-agent="Restaurant">
           <div class="agent-icon">🍽️</div>
           <h3>Restaurant</h3>
           <p>Reservations, menu, opening hours.</p>
           <button class="btn-primary" onclick="openLoginModal('Restaurant')">Select</button>
         </div>
-        <!-- 3 -->
         <div class="agent-card" data-agent="Dental Clinic">
           <div class="agent-icon">🦷</div>
           <h3>Dental Clinic</h3>
           <p>Appointments, reminders, FAQs.</p>
           <button class="btn-primary" onclick="openLoginModal('Dental Clinic')">Select</button>
         </div>
-        <!-- 4 -->
         <div class="agent-card" data-agent="Hotel Booking">
           <div class="agent-icon">🏨</div>
           <h3>Hotel Booking</h3>
           <p>Room inquiries, availability, bookings.</p>
           <button class="btn-primary" onclick="openLoginModal('Hotel Booking')">Select</button>
         </div>
-        <!-- 5 -->
         <div class="agent-card" data-agent="Auto Service">
           <div class="agent-icon">🚗</div>
           <h3>Auto Service</h3>
           <p>Maintenance, services, slot booking.</p>
           <button class="btn-primary" onclick="openLoginModal('Auto Service')">Select</button>
         </div>
-        <!-- 6 -->
         <div class="agent-card" data-agent="E‑commerce Support">
           <div class="agent-icon">🛒</div>
           <h3>E‑commerce Support</h3>
           <p>Orders, shipping, returns.</p>
           <button class="btn-primary" onclick="openLoginModal('E‑commerce Support')">Select</button>
         </div>
-        <!-- 7 -->
         <div class="agent-card" data-agent="Lead Qualifier">
           <div class="agent-icon">💼</div>
           <h3>Lead Qualifier</h3>
           <p>Qualify leads, book sales calls.</p>
           <button class="btn-primary" onclick="openLoginModal('Lead Qualifier')">Select</button>
         </div>
-        <!-- 8 -->
         <div class="agent-card" data-agent="Fitness / Gym">
           <div class="agent-icon">💪</div>
           <h3>Fitness / Gym</h3>
           <p>Memberships, class bookings, info.</p>
           <button class="btn-primary" onclick="openLoginModal('Fitness / Gym')">Select</button>
         </div>
-        <!-- 9 -->
         <div class="agent-card" data-agent="Real Estate Agent">
           <div class="agent-icon">🏠</div>
           <h3>Real Estate Agent</h3>
           <p>Property inquiries, viewings, listings.</p>
           <button class="btn-primary" onclick="openLoginModal('Real Estate Agent')">Select</button>
         </div>
-        <!-- 10 -->
         <div class="agent-card" data-agent="Medical Clinic">
           <div class="agent-icon">🏥</div>
           <h3>Medical Clinic</h3>
           <p>Appointments, insurance, triage.</p>
           <button class="btn-primary" onclick="openLoginModal('Medical Clinic')">Select</button>
         </div>
-        <!-- 11 -->
         <div class="agent-card" data-agent="Cleaning Service">
           <div class="agent-icon">🧹</div>
           <h3>Cleaning Service</h3>
           <p>Bookings, quotes, recurring clients.</p>
           <button class="btn-primary" onclick="openLoginModal('Cleaning Service')">Select</button>
         </div>
-        <!-- 12 -->
         <div class="agent-card" data-agent="Property Management">
           <div class="agent-icon">🏢</div>
           <h3>Property Management</h3>
@@ -131,48 +120,36 @@
     </div>
   </section>
 
-  <!-- LOGIN MODAL -->
+  <!-- ✨ NOVÝ LOGIN MODAL – MINIMAL & BEAUTIFUL -->
   <div class="modal" id="loginModal">
-    <div class="modal-content login-modal">
-      <button class="close-modal" onclick="closeLoginModal()">×</button>
-      <div class="modal-header">
+    <div class="modal-content auth-modal">
+      <button class="close-modal" onclick="closeLoginModal()">✕</button>
+      <div class="auth-header">
         <h2>Sign in to FameAI</h2>
         <p>Access your AI agents and dashboard</p>
       </div>
 
-      <div class="auth-tabs">
-        <button class="tab active" data-tab="signin">Sign in</button>
-        <button class="tab" data-tab="signup">Sign up</button>
-      </div>
-
-      <!-- Sign In Form -->
-      <form id="signinForm" class="auth-form active">
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit" class="btn-primary">Continue</button>
+      <form id="authForm" class="auth-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@business.com" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-primary btn-block">Continue</button>
       </form>
 
-      <!-- Sign Up Form -->
-      <form id="signupForm" class="auth-form">
-        <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit" class="btn-primary">Create Account</button>
-      </form>
+      <div class="divider">or</div>
 
-      <!-- Divider -->
-      <div class="divider">
-        <span>or continue with</span>
-      </div>
+      <button class="social-btn google">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
 
-      <!-- Social Login -->
-      <div class="social-login">
-        <button class="social-btn google">Google</button>
-        <button class="social-btn apple">Apple</button>
-      </div>
-
-      <p class="modal-footer-text">
-        By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      <p class="auth-footer">
+        Don’t have an account? <a href="#">Sign up</a>
       </p>
     </div>
   </div>
@@ -196,29 +173,13 @@
         observer.observe(card);
       });
 
-      // Auth tabs
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-          document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-          tab.classList.add('active');
-          const target = tab.dataset.tab;
-          document.getElementById(target + 'Form').classList.add('active');
-        });
-      });
-
       // Form submit → redirect to dashboard
-      document.getElementById('signinForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        window.location.href = 'dashboard.html';
-      });
-      document.getElementById('signupForm').addEventListener('submit', (e) => {
+      document.getElementById('authForm').addEventListener('submit', (e) => {
         e.preventDefault();
         window.location.href = 'dashboard.html';
       });
     });
 
-    // Open login modal
     function openLoginModal(agentName) {
       window.selectedAgent = agentName;
       document.getElementById('loginModal').classList.add('active');
