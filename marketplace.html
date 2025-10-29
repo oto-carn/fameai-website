@@ -120,58 +120,10 @@
     </div>
   </section>
 
-  <!-- ✨ AUTH MODAL – JEDNODUCHÝ LOGIN / SIGNUP -->
+  <!-- ✨ AUTH MODAL – LEN JEDNA SEKCIA NARAZ -->
   <div class="modal" id="authModal">
-    <div class="modal-content auth-modal">
-      <button class="close-modal" onclick="closeAuthModal()">✕</button>
-
-      <!-- LOGIN FORM (default) -->
-      <div id="loginSection" class="auth-section active">
-        <div class="auth-header">
-          <h2>Sign in to FameAI</h2>
-          <p>Enter your credentials to continue</p>
-        </div>
-        <form id="loginForm" onsubmit="handleSubmit(event, 'login')">
-          <div class="input-group">
-            <label for="login-email">Email</label>
-            <input type="email" id="login-email" placeholder="you@business.com" required />
-          </div>
-          <div class="input-group">
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" placeholder="••••••••" required />
-          </div>
-          <button type="submit" class="btn-primary btn-block">Continue</button>
-        </form>
-        <p class="auth-footer">
-          Don’t have an account? <a href="#" id="showSignup">Sign up</a>
-        </p>
-      </div>
-
-      <!-- SIGNUP FORM (hidden by default) -->
-      <div id="signupSection" class="auth-section">
-        <div class="auth-header">
-          <h2>Create your account</h2>
-          <p>Get started with FameAI in seconds</p>
-        </div>
-        <form id="signupForm" onsubmit="handleSubmit(event, 'signup')">
-          <div class="input-group">
-            <label for="signup-name">Full Name</label>
-            <input type="text" id="signup-name" placeholder="John Doe" required />
-          </div>
-          <div class="input-group">
-            <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" placeholder="you@business.com" required />
-          </div>
-          <div class="input-group">
-            <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" placeholder="••••••••" required />
-          </div>
-          <button type="submit" class="btn-primary btn-block">Create Account</button>
-        </form>
-        <p class="auth-footer">
-          Already have an account? <a href="#" id="showLogin">Sign in</a>
-        </p>
-      </div>
+    <div class="modal-content auth-modal" id="authModalContent">
+      <!-- Obsah sa bude meniť cez JS -->
     </div>
   </div>
 
@@ -193,24 +145,69 @@
         card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
         observer.observe(card);
       });
-
-      // Toggle between login and signup
-      document.getElementById('showSignup').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('loginSection').classList.remove('active');
-        document.getElementById('signupSection').classList.add('active');
-      });
-
-      document.getElementById('showLogin').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('signupSection').classList.remove('active');
-        document.getElementById('loginSection').classList.add('active');
-      });
     });
+
+    // HTML šablóny
+    const loginTemplate = `
+      <button class="close-modal" onclick="closeAuthModal()">✕</button>
+      <div class="auth-header">
+        <h2>Sign in to FameAI</h2>
+        <p>Enter your credentials to continue</p>
+      </div>
+      <form onsubmit="handleSubmit(event, 'login')">
+        <div class="input-group">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" placeholder="you@business.com" required />
+        </div>
+        <div class="input-group">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-primary btn-block">Continue</button>
+      </form>
+      <p class="auth-footer">
+        Don’t have an account? <a href="#" onclick="event.preventDefault(); showSignup()">Sign up</a>
+      </p>
+    `;
+
+    const signupTemplate = `
+      <button class="close-modal" onclick="closeAuthModal()">✕</button>
+      <div class="auth-header">
+        <h2>Create your account</h2>
+        <p>Get started with FameAI in seconds</p>
+      </div>
+      <form onsubmit="handleSubmit(event, 'signup')">
+        <div class="input-group">
+          <label for="auth-name">Full Name</label>
+          <input type="text" id="auth-name" placeholder="John Doe" required />
+        </div>
+        <div class="input-group">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" placeholder="you@business.com" required />
+        </div>
+        <div class="input-group">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-primary btn-block">Create Account</button>
+      </form>
+      <p class="auth-footer">
+        Already have an account? <a href="#" onclick="event.preventDefault(); showLogin()">Sign in</a>
+      </p>
+    `;
+
+    function showLogin() {
+      document.getElementById('authModalContent').innerHTML = loginTemplate;
+    }
+
+    function showSignup() {
+      document.getElementById('authModalContent').innerHTML = signupTemplate;
+    }
 
     function openAuthModal() {
       document.getElementById('authModal').classList.add('active');
       document.body.style.overflow = 'hidden';
+      showLogin(); // vždy začni s loginom
     }
 
     function closeAuthModal() {
