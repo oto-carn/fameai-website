@@ -29,73 +29,73 @@
           <div class="agent-icon">✂️</div>
           <h3>Barber / Salon</h3>
           <p>Bookings, availability, service details.</p>
-          <button class="btn-primary" onclick="openAuthModal('Barber / Salon')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Restaurant">
           <div class="agent-icon">🍽️</div>
           <h3>Restaurant</h3>
           <p>Reservations, menu, opening hours.</p>
-          <button class="btn-primary" onclick="openAuthModal('Restaurant')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Dental Clinic">
           <div class="agent-icon">🦷</div>
           <h3>Dental Clinic</h3>
           <p>Appointments, reminders, FAQs.</p>
-          <button class="btn-primary" onclick="openAuthModal('Dental Clinic')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Hotel Booking">
           <div class="agent-icon">🏨</div>
           <h3>Hotel Booking</h3>
           <p>Room inquiries, availability, bookings.</p>
-          <button class="btn-primary" onclick="openAuthModal('Hotel Booking')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Auto Service">
           <div class="agent-icon">🚗</div>
           <h3>Auto Service</h3>
           <p>Maintenance, services, slot booking.</p>
-          <button class="btn-primary" onclick="openAuthModal('Auto Service')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="E‑commerce Support">
           <div class="agent-icon">🛒</div>
           <h3>E‑commerce Support</h3>
           <p>Orders, shipping, returns.</p>
-          <button class="btn-primary" onclick="openAuthModal('E‑commerce Support')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Lead Qualifier">
           <div class="agent-icon">💼</div>
           <h3>Lead Qualifier</h3>
           <p>Qualify leads, book sales calls.</p>
-          <button class="btn-primary" onclick="openAuthModal('Lead Qualifier')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Fitness / Gym">
           <div class="agent-icon">💪</div>
           <h3>Fitness / Gym</h3>
           <p>Memberships, class bookings, info.</p>
-          <button class="btn-primary" onclick="openAuthModal('Fitness / Gym')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Real Estate Agent">
           <div class="agent-icon">🏠</div>
           <h3>Real Estate Agent</h3>
           <p>Property inquiries, viewings, listings.</p>
-          <button class="btn-primary" onclick="openAuthModal('Real Estate Agent')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Medical Clinic">
           <div class="agent-icon">🏥</div>
           <h3>Medical Clinic</h3>
           <p>Appointments, insurance, triage.</p>
-          <button class="btn-primary" onclick="openAuthModal('Medical Clinic')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Cleaning Service">
           <div class="agent-icon">🧹</div>
           <h3>Cleaning Service</h3>
           <p>Bookings, quotes, recurring clients.</p>
-          <button class="btn-primary" onclick="openAuthModal('Cleaning Service')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
         <div class="agent-card" data-agent="Property Management">
           <div class="agent-icon">🏢</div>
           <h3>Property Management</h3>
           <p>Tenant inquiries, maintenance, leases.</p>
-          <button class="btn-primary" onclick="openAuthModal('Property Management')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
         </div>
       </div>
     </div>
@@ -120,56 +120,58 @@
     </div>
   </section>
 
-  <!-- ✨ AUTH MODAL – S PREPÍNANÍM SIGN IN / SIGN UP -->
+  <!-- ✨ AUTH MODAL – JEDNODUCHÝ LOGIN / SIGNUP -->
   <div class="modal" id="authModal">
     <div class="modal-content auth-modal">
       <button class="close-modal" onclick="closeAuthModal()">✕</button>
 
-      <div class="auth-tabs">
-        <button class="tab active" data-tab="signin">Sign in</button>
-        <button class="tab" data-tab="signup">Sign up</button>
+      <!-- LOGIN FORM (default) -->
+      <div id="loginSection" class="auth-section active">
+        <div class="auth-header">
+          <h2>Sign in to FameAI</h2>
+          <p>Enter your credentials to continue</p>
+        </div>
+        <form id="loginForm" onsubmit="handleSubmit(event, 'login')">
+          <div class="input-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="you@business.com" required />
+          </div>
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn-primary btn-block">Continue</button>
+        </form>
+        <p class="auth-footer">
+          Don’t have an account? <a href="#" id="showSignup">Sign up</a>
+        </p>
       </div>
 
-      <!-- Sign In Form -->
-      <form id="signinForm" class="auth-form active" onsubmit="handleSubmit(event, 'signin')">
-        <div class="input-group">
-          <label for="signin-email">Email</label>
-          <input type="email" id="signin-email" placeholder="you@business.com" required />
+      <!-- SIGNUP FORM (hidden by default) -->
+      <div id="signupSection" class="auth-section">
+        <div class="auth-header">
+          <h2>Create your account</h2>
+          <p>Get started with FameAI in seconds</p>
         </div>
-        <div class="input-group">
-          <label for="signin-password">Password</label>
-          <input type="password" id="signin-password" placeholder="••••••••" required />
-        </div>
-        <button type="submit" class="btn-primary btn-block">Continue</button>
-      </form>
-
-      <!-- Sign Up Form -->
-      <form id="signupForm" class="auth-form" onsubmit="handleSubmit(event, 'signup')">
-        <div class="input-group">
-          <label for="signup-name">Full Name</label>
-          <input type="text" id="signup-name" placeholder="John Doe" required />
-        </div>
-        <div class="input-group">
-          <label for="signup-email">Email</label>
-          <input type="email" id="signup-email" placeholder="you@business.com" required />
-        </div>
-        <div class="input-group">
-          <label for="signup-password">Password</label>
-          <input type="password" id="signup-password" placeholder="••••••••" required />
-        </div>
-        <button type="submit" class="btn-primary btn-block">Create Account</button>
-      </form>
-
-      <div class="divider">or</div>
-
-      <button class="social-btn google">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Continue with Google
-      </button>
-
-      <p class="auth-footer">
-        <span id="toggle-text">Don’t have an account? <a href="#" id="toggle-link">Sign up</a></span>
-      </p>
+        <form id="signupForm" onsubmit="handleSubmit(event, 'signup')">
+          <div class="input-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" placeholder="John Doe" required />
+          </div>
+          <div class="input-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" placeholder="you@business.com" required />
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn-primary btn-block">Create Account</button>
+        </form>
+        <p class="auth-footer">
+          Already have an account? <a href="#" id="showLogin">Sign in</a>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -192,52 +194,21 @@
         observer.observe(card);
       });
 
-      // Auth tabs
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-          document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-          tab.classList.add('active');
-          const target = tab.dataset.tab;
-          document.getElementById(target + 'Form').classList.add('active');
-
-          // Update toggle text
-          const toggleText = document.getElementById('toggle-text');
-          const toggleLink = document.getElementById('toggle-link');
-          if (target === 'signin') {
-            toggleText.innerHTML = 'Don’t have an account? <a href="#" id="toggle-link">Sign up</a>';
-          } else {
-            toggleText.innerHTML = 'Already have an account? <a href="#" id="toggle-link">Sign in</a>';
-          }
-          document.getElementById('toggle-link').addEventListener('click', toggleAuthMode);
-        });
+      // Toggle between login and signup
+      document.getElementById('showSignup').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('loginSection').classList.remove('active');
+        document.getElementById('signupSection').classList.add('active');
       });
 
-      // Toggle link
-      document.getElementById('toggle-link').addEventListener('click', toggleAuthMode);
+      document.getElementById('showLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('signupSection').classList.remove('active');
+        document.getElementById('loginSection').classList.add('active');
+      });
     });
 
-    function toggleAuthMode(e) {
-      e.preventDefault();
-      const current = document.querySelector('.tab.active').dataset.tab;
-      const target = current === 'signin' ? 'signup' : 'signin';
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelector(`.tab[data-tab="${target}"]`).classList.add('active');
-      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-      document.getElementById(target + 'Form').classList.add('active');
-
-      // Update toggle text
-      const toggleText = document.getElementById('toggle-text');
-      if (target === 'signin') {
-        toggleText.innerHTML = 'Don’t have an account? <a href="#" id="toggle-link">Sign up</a>';
-      } else {
-        toggleText.innerHTML = 'Already have an account? <a href="#" id="toggle-link">Sign in</a>';
-      }
-      document.getElementById('toggle-link').addEventListener('click', toggleAuthMode);
-    }
-
-    function openAuthModal(agentName) {
-      window.selectedAgent = agentName;
+    function openAuthModal() {
       document.getElementById('authModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -249,7 +220,7 @@
 
     function handleSubmit(e, type) {
       e.preventDefault();
-      alert(`✅ ${type === 'signin' ? 'Signed in' : 'Account created'} successfully!\nRedirecting to dashboard...`);
+      alert(`✅ ${type === 'login' ? 'Signed in' : 'Account created'} successfully!\nRedirecting to dashboard...`);
       window.location.href = 'dashboard.html';
     }
 
