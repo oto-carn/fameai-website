@@ -71,22 +71,6 @@
 
       <div class="card">
         <div class="card-header">
-          <h2>Phone Number</h2>
-          <button class="btn-icon" id="editPhoneBtn">✏️</button>
-        </div>
-        <p class="card-desc">AI agents will answer calls to this number.</p>
-        <div class="phone-display" id="phoneDisplay">+421 908 123 456</div>
-        <div class="phone-edit" id="phoneEdit" style="display:none;">
-          <input type="text" id="phoneInput" value="+421 908 123 456" />
-          <div class="phone-actions">
-            <button class="btn-secondary" onclick="cancelEditPhone()">Cancel</button>
-            <button class="btn-primary" onclick="savePhone()">Save</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
           <h2>My AI Agents</h2>
           <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add Agent</button>
         </div>
@@ -97,15 +81,15 @@
               <h3>Restaurant AI</h3>
               <p>+421 908 123 456</p>
             </div>
-            <span class="status-badge status-active">Active</span>
+            <button class="btn-ghost" onclick="openAgentSettings('Restaurant AI', '+421 908 123 456')">Settings</button>
           </div>
           <div class="agent-item">
             <div class="agent-icon">🦷</div>
             <div class="agent-info">
               <h3>Dental Clinic AI</h3>
-              <p>+421 908 123 456</p>
+              <p>+421 908 654 321</p>
             </div>
-            <span class="status-badge status-active">Active</span>
+            <button class="btn-ghost" onclick="openAgentSettings('Dental Clinic AI', '+421 908 654 321')">Settings</button>
           </div>
         </div>
       </div>
@@ -126,7 +110,7 @@
             <span class="status-badge status-active">Active</span>
             <span>+421 908 123 456</span>
           </div>
-          <button class="btn-secondary">Settings</button>
+          <button class="btn-secondary" onclick="openAgentSettings('Restaurant AI', '+421 908 123 456')">Settings</button>
         </div>
         <div class="agent-card">
           <div class="agent-icon">🦷</div>
@@ -134,9 +118,9 @@
           <p class="agent-desc">Manages appointments, reminders</p>
           <div class="agent-meta">
             <span class="status-badge status-active">Active</span>
-            <span>+421 908 123 456</span>
+            <span>+421 908 654 321</span>
           </div>
-          <button class="btn-secondary">Settings</button>
+          <button class="btn-secondary" onclick="openAgentSettings('Dental Clinic AI', '+421 908 654 321')">Settings</button>
         </div>
       </div>
     </div>
@@ -221,7 +205,7 @@
         <div class="payment-card">
           <i class="fab fa-cc-visa"></i>
           <span>Visa •••• 4242</span>
-          <button class="btn-ghost">Edit</button>
+          <button class="btn-ghost" onclick="openPaymentModal()">Edit</button>
         </div>
       </div>
 
@@ -251,64 +235,71 @@
     <!-- SETTINGS -->
     <div class="view" id="settings-view">
       <div class="page-header">
-        <h1>Settings</h1>
+        <h1>Account Settings</h1>
       </div>
 
       <div class="card">
-        <h3>Phone Number</h3>
-        <p>AI agents will answer calls to this number.</p>
+        <h3>Profile</h3>
         <div class="phone-setting">
-          <input type="text" value="+421 908 123 456" />
-          <button class="btn-secondary">Save</button>
+          <input type="text" value="John Doe" />
+          <input type="email" value="john@restaurant.sk" />
+          <button class="btn-primary">Save Changes</button>
         </div>
       </div>
+    </div>
+  </main>
 
-      <div class="card">
-        <h3>AI Voice</h3>
+  <!-- AGENT SETTINGS MODAL -->
+  <div class="modal" id="agentSettingsModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closeAgentSettingsModal()">✕</button>
+      <h2 id="agentSettingsTitle">Agent Settings</h2>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="text" id="agentPhoneInput" placeholder="+421..." />
+      </div>
+      <div class="input-group">
+        <label>AI Voice</label>
         <select class="form-select">
           <option>Emma (Female, EN)</option>
           <option>David (Male, EN)</option>
           <option>Custom Voice</option>
         </select>
       </div>
-
-      <div class="card">
-        <h3>Language</h3>
-        <div class="radio-group">
-          <label><input type="radio" name="lang" checked /> Slovak</label>
-          <label><input type="radio" name="lang" /> English</label>
-          <label><input type="radio" name="lang" /> German</label>
-        </div>
+      <div class="input-group">
+        <label>Language</label>
+        <select class="form-select">
+          <option>Slovak</option>
+          <option>English</option>
+          <option>German</option>
+        </select>
       </div>
-
-      <div class="card">
-        <h3>Integrations</h3>
-        <div class="toggle-group">
-          <div class="toggle-item">
-            <span>Google Calendar</span>
-            <label class="switch">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div class="toggle-item">
-            <span>Slack</span>
-            <label class="switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div class="toggle-item">
-            <span>CRM</span>
-            <label class="switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-      </div>
+      <button class="btn-primary btn-block" onclick="saveAgentSettings()">Save Settings</button>
     </div>
-  </main>
+  </div>
+
+  <!-- PAYMENT MODAL -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closePaymentModal()">✕</button>
+      <h2>Edit Payment Method</h2>
+      <div class="input-group">
+        <label>Card Number</label>
+        <input type="text" placeholder="4242 4242 4242 4242" />
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <div class="input-group" style="flex: 2;">
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY" />
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <label>CVV</label>
+          <input type="text" placeholder="123" />
+        </div>
+      </div>
+      <button class="btn-primary btn-block">Save Card</button>
+    </div>
+  </div>
 
   <script>
     // Navigation
@@ -323,25 +314,43 @@
       });
     });
 
-    // Phone edit
-    function toggleEditPhone() {
-      document.getElementById('phoneDisplay').style.display = 'none';
-      document.getElementById('phoneEdit').style.display = 'block';
+    // Agent Settings Modal
+    function openAgentSettings(agentName, phone) {
+      document.getElementById('agentSettingsTitle').textContent = `${agentName} Settings`;
+      document.getElementById('agentPhoneInput').value = phone;
+      document.getElementById('agentSettingsModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
-    function cancelEditPhone() {
-      document.getElementById('phoneDisplay').style.display = 'block';
-      document.getElementById('phoneEdit').style.display = 'none';
+    function closeAgentSettingsModal() {
+      document.getElementById('agentSettingsModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
 
-    function savePhone() {
-      const newNumber = document.getElementById('phoneInput').value;
-      document.getElementById('phoneDisplay').textContent = newNumber;
-      cancelEditPhone();
-      alert('Phone number updated!');
+    function saveAgentSettings() {
+      const newPhone = document.getElementById('agentPhoneInput').value;
+      alert(`✅ Settings saved for agent!\nNew number: ${newPhone}`);
+      closeAgentSettingsModal();
     }
 
-    document.getElementById('editPhoneBtn').addEventListener('click', toggleEditPhone);
+    // Payment Modal
+    function openPaymentModal() {
+      document.getElementById('paymentModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modals on click outside
+    document.getElementById('agentSettingsModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('agentSettingsModal')) closeAgentSettingsModal();
+    });
+    document.getElementById('paymentModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('paymentModal')) closePaymentModal();
+    });
   </script>
 </body>
 </html>
