@@ -10,6 +10,12 @@
 </head>
 <body>
 
+  <!-- Notification Glow Effects -->
+  <div class="glow glow-top-left"></div>
+  <div class="glow glow-top-right"></div>
+  <div class="glow glow-bottom-left"></div>
+  <div class="glow glow-bottom-right"></div>
+
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -42,6 +48,52 @@
       </div>
     </div>
   </aside>
+
+  <!-- Notification Bell -->
+  <div style="position: fixed; top: 24px; right: 32px; z-index: 10;">
+    <button class="notification-bell" id="notificationBell">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="notifications-dropdown" id="notificationsDropdown">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+        <span style="font-size: 13px; color: var(--text-secondary);">Mark all as read</span>
+      </div>
+      <div class="notifications-list">
+        <div class="notification-item">
+          <div class="notification-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="notification-content">
+            <h4>New reservation</h4>
+            <p>Restaurant AI: Table for 2 at 7 PM</p>
+            <div class="notification-time">2 min ago</div>
+          </div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="notification-content">
+            <h4>Missed call</h4>
+            <p>Dental Clinic AI: 1 missed call</p>
+            <div class="notification-time">15 min ago</div>
+          </div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="notification-content">
+            <h4>Weekly report</h4>
+            <p>Your agents handled 82 calls this week</p>
+            <div class="notification-time">1 hour ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <main class="main-content">
@@ -343,6 +395,21 @@
       document.getElementById('paymentModal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
+
+    // Notifications dropdown
+    document.getElementById('notificationBell').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = document.getElementById('notificationsDropdown');
+      dropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('notificationsDropdown');
+      const bell = document.getElementById('notificationBell');
+      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
 
     // Close modals on click outside
     document.getElementById('agentSettingsModal').addEventListener('click', (e) => {
