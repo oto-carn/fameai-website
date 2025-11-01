@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Plan – FameAI</title>
+  <link rel="stylesheet" href="marketplace.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .plans-container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+    .plans-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .plans-header h1 {
+      font-size: 32px;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .plans-header p {
+      color: #94a3b8;
+      font-size: 18px;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .plan-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid #334155;
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+    .plan-card h3 {
+      font-size: 20px;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .plan-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .plan-features {
+      list-style: none;
+      margin: 20px 0;
+      color: #cbd5e1;
+    }
+    .plan-features li {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="marketplace-header">
+    <div class="container">
+      <a href="index.html" class="logo">FameAI</a>
+      <a href="dashboard.html" class="back-link">← Back to dashboard</a>
+    </div>
+  </header>
+
+  <div class="plans-container">
+    <div class="plans-header">
+      <h1>Select Your Plan</h1>
+      <p>Choose the perfect plan for your <span id="agentName">AI Agent</span></p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Basic -->
+      <div class="plan-card">
+        <h3>Basic</h3>
+        <div class="plan-price">199 €</div>
+        <ul class="plan-features">
+          <li>100 minutes of calls</li>
+          <li>Simple voice</li>
+          <li>Email notifications</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gM6oI8FLfLpaBIft94Ja02" target="_blank" class="btn-primary btn-block">Select Plan</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="plan-card">
+        <h3>Pro <span style="color:#fbbf24;">⭐ Most Popular</span></h3>
+        <div class="plan-price">349 €</div>
+        <ul class="plan-features">
+          <li>400 minutes of calls</li>
+          <li>Custom AI voice</li>
+          <li>Dashboard + Google Calendar</li>
+        </ul>
+        <a href="https://buy.stripe.com/6oUfZi9JPar59xE6WD4Ja01" target="_blank" class="btn-primary btn-block">Select Plan</a>
+      </div>
+
+      <!-- Business -->
+      <div class="plan-card">
+        <h3>Business</h3>
+        <div class="plan-price">549 €</div>
+        <ul class="plan-features">
+          <li>900 minutes of calls</li>
+          <li>Multilingual support</li>
+          <li>CRM integrations</li>
+        </ul>
+        <a href="https://buy.stripe.com/00w4gA2hn8iX5hodl14Ja03" target="_blank" class="btn-primary btn-block">Select Plan</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="plan-card">
+        <h3>Enterprise</h3>
+        <div class="plan-price">899 €+</div>
+        <ul class="plan-features">
+          <li>2000+ minutes</li>
+          <li>White-label version</li>
+          <li>Dedicated support</li>
+        </ul>
+        <a href="https://buy.stripe.com/9B65kE09fbv97pw2Gn4Ja04" target="_blank" class="btn-primary btn-block">Select Plan</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Zobraz názov agenta
+    const urlParams = new URLSearchParams(window.location.search);
+    const agent = urlParams.get('agent');
+    if (agent) {
+      document.getElementById('agentName').textContent = agent;
+    }
+  </script>
+</body>
+</html>
