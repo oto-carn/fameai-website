@@ -29,73 +29,73 @@
           <div class="agent-icon">✂️</div>
           <h3>Barber / Salon</h3>
           <p>Bookings, availability, service details.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Barber / Salon')">Select</button>
         </div>
         <div class="agent-card" data-agent="Restaurant">
           <div class="agent-icon">🍽️</div>
           <h3>Restaurant</h3>
           <p>Reservations, menu, opening hours.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Restaurant')">Select</button>
         </div>
         <div class="agent-card" data-agent="Dental Clinic">
           <div class="agent-icon">🦷</div>
           <h3>Dental Clinic</h3>
           <p>Appointments, reminders, FAQs.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Dental Clinic')">Select</button>
         </div>
         <div class="agent-card" data-agent="Hotel Booking">
           <div class="agent-icon">🏨</div>
           <h3>Hotel Booking</h3>
           <p>Room inquiries, availability, bookings.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Hotel Booking')">Select</button>
         </div>
         <div class="agent-card" data-agent="Auto Service">
           <div class="agent-icon">🚗</div>
           <h3>Auto Service</h3>
           <p>Maintenance, services, slot booking.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Auto Service')">Select</button>
         </div>
         <div class="agent-card" data-agent="E‑commerce Support">
           <div class="agent-icon">🛒</div>
           <h3>E‑commerce Support</h3>
           <p>Orders, shipping, returns.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('E‑commerce Support')">Select</button>
         </div>
         <div class="agent-card" data-agent="Lead Qualifier">
           <div class="agent-icon">💼</div>
           <h3>Lead Qualifier</h3>
           <p>Qualify leads, book sales calls.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Lead Qualifier')">Select</button>
         </div>
         <div class="agent-card" data-agent="Fitness / Gym">
           <div class="agent-icon">💪</div>
           <h3>Fitness / Gym</h3>
           <p>Memberships, class bookings, info.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Fitness / Gym')">Select</button>
         </div>
         <div class="agent-card" data-agent="Real Estate Agent">
           <div class="agent-icon">🏠</div>
           <h3>Real Estate Agent</h3>
           <p>Property inquiries, viewings, listings.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Real Estate Agent')">Select</button>
         </div>
         <div class="agent-card" data-agent="Medical Clinic">
           <div class="agent-icon">🏥</div>
           <h3>Medical Clinic</h3>
           <p>Appointments, insurance, triage.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Medical Clinic')">Select</button>
         </div>
         <div class="agent-card" data-agent="Cleaning Service">
           <div class="agent-icon">🧹</div>
           <h3>Cleaning Service</h3>
           <p>Bookings, quotes, recurring clients.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Cleaning Service')">Select</button>
         </div>
         <div class="agent-card" data-agent="Property Management">
           <div class="agent-icon">🏢</div>
           <h3>Property Management</h3>
           <p>Tenant inquiries, maintenance, leases.</p>
-          <button class="btn-primary" onclick="openAuthModal('login')">Select</button>
+          <button class="btn-primary" onclick="openAuthModal('Property Management')">Select</button>
         </div>
       </div>
     </div>
@@ -120,10 +120,10 @@
     </div>
   </section>
 
-  <!-- ✨ AUTH MODAL – LEN JEDNA SEKCIA NARAZ -->
+  <!-- AUTH MODAL -->
   <div class="modal" id="authModal">
-    <div class="modal-content auth-modal" id="authModalContent">
-      <!-- Obsah sa bude meniť cez JS -->
+    <div class="modal-content auth-modal" id="modalContent">
+      <!-- Obsah sa mení cez JS -->
     </div>
   </div>
 
@@ -147,83 +147,89 @@
       });
     });
 
-    // HTML šablóny
+    // HTML pre Login
     const loginTemplate = `
-      <button class="close-modal" onclick="closeAuthModal()">✕</button>
+      <button class="close-modal" onclick="closeModal()">✕</button>
       <div class="auth-header">
-        <h2>Sign in to FameAI</h2>
-        <p>Enter your credentials to continue</p>
+        <h2>Sign in</h2>
+        <p>to continue to FameAI</p>
       </div>
-      <form onsubmit="handleSubmit(event, 'login')">
+      <form id="loginForm">
         <div class="input-group">
-          <label for="auth-email">Email</label>
-          <input type="email" id="auth-email" placeholder="you@business.com" required />
+          <input type="email" placeholder="Email" required />
         </div>
         <div class="input-group">
-          <label for="auth-password">Password</label>
-          <input type="password" id="auth-password" placeholder="••••••••" required />
+          <input type="password" placeholder="Password" required />
         </div>
         <button type="submit" class="btn-primary btn-block">Continue</button>
       </form>
       <p class="auth-footer">
-        Don’t have an account? <a href="#" onclick="event.preventDefault(); showSignup()">Sign up</a>
+        Don’t have an account? <a href="#" onclick="showSignup(event)">Sign up</a>
       </p>
     `;
 
     const signupTemplate = `
-      <button class="close-modal" onclick="closeAuthModal()">✕</button>
+      <button class="close-modal" onclick="closeModal()">✕</button>
       <div class="auth-header">
-        <h2>Create your account</h2>
-        <p>Get started with FameAI in seconds</p>
+        <h2>Create account</h2>
+        <p>to get started with FameAI</p>
       </div>
-      <form onsubmit="handleSubmit(event, 'signup')">
+      <form id="signupForm">
         <div class="input-group">
-          <label for="auth-name">Full Name</label>
-          <input type="text" id="auth-name" placeholder="John Doe" required />
+          <input type="text" placeholder="Full name" required />
         </div>
         <div class="input-group">
-          <label for="auth-email">Email</label>
-          <input type="email" id="auth-email" placeholder="you@business.com" required />
+          <input type="email" placeholder="Email" required />
         </div>
         <div class="input-group">
-          <label for="auth-password">Password</label>
-          <input type="password" id="auth-password" placeholder="••••••••" required />
+          <input type="password" placeholder="Password" required />
         </div>
-        <button type="submit" class="btn-primary btn-block">Create Account</button>
+        <button type="submit" class="btn-primary btn-block">Create account</button>
       </form>
       <p class="auth-footer">
-        Already have an account? <a href="#" onclick="event.preventDefault(); showLogin()">Sign in</a>
+        Already have an account? <a href="#" onclick="showLogin(event)">Sign in</a>
       </p>
     `;
 
-    function showLogin() {
-      document.getElementById('authModalContent').innerHTML = loginTemplate;
+    function showLogin(e) {
+      if (e) e.preventDefault();
+      document.getElementById('modalContent').innerHTML = loginTemplate;
+      attachFormListeners();
     }
 
-    function showSignup() {
-      document.getElementById('authModalContent').innerHTML = signupTemplate;
+    function showSignup(e) {
+      if (e) e.preventDefault();
+      document.getElementById('modalContent').innerHTML = signupTemplate;
+      attachFormListeners();
     }
 
-    function openAuthModal() {
+    function attachFormListeners() {
+      document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Presmeruj na stránku s balíkmi
+        window.location.href = 'plans.html?agent=' + encodeURIComponent(window.selectedAgent);
+      });
+      document.getElementById('signupForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        window.location.href = 'plans.html?agent=' + encodeURIComponent(window.selectedAgent);
+      });
+    }
+
+    function openAuthModal(agentName) {
+      window.selectedAgent = agentName;
       document.getElementById('authModal').classList.add('active');
       document.body.style.overflow = 'hidden';
-      showLogin(); // vždy začni s loginom
+      showLogin();
     }
 
-    function closeAuthModal() {
+    function closeModal() {
       document.getElementById('authModal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    function handleSubmit(e, type) {
-      e.preventDefault();
-      alert(`✅ ${type === 'login' ? 'Signed in' : 'Account created'} successfully!\nRedirecting to dashboard...`);
-      window.location.href = 'dashboard.html';
-    }
-
     document.getElementById('authModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('authModal')) {
-        closeAuthModal();
+        closeModal();
       }
     });
   </script>
