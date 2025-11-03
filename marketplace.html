@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="marketplace.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+  <!-- Firebase – COMPAT MODE (funguje na GitHub Pages) -->
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore-compat.js"></script>
 
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
       authDomain: "fameai-3c013.firebaseapp.com",
@@ -23,12 +23,12 @@
       measurementId: "G-JF30Z80NZQ"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
     window.firebaseAuth = auth;
     window.firebaseDb = db;
-    window.GoogleAuthProvider = GoogleAuthProvider;
+    window.GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
   </script>
 </head>
 <body>
@@ -48,7 +48,6 @@
       <p class="main-desc">Pre-built, industry-specific AI agents – ready to deploy in minutes.</p>
 
       <div class="agents-grid">
-        <!-- 12 agent cards -->
         <div class="agent-card" data-agent="Barber / Salon">
           <div class="agent-icon">✂️</div>
           <h3>Barber / Salon</h3>
@@ -147,11 +146,11 @@
   <!-- AUTH MODAL -->
   <div class="modal" id="authModal">
     <div class="modal-content auth-modal" id="modalContent">
-      <!-- Obsah sa mení cez JS -->
+      <!-- Obsah sa naplní cez JS -->
     </div>
   </div>
 
-  <script type="module">
+  <script>
     // Fade-in on scroll
     document.addEventListener("DOMContentLoaded", function () {
       const cards = document.querySelectorAll('.agent-card');
@@ -171,7 +170,6 @@
       });
     });
 
-    // HTML pre Login
     const loginTemplate = `
       <button class="close-modal" onclick="closeModal()">✕</button>
       <div class="auth-header">
@@ -244,9 +242,11 @@
         e.preventDefault();
         const email = e.target.querySelector('input[type="email"]').value;
         const password = e.target.querySelector('input[type="password"]').value;
-        signInWithEmailAndPassword(window.firebaseAuth, email, password)
+        window.firebaseAuth.signInWithEmailAndPassword(email, password)
           .then((userCredential) => {
-            saveAgentSelection(userCredential.user.uid, window.selectedAgent);
+            const user = userCredential.user;
+            const userDoc = window.firebaseDb.collection("users").doc(user.uid);
+            userDoc.set({ agent: window.selectedAgent, plan: null, minutes: 0, phone: "+421 908 XXX XXX" }, { merge: true });
             window.location.href = 'plans.html?agent=' + encodeURIComponent(window.selectedAgent);
           })
           .catch((error) => {
@@ -259,9 +259,11 @@
         const name = e.target.querySelector('input[type="text"]').value;
         const email = e.target.querySelector('input[type="email"]').value;
         const password = e.target.querySelector('input[type="password"]').value;
-        createUserWithEmailAndPassword(window.firebaseAuth, email, password)
+        window.firebaseAuth.createUserWithEmailAndPassword(email, password)
           .then((userCredential) => {
-            saveAgentSelection(userCredential.user.uid, window.selectedAgent);
+            const user = userCredential.user;
+            const userDoc = window.firebaseDb.collection("users").doc(user.uid);
+            userDoc.set({ agent: window.selectedAgent, plan: null, minutes: 0, phone: "+421 908 XXX XXX" }, { merge: true });
             window.location.href = 'plans.html?agent=' + encodeURIComponent(window.selectedAgent);
           })
           .catch((error) => {
@@ -271,25 +273,16 @@
     }
 
     function loginWithGoogle() {
-      const provider = new window.GoogleAuthProvider();
-      signInWithPopup(window.firebaseAuth, provider)
+      window.firebaseAuth.signInWithPopup(window.GoogleAuthProvider)
         .then((result) => {
-          saveAgentSelection(result.user.uid, window.selectedAgent);
+          const user = result.user;
+          const userDoc = window.firebaseDb.collection("users").doc(user.uid);
+          userDoc.set({ agent: window.selectedAgent, plan: null, minutes: 0, phone: "+421 908 XXX XXX" }, { merge: true });
           window.location.href = 'plans.html?agent=' + encodeURIComponent(window.selectedAgent);
         })
         .catch((error) => {
           alert('Google login failed: ' + error.message);
         });
-    }
-
-    function saveAgentSelection(uid, agent) {
-      const userDoc = doc(window.firebaseDb, "users", uid);
-      setDoc(userDoc, {
-        agent: agent,
-        plan: null,
-        minutes: 0,
-        phone: "+421 908 XXX XXX"
-      }, { merge: true });
     }
 
     function openAuthModal(agentName) {
