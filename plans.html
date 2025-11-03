@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="marketplace.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+  <!-- Firebase – COMPAT MODE -->
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore-compat.js"></script>
 
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
       authDomain: "fameai-3c013.firebaseapp.com",
@@ -23,30 +23,11 @@
       measurementId: "G-JF30Z80NZQ"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    window.savePlan = function(planName, price, linkUrl) {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const urlParams = new URLSearchParams(window.location.search);
-          const agent = urlParams.get('agent');
-          setDoc(doc(db, "users", user.uid), {
-            agent: agent,
-            plan: planName,
-            price: price,
-            minutes: (planName === 'Basic') ? 100 : (planName === 'Pro') ? 400 : (planName === 'Business') ? 900 : 2000,
-            phone: "+421 908 XXX XXX",
-            status: "active"
-          }, { merge: true });
-          window.open(linkUrl, '_blank');
-        } else {
-          alert("Nie si prihlásený!");
-        }
-      });
-    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
   </script>
+
   <style>
     .plans-container {
       max-width: 800px;
@@ -130,7 +111,7 @@
           <li>Simple voice</li>
           <li>Email notifications</li>
         </ul>
-        <button class="btn-primary btn-block" onclick="savePlan('Basic', 199, 'https://buy.stripe.com/4gM6oI8FLfLpaBIft94Ja02')">Select Plan</button>
+        <button class="btn-primary btn-block" onclick="selectPlan('Basic', 199, 'https://buy.stripe.com/4gM6oI8FLfLpaBIft94Ja02')">Select Plan</button>
       </div>
 
       <!-- Pro -->
@@ -142,7 +123,7 @@
           <li>Custom AI voice</li>
           <li>Dashboard + Google Calendar</li>
         </ul>
-        <button class="btn-primary btn-block" onclick="savePlan('Pro', 349, 'https://buy.stripe.com/6oUfZi9JPar59xE6WD4Ja01')">Select Plan</button>
+        <button class="btn-primary btn-block" onclick="selectPlan('Pro', 349, 'https://buy.stripe.com/6oUfZi9JPar59xE6WD4Ja01')">Select Plan</button>
       </div>
 
       <!-- Business -->
@@ -154,7 +135,7 @@
           <li>Multilingual support</li>
           <li>CRM integrations</li>
         </ul>
-        <button class="btn-primary btn-block" onclick="savePlan('Business', 549, 'https://buy.stripe.com/00w4gA2hn8iX5hodl14Ja03')">Select Plan</button>
+        <button class="btn-primary btn-block" onclick="selectPlan('Business', 549, 'https://buy.stripe.com/00w4gA2hn8iX5hodl14Ja03')">Select Plan</button>
       </div>
 
       <!-- Enterprise -->
@@ -166,16 +147,39 @@
           <li>White-label version</li>
           <li>Dedicated support</li>
         </ul>
-        <button class="btn-primary btn-block" onclick="savePlan('Enterprise', 899, 'https://buy.stripe.com/9B65kE09fbv97pw2Gn4Ja04')">Select Plan</button>
+        <button class="btn-primary btn-block" onclick="selectPlan('Enterprise', 899, 'https://buy.stripe.com/9B65kE09fbv97pw2Gn4Ja04')">Select Plan</button>
       </div>
     </div>
   </div>
 
   <script>
+    // Zobraz názov agenta
     const urlParams = new URLSearchParams(window.location.search);
     const agent = urlParams.get('agent');
     if (agent) {
       document.getElementById('agentName').textContent = agent;
+    }
+
+    // Ulož plán do Firebase a otvor Stripe
+    function selectPlan(planName, price, linkUrl) {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          const minutes = planName === 'Basic' ? 100 : planName === 'Pro' ? 400 : planName === 'Business' ? 900 : 2000;
+          firebase.firestore().collection("users").doc(user.uid).set({
+            agent: agent,
+            plan: planName,
+            price: price,
+            minutes: minutes,
+            usedMinutes: 0,
+            phone: "+421 908 XXX XXX",
+            status: "active"
+          }, { merge: true }).then(() => {
+            window.open(linkUrl, '_blank');
+          });
+        } else {
+          alert("Nie si prihlásený!");
+        }
+      });
     }
   </script>
 </body>
