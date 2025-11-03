@@ -8,12 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+  <!-- Firebase – COMPAT MODE -->
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore-compat.js"></script>
 
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
       authDomain: "fameai-3c013.firebaseapp.com",
@@ -24,40 +24,24 @@
       measurementId: "G-JF30Z80NZQ"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Načítať údaje z Firebase
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
-        getDoc(docRef).then((docSnap) => {
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            document.getElementById('userName').textContent = data.agent || 'My Agent';
-            document.getElementById('agentName').textContent = data.agent || 'AI Agent';
-            document.getElementById('planName').textContent = data.plan || 'Free';
-            document.getElementById('minutesUsed').textContent = `0 / ${data.minutes || 100}`;
-            const percent = data.minutes ? (0 / data.minutes * 100) : 0;
-            document.querySelector('.progress-fill').style.width = percent + '%';
-          } else {
-            // Nový používateľ – presmeruj na marketplace
-            window.location.href = 'marketplace.html';
-          }
-        });
-      } else {
-        // Nie je prihlásený → presmeruj na marketplace
-        window.location.href = 'marketplace.html';
-      }
-    });
-
-    window.logout = function() {
-      signOut(auth).then(() => {
-        window.location.href = 'marketplace.html';
-      });
-    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
   </script>
+
+  <!-- Static Glow Effects -->
+  <style>
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: -1;
+    }
+    .glow-top-left { top: -100px; left: -100px; width: 300px; height: 300px; background: rgba(79, 134, 247, 0.15); }
+    .glow-top-right { top: -80px; right: -80px; width: 250px; height: 250px; background: rgba(245, 158, 11, 0.1); }
+    .glow-bottom-left { bottom: -100px; left: -100px; width: 300px; height: 300px; background: rgba(139, 92, 246, 0.1); }
+    .glow-bottom-right { bottom: -80px; right: -80px; width: 250px; height: 250px; background: rgba(56, 189, 248, 0.1); }
+  </style>
 </head>
 <body>
 
@@ -93,8 +77,8 @@
       <div class="user-info">
         <div class="user-avatar">JD</div>
         <div>
-          <div class="user-name" id="userName">My Agent</div>
-          <div class="user-email">john@business.com</div>
+          <div class="user-name" id="userName">Loading...</div>
+          <div class="user-email" id="userEmail">-</div>
         </div>
         <button class="btn-ghost" style="margin-top:12px;" onclick="logout()">Logout</button>
       </div>
@@ -119,7 +103,7 @@
           </div>
           <div class="notification-content">
             <h4>New reservation</h4>
-            <p id="agentName">AI Agent</p>
+            <p id="notifAgent">AI Agent</p>
             <div class="notification-time">2 min ago</div>
           </div>
         </div>
@@ -129,7 +113,7 @@
           </div>
           <div class="notification-content">
             <h4>Missed call</h4>
-            <p id="agentName2">AI Agent</p>
+            <p id="notifAgent2">AI Agent</p>
             <div class="notification-time">15 min ago</div>
           </div>
         </div>
@@ -142,22 +126,22 @@
     <div class="view active" id="overview-view">
       <div class="card welcome-card">
         <h1>Welcome back!</h1>
-        <p>Your AI agent is ready to work.</p>
-        <div class="plan-tag" id="planName">Free Plan</div>
+        <p>Your AI agent is ready to work 24/7.</p>
+        <div class="plan-tag" id="planTag">Loading...</div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value" id="minutesUsed">0 / 100</div>
+          <div class="stat-value" id="minutesStat">0 / 0</div>
           <div class="stat-label">Minutes used</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">1</div>
+          <div class="stat-value" id="agentsCount">1</div>
           <div class="stat-label">Active agents</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">-</div>
+          <div class="stat-value">98%</div>
           <div class="stat-label">Customer satisfaction</div>
         </div>
       </div>
@@ -171,38 +155,104 @@
           <div class="agent-item">
             <div class="agent-icon">🤖</div>
             <div class="agent-info">
-              <h3 id="agentCardName">AI Agent</h3>
-              <p>+421 908 XXX XXX</p>
+              <h3 id="agentName">Loading...</h3>
+              <p id="agentPhone">+421 908 XXX XXX</p>
             </div>
-            <button class="btn-ghost" onclick="openAgentSettings('AI Agent', '+421 908 XXX XXX')">Settings</button>
+            <button class="btn-ghost" onclick="openAgentSettings()">Settings</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- Other views (agents, analytics, etc.) remain as before -->
+    <!-- Other views are minimal – focus on Overview for now -->
   </main>
 
-  <!-- Modals and scripts (same as before) -->
+  <!-- AGENT SETTINGS MODAL -->
+  <div class="modal" id="agentSettingsModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closeAgentSettingsModal()">✕</button>
+      <h2>Agent Settings</h2>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="text" id="settingsPhone" placeholder="+421..." />
+      </div>
+      <button class="btn-primary btn-block" onclick="saveAgentSettings()">Save</button>
+    </div>
+  </div>
+
   <script>
-    // Navigation, modals, notifications – same as in previous dashboard.html
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        item.classList.add('active');
-        const viewId = item.dataset.view + '-view';
-        if (document.getElementById(viewId)) {
-          document.getElementById(viewId).classList.add('active');
+    // Načítať údaje z Firebase
+    function loadUserData() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          document.getElementById('userEmail').textContent = user.email;
+          firebase.firestore().collection("users").doc(user.uid).get().then(doc => {
+            if (doc.exists) {
+              const data = doc.data();
+              const agent = data.agent || 'AI Agent';
+              const plan = data.plan || 'Free';
+              const minutes = data.minutes || 0;
+              const used = data.usedMinutes || 0;
+              const phone = data.phone || '+421 908 XXX XXX';
+
+              document.getElementById('userName').textContent = agent;
+              document.getElementById('agentName').textContent = agent;
+              document.getElementById('notifAgent').textContent = agent;
+              document.getElementById('notifAgent2').textContent = agent;
+              document.getElementById('planTag').textContent = `${plan} Plan`;
+              document.getElementById('agentPhone').textContent = phone;
+              document.getElementById('settingsPhone').value = phone;
+              document.getElementById('minutesStat').textContent = `${used} / ${minutes}`;
+              
+              const percent = minutes > 0 ? (used / minutes * 100) : 0;
+              document.getElementById('progressFill').style.width = `${Math.min(percent, 100)}%`;
+            } else {
+              // Ak nemá údaje, presmeruj na marketplace
+              window.location.href = 'marketplace.html';
+            }
+          });
+        } else {
+          window.location.href = 'marketplace.html';
         }
       });
-    });
+    }
+
+    // Logout
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = 'marketplace.html';
+      });
+    }
+
+    // Agent Settings
+    function openAgentSettings() {
+      document.getElementById('agentSettingsModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAgentSettingsModal() {
+      document.getElementById('agentSettingsModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function saveAgentSettings() {
+      const newPhone = document.getElementById('settingsPhone').value;
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          firebase.firestore().collection("users").doc(user.uid).update({
+            phone: newPhone
+          }).then(() => {
+            document.getElementById('agentPhone').textContent = newPhone;
+            closeAgentSettingsModal();
+            alert('Phone number updated!');
+          });
+        }
+      });
+    }
 
     // Notifications
     document.getElementById('notificationBell').addEventListener('click', (e) => {
       e.stopPropagation();
-      const dropdown = document.getElementById('notificationsDropdown');
-      dropdown.classList.toggle('active');
+      document.getElementById('notificationsDropdown').classList.toggle('active');
     });
 
     document.addEventListener('click', (e) => {
@@ -213,16 +263,17 @@
       }
     });
 
-    // Načítať meno agenta aj do karty
-    window.addEventListener('load', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const agent = urlParams.get('agent');
-      if (agent) {
-        document.getElementById('agentCardName').textContent = agent;
-        document.getElementById('agentName').textContent = agent;
-        document.getElementById('agentName2').textContent = agent;
-      }
+    // Navigation (minimal)
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
     });
+
+    // Načítať dáta po načítaní stránky
+    document.addEventListener('DOMContentLoaded', loadUserData);
   </script>
 </body>
 </html>
