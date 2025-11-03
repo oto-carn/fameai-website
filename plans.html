@@ -6,6 +6,47 @@
   <title>Select Plan – FameAI</title>
   <link rel="stylesheet" href="marketplace.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
+      authDomain: "fameai-3c013.firebaseapp.com",
+      projectId: "fameai-3c013",
+      storageBucket: "fameai-3c013.firebasestorage.app",
+      messagingSenderId: "273458864263",
+      appId: "1:273458864263:web:b0397abed786489aabd822",
+      measurementId: "G-JF30Z80NZQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.savePlan = function(planName, price, linkUrl) {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const agent = urlParams.get('agent');
+          setDoc(doc(db, "users", user.uid), {
+            agent: agent,
+            plan: planName,
+            price: price,
+            minutes: (planName === 'Basic') ? 100 : (planName === 'Pro') ? 400 : (planName === 'Business') ? 900 : 2000,
+            phone: "+421 908 XXX XXX",
+            status: "active"
+          }, { merge: true });
+          window.open(linkUrl, '_blank');
+        } else {
+          alert("Nie si prihlásený!");
+        }
+      });
+    };
+  </script>
   <style>
     .plans-container {
       max-width: 800px;
@@ -89,7 +130,7 @@
           <li>Simple voice</li>
           <li>Email notifications</li>
         </ul>
-        <a href="https://buy.stripe.com/4gM6oI8FLfLpaBIft94Ja02" target="_blank" class="btn-primary btn-block">Select Plan</a>
+        <button class="btn-primary btn-block" onclick="savePlan('Basic', 199, 'https://buy.stripe.com/4gM6oI8FLfLpaBIft94Ja02')">Select Plan</button>
       </div>
 
       <!-- Pro -->
@@ -101,7 +142,7 @@
           <li>Custom AI voice</li>
           <li>Dashboard + Google Calendar</li>
         </ul>
-        <a href="https://buy.stripe.com/6oUfZi9JPar59xE6WD4Ja01" target="_blank" class="btn-primary btn-block">Select Plan</a>
+        <button class="btn-primary btn-block" onclick="savePlan('Pro', 349, 'https://buy.stripe.com/6oUfZi9JPar59xE6WD4Ja01')">Select Plan</button>
       </div>
 
       <!-- Business -->
@@ -113,7 +154,7 @@
           <li>Multilingual support</li>
           <li>CRM integrations</li>
         </ul>
-        <a href="https://buy.stripe.com/00w4gA2hn8iX5hodl14Ja03" target="_blank" class="btn-primary btn-block">Select Plan</a>
+        <button class="btn-primary btn-block" onclick="savePlan('Business', 549, 'https://buy.stripe.com/00w4gA2hn8iX5hodl14Ja03')">Select Plan</button>
       </div>
 
       <!-- Enterprise -->
@@ -125,13 +166,12 @@
           <li>White-label version</li>
           <li>Dedicated support</li>
         </ul>
-        <a href="https://buy.stripe.com/9B65kE09fbv97pw2Gn4Ja04" target="_blank" class="btn-primary btn-block">Select Plan</a>
+        <button class="btn-primary btn-block" onclick="savePlan('Enterprise', 899, 'https://buy.stripe.com/9B65kE09fbv97pw2Gn4Ja04')">Select Plan</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Zobraz názov agenta
     const urlParams = new URLSearchParams(window.location.search);
     const agent = urlParams.get('agent');
     if (agent) {
