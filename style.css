@@ -179,12 +179,138 @@ html {
   color: #fbbf24;
 }
 
+/* === Hero Dashboard UI === */
 .hero-image {
   width: 100%;
   height: 600px;
-  background: linear-gradient(135deg, #1e293b, #334155);
   margin: 60px auto;
   border-radius: 24px;
+  background: #1e293b;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-container {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 24px;
+  color: #f1f5f9;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid #334155;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.dashboard-subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.dashboard-panel {
+  background: #334155;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.panel-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fbbf24;
+}
+
+.agent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.agent-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.agent-status.online {
+  background: #34d399;
+}
+
+.agent-status.busy {
+  background: #f87171;
+}
+
+.agent-name {
+  font-size: 14px;
+}
+
+.call-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.call-status {
+  color: #94a3b8;
+}
+
+.call-status.Completed {
+  color: #34d399;
+}
+
+.call-status.In\ Progress {
+  color: #fbbf24;
+}
+
+.call-status.Missed {
+  color: #f87171;
+}
+
+.chart-placeholder {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  height: 80px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: #3b82f6;
+  border-radius: 4px 4px 0 0;
+  height: 60%;
+}
+
+.chart-bar:nth-child(2) {
+  height: 80%;
+}
+
+.chart-bar:nth-child(3) {
+  height: 40%;
+}
+
+.chart-bar:nth-child(4) {
+  height: 70%;
 }
 
 .section-title {
@@ -579,6 +705,9 @@ html {
   .feature-image { width: 100%; height: 400px; }
   .before, .after { flex: 1; }
   .footer-right { flex-direction: row; flex-wrap: wrap; }
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -588,120 +717,4 @@ html {
   .pricing-cards {
     grid-template-columns: 1fr;
   }
-
-  .dashboard-container {
-  background: #1e293b;
-  border-radius: 16px;
-  padding: 24px;
-  color: #f1f5f9;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.dashboard-title {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.dashboard-subtitle {
-  font-size: 16px;
-  color: #94a3b8;
-}
-
-.dashboard-content {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.dashboard-panel {
-  background: #334155;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.panel-header {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #fbbf24;
-}
-
-.agent-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.agent-status {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.agent-status.online {
-  background: #34d399;
-}
-
-.agent-status.busy {
-  background: #f87171;
-}
-
-.agent-name {
-  font-size: 14px;
-}
-
-.call-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.call-status {
-  color: #94a3b8;
-}
-
-.call-status.Completed {
-  color: #34d399;
-}
-
-.call-status.In\ Progress {
-  color: #fbbf24;
-}
-
-.call-status.Missed {
-  color: #f87171;
-}
-
-.chart-placeholder {
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-  height: 80px;
-}
-
-.chart-bar {
-  flex: 1;
-  background: #3b82f6;
-  border-radius: 4px 4px 0 0;
-  height: 60%;
-}
-
-.chart-bar:nth-child(2) {
-  height: 80%;
-}
-
-.chart-bar:nth-child(3) {
-  height: 40%;
-}
-
-.chart-bar:nth-child(4) {
-  height: 70%;
 }
