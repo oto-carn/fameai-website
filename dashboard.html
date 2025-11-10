@@ -3,18 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard – FameAI</title>
+  <title>FameAI Dashboard</title>
   <link rel="stylesheet" href="dashboard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* === GLOW EFFECTS === */
+    .glow {
+      position: absolute;
+      filter: blur(100px);
+      z-index: -1;
+      opacity: 0.3;
+    }
+    .glow-blue {
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%);
+    }
+    .glow-purple {
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15), transparent 70%);
+    }
+    .glow-orange {
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.1), transparent 70%);
+    }
+    .glow-cyan {
+      background: radial-gradient(circle, rgba(16, 185, 200, 0.1), transparent 70%);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Glow Effects -->
-  <div class="glow glow-top-left"></div>
-  <div class="glow glow-top-right"></div>
-  <div class="glow glow-bottom-left"></div>
-  <div class="glow glow-bottom-right"></div>
+  <!-- Static Glow Effects -->
+  <div class="glow glow-blue" style="top: -100px; left: -100px; width: 400px; height: 400px;"></div>
+  <div class="glow glow-orange" style="top: -80px; right: -80px; width: 300px; height: 300px;"></div>
+  <div class="glow glow-purple" style="bottom: -100px; left: -100px; width: 350px; height: 350px;"></div>
+  <div class="glow glow-cyan" style="bottom: -80px; right: -80px; width: 250px; height: 250px;"></div>
 
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -45,7 +66,7 @@
           <div class="user-name">John Doe</div>
           <div class="user-email">john@restaurant.sk</div>
         </div>
-        <button class="btn-ghost" style="margin-top:12px;" onclick="alert('Demo: You would log out here.')">Logout</button>
+        <button class="btn-ghost" onclick="alert('Logout')">Logout</button>
       </div>
     </div>
   </aside>
@@ -63,22 +84,18 @@
       </div>
       <div class="notifications-list">
         <div class="notification-item">
-          <div class="notification-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
+          <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
           <div class="notification-content">
             <h4>New reservation</h4>
-            <p>Restaurant AI</p>
+            <p>Restaurant AI: Table for 2 at 7 PM</p>
             <div class="notification-time">2 min ago</div>
           </div>
         </div>
         <div class="notification-item">
-          <div class="notification-icon">
-            <i class="fas fa-phone"></i>
-          </div>
+          <div class="notification-icon"><i class="fas fa-phone"></i></div>
           <div class="notification-content">
             <h4>Missed call</h4>
-            <p>Dental Clinic AI</p>
+            <p>Dental Clinic AI: 1 missed call</p>
             <div class="notification-time">15 min ago</div>
           </div>
         </div>
@@ -88,11 +105,12 @@
 
   <!-- Main Content -->
   <main class="main-content">
+
     <!-- OVERVIEW -->
     <div class="view active" id="overview-view">
       <div class="card welcome-card">
         <h1>Welcome back, John!</h1>
-        <p>Your AI agent is working 24/7 to grow your business.</p>
+        <p>Your AI agents are working 24/7 to grow your business.</p>
         <div class="plan-tag">Pro Plan • 349 €/month</div>
       </div>
 
@@ -107,7 +125,7 @@
           <div class="stat-label">Active agents</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">70%</div>
+          <div class="stat-value">98%</div>
           <div class="stat-label">Customer satisfaction</div>
         </div>
       </div>
@@ -119,7 +137,7 @@
         </div>
         <div class="agent-list">
           <div class="agent-item">
-            <div class="agent-icon">🤖</div>
+            <div class="agent-icon">🍽️</div>
             <div class="agent-info">
               <h3>Restaurant AI</h3>
               <p>+421 908 123 456</p>
@@ -142,28 +160,28 @@
     <div class="view" id="agents-view">
       <div class="page-header">
         <h1>My AI Agents</h1>
-        <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add New Agent</button>
+        <button class="btn-secondary" onclick="location.href='marketplace.html'">+ New Agent</button>
       </div>
       <div class="agent-grid">
         <div class="agent-card">
-          <div class="agent-icon">🤖</div>
+          <div class="agent-icon">🍽️</div>
           <h3>Restaurant AI</h3>
-          <p class="agent-desc">Handles reservations, menu, hours</p>
+          <p class="agent-desc">Handles reservations, menu, opening hours</p>
           <div class="agent-meta">
             <span class="status-badge status-active">Active</span>
             <span>+421 908 123 456</span>
           </div>
-          <button class="btn-secondary">Settings</button>
+          <button class="btn-secondary">View Details</button>
         </div>
         <div class="agent-card">
           <div class="agent-icon">🦷</div>
           <h3>Dental Clinic AI</h3>
-          <p class="agent-desc">Manages appointments, reminders</p>
+          <p class="agent-desc">Appointments, reminders, FAQs</p>
           <div class="agent-meta">
             <span class="status-badge status-active">Active</span>
             <span>+421 908 654 321</span>
           </div>
-          <button class="btn-secondary">Settings</button>
+          <button class="btn-secondary">View Details</button>
         </div>
       </div>
     </div>
@@ -179,15 +197,15 @@
       </div>
 
       <div class="chart-card">
-        <h3>Call Volume</h3>
+        <h3>Weekly Call Volume</h3>
         <div class="mini-chart">
-          <div class="bar" style="height: 40%"></div>
-          <div class="bar" style="height: 60%"></div>
-          <div class="bar" style="height: 80%"></div>
-          <div class="bar" style="height: 50%"></div>
-          <div class="bar" style="height: 70%"></div>
-          <div class="bar" style="height: 90%"></div>
-          <div class="bar" style="height: 100%"></div>
+          <div class="bar" style="height: 40%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 60%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 80%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 50%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 70%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 90%; background: #3b82f6;"></div>
+          <div class="bar" style="height: 100%; background: #3b82f6;"></div>
         </div>
       </div>
 
@@ -198,7 +216,7 @@
             <tr>
               <th>Date</th>
               <th>Agent</th>
-              <th>Minutes</th>
+              <th>Duration</th>
               <th>Conversion</th>
             </tr>
           </thead>
@@ -206,19 +224,19 @@
             <tr>
               <td>Apr 28</td>
               <td>Restaurant AI</td>
-              <td>42</td>
+              <td>42 min</td>
               <td>85%</td>
             </tr>
             <tr>
               <td>Apr 27</td>
               <td>Dental Clinic AI</td>
-              <td>38</td>
+              <td>38 min</td>
               <td>92%</td>
             </tr>
             <tr>
               <td>Apr 26</td>
               <td>Restaurant AI</td>
-              <td>51</td>
+              <td>51 min</td>
               <td>78%</td>
             </tr>
           </tbody>
@@ -239,7 +257,7 @@
             <div class="plan-name">Pro Plan</div>
             <div class="plan-price">349 €/month</div>
           </div>
-          <button class="btn-secondary">Change Plan</button>
+          <button class="btn-secondary">Upgrade</button>
         </div>
       </div>
 
@@ -248,7 +266,7 @@
         <div class="payment-card">
           <i class="fab fa-cc-visa"></i>
           <span>Visa •••• 4242</span>
-          <button class="btn-ghost" onclick="openPaymentModal()">Edit</button>
+          <button class="btn-ghost">Edit</button>
         </div>
       </div>
 
@@ -256,18 +274,12 @@
         <h3>Invoice History</h3>
         <div class="invoice-list">
           <div class="invoice-item">
-            <div>
-              <div class="invoice-date">Apr 1, 2025</div>
-              <div class="invoice-desc">Pro Plan</div>
-            </div>
+            <div><span class="invoice-date">Apr 1, 2025</span> Pro Plan</div>
             <div class="invoice-amount">349 €</div>
             <span class="invoice-status paid">Paid</span>
           </div>
           <div class="invoice-item">
-            <div>
-              <div class="invoice-date">Mar 1, 2025</div>
-              <div class="invoice-desc">Pro Plan</div>
-            </div>
+            <div><span class="invoice-date">Mar 1, 2025</span> Pro Plan</div>
             <div class="invoice-amount">349 €</div>
             <span class="invoice-status paid">Paid</span>
           </div>
@@ -280,7 +292,6 @@
       <div class="page-header">
         <h1>Account Settings</h1>
       </div>
-
       <div class="card">
         <h3>Profile</h3>
         <div class="phone-setting">
@@ -299,7 +310,7 @@
       <h2>Agent Settings</h2>
       <div class="input-group">
         <label>Phone Number</label>
-        <input type="text" id="agentPhoneInput" placeholder="+421..." value="+421 908 123 456" />
+        <input type="text" value="+421 908 123 456" />
       </div>
       <div class="input-group">
         <label>AI Voice</label>
@@ -317,30 +328,7 @@
           <option>German</option>
         </select>
       </div>
-      <button class="btn-primary btn-block" onclick="saveAgentSettings()">Save Settings</button>
-    </div>
-  </div>
-
-  <!-- PAYMENT MODAL -->
-  <div class="modal" id="paymentModal">
-    <div class="modal-content auth-modal" style="max-width: 500px;">
-      <button class="close-modal" onclick="closePaymentModal()">✕</button>
-      <h2>Edit Payment Method</h2>
-      <div class="input-group">
-        <label>Card Number</label>
-        <input type="text" placeholder="4242 4242 4242 4242" />
-      </div>
-      <div style="display: flex; gap: 12px;">
-        <div class="input-group" style="flex: 2;">
-          <label>Expiry</label>
-          <input type="text" placeholder="MM/YY" />
-        </div>
-        <div class="input-group" style="flex: 1;">
-          <label>CVV</label>
-          <input type="text" placeholder="123" />
-        </div>
-      </div>
-      <button class="btn-primary btn-block">Save Card</button>
+      <button class="btn-primary btn-block">Save Settings</button>
     </div>
   </div>
 
@@ -357,9 +345,8 @@
       });
     });
 
-    // Notifications dropdown
-    document.getElementById('notificationBell').addEventListener('click', (e) => {
-      e.stopPropagation();
+    // Notifications
+    document.getElementById('notificationBell').addEventListener('click', () => {
       document.getElementById('notificationsDropdown').classList.toggle('active');
     });
 
@@ -382,29 +369,10 @@
       document.body.style.overflow = 'auto';
     }
 
-    function saveAgentSettings() {
-      const newPhone = document.getElementById('agentPhoneInput').value;
-      alert(`✅ Settings saved for agent!\nNew number: ${newPhone}`);
-      closeAgentSettingsModal();
-    }
-
-    // Payment Modal
-    function openPaymentModal() {
-      document.getElementById('paymentModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePaymentModal() {
-      document.getElementById('paymentModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modals on click outside
     document.getElementById('agentSettingsModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('agentSettingsModal')) closeAgentSettingsModal();
-    });
-    document.getElementById('paymentModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('paymentModal')) closePaymentModal();
+      if (e.target === document.getElementById('agentSettingsModal')) {
+        closeAgentSettingsModal();
+      }
     });
   </script>
 </body>
