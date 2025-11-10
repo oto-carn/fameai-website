@@ -1,130 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard UI</title>
-  <style>
-    body {
-      background-color: #0b1120;
-      color: #f1f5f9;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .dashboard-container {
-      width: 100%;
-      height: 600px;
-      background: #1e293b;
-      border-radius: 24px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      border: 1px solid #334155;
-    }
-
-    .panel {
-      background: #334155;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .panel-header {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #fbbf24;
-    }
-
-    .agent-item, .call-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-
-    .agent-status {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    .online { background: #34d399; }
-    .busy { background: #f87171; }
-
-    .chart {
-      height: 100px;
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .bar {
-      flex: 1;
-      background: #3b82f6;
-      border-radius: 4px 4px 0 0;
-      height: 60%;
-    }
-
-    .bar:nth-child(2) { height: 80%; }
-    .bar:nth-child(3) { height: 40%; }
-    .bar:nth-child(4) { height: 70%; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – FameAI</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <div class="panel">
-      <div class="panel-header">Active Agents</div>
-      <div class="agent-list">
-        <div class="agent-item">
-          <span><span class="agent-status online"></span> Hotel Agent</span>
-          <span>Online</span>
+
+  <!-- Glow Effects -->
+  <div class="glow glow-top-left"></div>
+  <div class="glow glow-top-right"></div>
+  <div class="glow glow-bottom-left"></div>
+  <div class="glow glow-bottom-right"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">FameAI</a>
+    </div>
+    <nav class="nav-menu">
+      <a href="#" class="nav-item active" data-view="overview">
+        <i class="fas fa-home"></i> Overview
+      </a>
+      <a href="#" class="nav-item" data-view="agents">
+        <i class="fas fa-robot"></i> My Agents
+      </a>
+      <a href="#" class="nav-item" data-view="analytics">
+        <i class="fas fa-chart-line"></i> Analytics
+      </a>
+      <a href="#" class="nav-item" data-view="billing">
+        <i class="fas fa-credit-card"></i> Billing
+      </a>
+      <a href="#" class="nav-item" data-view="settings">
+        <i class="fas fa-cog"></i> Settings
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">JD</div>
+        <div>
+          <div class="user-name">John Doe</div>
+          <div class="user-email">john@restaurant.sk</div>
         </div>
-        <div class="agent-item">
-          <span><span class="agent-status online"></span> Clinic Agent</span>
-          <span>Online</span>
-        </div>
-        <div class="agent-item">
-          <span><span class="agent-status busy"></span> Restaurant Agent</span>
-          <span>Busy</span>
-        </div>
+        <button class="btn-ghost" style="margin-top:12px;" onclick="alert('Demo: You would log out here.')">Logout</button>
       </div>
     </div>
+  </aside>
 
-    <div class="panel">
-      <div class="panel-header">Recent Calls</div>
-      <div class="call-list">
-        <div class="call-item">
-          <span>John D.</span>
-          <span class="status">Completed</span>
-        </div>
-        <div class="call-item">
-          <span>Sarah K.</span>
-          <span class="status">In Progress</span>
-        </div>
-        <div class="call-item">
-          <span>Mike T.</span>
-          <span class="status">Missed</span>
-        </div>
+  <!-- Notification Bell -->
+  <div style="position: fixed; top: 24px; right: 32px; z-index: 10;">
+    <button class="notification-bell" id="notificationBell">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="notifications-dropdown" id="notificationsDropdown">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+        <span style="font-size: 13px; color: var(--text-secondary);">Mark all as read</span>
       </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-header">Performance</div>
-      <div class="chart">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+      <div class="notifications-list">
+        <div class="notification-item">
+          <div class="notification-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="notification-content">
+            <h4>New reservation</h4>
+            <p>Restaurant AI</p>
+            <div class="notification-time">2 min ago</div>
+          </div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="notification-content">
+            <h4>Missed call</h4>
+            <p>Dental Clinic AI</p>
+            <div class="notification-time">15 min ago</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- OVERVIEW -->
+    <div class="view active" id="overview-view">
+      <div class="card welcome-card">
+        <h1>Welcome back, John!</h1>
+        <p>Your AI agent is working 24/7 to grow your business.</p>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">273 / 400</div>
+          <div class="stat-label">Minutes used</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Active agents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">98%</div>
+          <div class="stat-label">Customer satisfaction</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>My AI Agents</h2>
+          <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add Agent</button>
+        </div>
+        <div class="agent-list">
+          <div class="agent-item">
+            <div class="agent-icon">🤖</div>
+            <div class="agent-info">
+              <h3>Restaurant AI</h3>
+              <p>+421 908 123 456</p>
+            </div>
+            <button class="btn-ghost" onclick="openAgentSettings()">Settings</button>
+          </div>
+          <div class="agent-item">
+            <div class="agent-icon">🦷</div>
+            <div class="agent-info">
+              <h3>Dental Clinic AI</h3>
+              <p>+421 908 654 321</p>
+            </div>
+            <button class="btn-ghost" onclick="openAgentSettings()">Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENTS -->
+    <div class="view" id="agents-view">
+      <div class="page-header">
+        <h1>My AI Agents</h1>
+        <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add New Agent</button>
+      </div>
+      <div class="agent-grid">
+        <div class="agent-card">
+          <div class="agent-icon">🤖</div>
+          <h3>Restaurant AI</h3>
+          <p class="agent-desc">Handles reservations, menu, hours</p>
+          <div class="agent-meta">
+            <span class="status-badge status-active">Active</span>
+            <span>+421 908 123 456</span>
+          </div>
+          <button class="btn-secondary">Settings</button>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon">🦷</div>
+          <h3>Dental Clinic AI</h3>
+          <p class="agent-desc">Manages appointments, reminders</p>
+          <div class="agent-meta">
+            <span class="status-badge status-active">Active</span>
+            <span>+421 908 654 321</span>
+          </div>
+          <button class="btn-secondary">Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="view" id="analytics-view">
+      <div class="page-header">
+        <h1>Analytics</h1>
+        <div class="filter-group">
+          <button class="filter-btn active">7 days</button>
+          <button class="filter-btn">30 days</button>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Call Volume</h3>
+        <div class="mini-chart">
+          <div class="bar" style="height: 40%"></div>
+          <div class="bar" style="height: 60%"></div>
+          <div class="bar" style="height: 80%"></div>
+          <div class="bar" style="height: 50%"></div>
+          <div class="bar" style="height: 70%"></div>
+          <div class="bar" style="height: 90%"></div>
+          <div class="bar" style="height: 100%"></div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <h3>Recent Activity</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Agent</th>
+              <th>Minutes</th>
+              <th>Conversion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Apr 28</td>
+              <td>Restaurant AI</td>
+              <td>42</td>
+              <td>85%</td>
+            </tr>
+            <tr>
+              <td>Apr 27</td>
+              <td>Dental Clinic AI</td>
+              <td>38</td>
+              <td>92%</td>
+            </tr>
+            <tr>
+              <td>Apr 26</td>
+              <td>Restaurant AI</td>
+              <td>51</td>
+              <td>78%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="view" id="billing-view">
+      <div class="page-header">
+        <h1>Billing</h1>
+      </div>
+
+      <div class="card billing-overview">
+        <h3>Current Plan</h3>
+        <div class="plan-info">
+          <div>
+            <div class="plan-name">Pro Plan</div>
+            <div class="plan-price">349 €/month</div>
+          </div>
+          <button class="btn-secondary">Change Plan</button>
+        </div>
+      </div>
+
+      <div class="card payment-method">
+        <h3>Payment Method</h3>
+        <div class="payment-card">
+          <i class="fab fa-cc-visa"></i>
+          <span>Visa •••• 4242</span>
+          <button class="btn-ghost" onclick="openPaymentModal()">Edit</button>
+        </div>
+      </div>
+
+      <div class="card invoice-history">
+        <h3>Invoice History</h3>
+        <div class="invoice-list">
+          <div class="invoice-item">
+            <div>
+              <div class="invoice-date">Apr 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
+            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
+          </div>
+          <div class="invoice-item">
+            <div>
+              <div class="invoice-date">Mar 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
+            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="settings-view">
+      <div class="page-header">
+        <h1>Account Settings</h1>
+      </div>
+
+      <div class="card">
+        <h3>Profile</h3>
+        <div class="phone-setting">
+          <input type="text" value="John Doe" />
+          <input type="email" value="john@restaurant.sk" />
+          <button class="btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- AGENT SETTINGS MODAL -->
+  <div class="modal" id="agentSettingsModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closeAgentSettingsModal()">✕</button>
+      <h2>Agent Settings</h2>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="text" id="agentPhoneInput" placeholder="+421..." value="+421 908 123 456" />
+      </div>
+      <div class="input-group">
+        <label>AI Voice</label>
+        <select class="form-select">
+          <option>Emma (Female, EN)</option>
+          <option>David (Male, EN)</option>
+          <option>Custom Voice</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Language</label>
+        <select class="form-select">
+          <option>Slovak</option>
+          <option>English</option>
+          <option>German</option>
+        </select>
+      </div>
+      <button class="btn-primary btn-block" onclick="saveAgentSettings()">Save Settings</button>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closePaymentModal()">✕</button>
+      <h2>Edit Payment Method</h2>
+      <div class="input-group">
+        <label>Card Number</label>
+        <input type="text" placeholder="4242 4242 4242 4242" />
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <div class="input-group" style="flex: 2;">
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY" />
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <label>CVV</label>
+          <input type="text" placeholder="123" />
+        </div>
+      </div>
+      <button class="btn-primary btn-block">Save Card</button>
+    </div>
+  </div>
+
+  <script>
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        item.classList.add('active');
+        const viewId = item.dataset.view + '-view';
+        document.getElementById(viewId).classList.add('active');
+      });
+    });
+
+    // Notifications dropdown
+    document.getElementById('notificationBell').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('notificationsDropdown').classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('notificationsDropdown');
+      const bell = document.getElementById('notificationBell');
+      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Agent Settings Modal
+    function openAgentSettings() {
+      document.getElementById('agentSettingsModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAgentSettingsModal() {
+      document.getElementById('agentSettingsModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function saveAgentSettings() {
+      const newPhone = document.getElementById('agentPhoneInput').value;
+      alert(`✅ Settings saved for agent!\nNew number: ${newPhone}`);
+      closeAgentSettingsModal();
+    }
+
+    // Payment Modal
+    function openPaymentModal() {
+      document.getElementById('paymentModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modals on click outside
+    document.getElementById('agentSettingsModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('agentSettingsModal')) closeAgentSettingsModal();
+    });
+    document.getElementById('paymentModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('paymentModal')) closePaymentModal();
+    });
+  </script>
 </body>
 </html>
