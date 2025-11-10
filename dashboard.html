@@ -1,279 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard – FameAI</title>
-  <link rel="stylesheet" href="dashboard.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- Firebase – COMPAT MODE -->
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore-compat.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
-      authDomain: "fameai-3c013.firebaseapp.com",
-      projectId: "fameai-3c013",
-      storageBucket: "fameai-3c013.firebasestorage.app",
-      messagingSenderId: "273458864263",
-      appId: "1:273458864263:web:b0397abed786489aabd822",
-      measurementId: "G-JF30Z80NZQ"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-  </script>
-
-  <!-- Static Glow Effects -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard UI</title>
   <style>
-    .glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      z-index: -1;
+    body {
+      background-color: #0b1120;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
-    .glow-top-left { top: -100px; left: -100px; width: 300px; height: 300px; background: rgba(79, 134, 247, 0.15); }
-    .glow-top-right { top: -80px; right: -80px; width: 250px; height: 250px; background: rgba(245, 158, 11, 0.1); }
-    .glow-bottom-left { bottom: -100px; left: -100px; width: 300px; height: 300px; background: rgba(139, 92, 246, 0.1); }
-    .glow-bottom-right { bottom: -80px; right: -80px; width: 250px; height: 250px; background: rgba(56, 189, 248, 0.1); }
+
+    .dashboard-container {
+      width: 100%;
+      height: 600px;
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid #334155;
+    }
+
+    .panel {
+      background: #334155;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .panel-header {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fbbf24;
+    }
+
+    .agent-item, .call-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .agent-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .online { background: #34d399; }
+    .busy { background: #f87171; }
+
+    .chart {
+      height: 100px;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .bar {
+      flex: 1;
+      background: #3b82f6;
+      border-radius: 4px 4px 0 0;
+      height: 60%;
+    }
+
+    .bar:nth-child(2) { height: 80%; }
+    .bar:nth-child(3) { height: 40%; }
+    .bar:nth-child(4) { height: 70%; }
   </style>
 </head>
 <body>
-
-  <!-- Glow Effects -->
-  <div class="glow glow-top-left"></div>
-  <div class="glow glow-top-right"></div>
-  <div class="glow glow-bottom-left"></div>
-  <div class="glow glow-bottom-right"></div>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="index.html" class="logo">FameAI</a>
-    </div>
-    <nav class="nav-menu">
-      <a href="#" class="nav-item active" data-view="overview">
-        <i class="fas fa-home"></i> Overview
-      </a>
-      <a href="#" class="nav-item" data-view="agents">
-        <i class="fas fa-robot"></i> My Agents
-      </a>
-      <a href="#" class="nav-item" data-view="analytics">
-        <i class="fas fa-chart-line"></i> Analytics
-      </a>
-      <a href="#" class="nav-item" data-view="billing">
-        <i class="fas fa-credit-card"></i> Billing
-      </a>
-      <a href="#" class="nav-item" data-view="settings">
-        <i class="fas fa-cog"></i> Settings
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="user-info">
-        <div class="user-avatar">JD</div>
-        <div>
-          <div class="user-name" id="userName">Loading...</div>
-          <div class="user-email" id="userEmail">-</div>
+  <div class="dashboard-container">
+    <div class="panel">
+      <div class="panel-header">Active Agents</div>
+      <div class="agent-list">
+        <div class="agent-item">
+          <span><span class="agent-status online"></span> Hotel Agent</span>
+          <span>Online</span>
         </div>
-        <button class="btn-ghost" style="margin-top:12px;" onclick="logout()">Logout</button>
+        <div class="agent-item">
+          <span><span class="agent-status online"></span> Clinic Agent</span>
+          <span>Online</span>
+        </div>
+        <div class="agent-item">
+          <span><span class="agent-status busy"></span> Restaurant Agent</span>
+          <span>Busy</span>
+        </div>
       </div>
     </div>
-  </aside>
 
-  <!-- Notification Bell -->
-  <div style="position: fixed; top: 24px; right: 32px; z-index: 10;">
-    <button class="notification-bell" id="notificationBell">
-      <i class="fas fa-bell"></i>
-      <span class="notification-badge"></span>
-    </button>
-    <div class="notifications-dropdown" id="notificationsDropdown">
-      <div class="notifications-header">
-        <h3>Notifications</h3>
-        <span style="font-size: 13px; color: var(--text-secondary);">Mark all as read</span>
+    <div class="panel">
+      <div class="panel-header">Recent Calls</div>
+      <div class="call-list">
+        <div class="call-item">
+          <span>John D.</span>
+          <span class="status">Completed</span>
+        </div>
+        <div class="call-item">
+          <span>Sarah K.</span>
+          <span class="status">In Progress</span>
+        </div>
+        <div class="call-item">
+          <span>Mike T.</span>
+          <span class="status">Missed</span>
+        </div>
       </div>
-      <div class="notifications-list">
-        <div class="notification-item">
-          <div class="notification-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
-          <div class="notification-content">
-            <h4>New reservation</h4>
-            <p id="notifAgent">AI Agent</p>
-            <div class="notification-time">2 min ago</div>
-          </div>
-        </div>
-        <div class="notification-item">
-          <div class="notification-icon">
-            <i class="fas fa-phone"></i>
-          </div>
-          <div class="notification-content">
-            <h4>Missed call</h4>
-            <p id="notifAgent2">AI Agent</p>
-            <div class="notification-time">15 min ago</div>
-          </div>
-        </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Performance</div>
+      <div class="chart">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
       </div>
     </div>
   </div>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="view active" id="overview-view">
-      <div class="card welcome-card">
-        <h1>Welcome back!</h1>
-        <p>Your AI agent is ready to work 24/7.</p>
-        <div class="plan-tag" id="planTag">Loading...</div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="minutesStat">0 / 0</div>
-          <div class="stat-label">Minutes used</div>
-          <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="agentsCount">1</div>
-          <div class="stat-label">Active agents</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">98%</div>
-          <div class="stat-label">Customer satisfaction</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h2>My AI Agent</h2>
-          <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add Agent</button>
-        </div>
-        <div class="agent-list">
-          <div class="agent-item">
-            <div class="agent-icon">🤖</div>
-            <div class="agent-info">
-              <h3 id="agentName">Loading...</h3>
-              <p id="agentPhone">+421 908 XXX XXX</p>
-            </div>
-            <button class="btn-ghost" onclick="openAgentSettings()">Settings</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Other views are minimal – focus on Overview for now -->
-  </main>
-
-  <!-- AGENT SETTINGS MODAL -->
-  <div class="modal" id="agentSettingsModal">
-    <div class="modal-content auth-modal" style="max-width: 500px;">
-      <button class="close-modal" onclick="closeAgentSettingsModal()">✕</button>
-      <h2>Agent Settings</h2>
-      <div class="input-group">
-        <label>Phone Number</label>
-        <input type="text" id="settingsPhone" placeholder="+421..." />
-      </div>
-      <button class="btn-primary btn-block" onclick="saveAgentSettings()">Save</button>
-    </div>
-  </div>
-
-  <script>
-    // Načítať údaje z Firebase
-    function loadUserData() {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          document.getElementById('userEmail').textContent = user.email;
-          firebase.firestore().collection("users").doc(user.uid).get().then(doc => {
-            if (doc.exists) {
-              const data = doc.data();
-              const agent = data.agent || 'AI Agent';
-              const plan = data.plan || 'Free';
-              const minutes = data.minutes || 0;
-              const used = data.usedMinutes || 0;
-              const phone = data.phone || '+421 908 XXX XXX';
-
-              document.getElementById('userName').textContent = agent;
-              document.getElementById('agentName').textContent = agent;
-              document.getElementById('notifAgent').textContent = agent;
-              document.getElementById('notifAgent2').textContent = agent;
-              document.getElementById('planTag').textContent = `${plan} Plan`;
-              document.getElementById('agentPhone').textContent = phone;
-              document.getElementById('settingsPhone').value = phone;
-              document.getElementById('minutesStat').textContent = `${used} / ${minutes}`;
-              
-              const percent = minutes > 0 ? (used / minutes * 100) : 0;
-              document.getElementById('progressFill').style.width = `${Math.min(percent, 100)}%`;
-            } else {
-              // Ak nemá údaje, presmeruj na marketplace
-              window.location.href = 'marketplace.html';
-            }
-          });
-        } else {
-          window.location.href = 'marketplace.html';
-        }
-      });
-    }
-
-    // Logout
-    function logout() {
-      firebase.auth().signOut().then(() => {
-        window.location.href = 'marketplace.html';
-      });
-    }
-
-    // Agent Settings
-    function openAgentSettings() {
-      document.getElementById('agentSettingsModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeAgentSettingsModal() {
-      document.getElementById('agentSettingsModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function saveAgentSettings() {
-      const newPhone = document.getElementById('settingsPhone').value;
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          firebase.firestore().collection("users").doc(user.uid).update({
-            phone: newPhone
-          }).then(() => {
-            document.getElementById('agentPhone').textContent = newPhone;
-            closeAgentSettingsModal();
-            alert('Phone number updated!');
-          });
-        }
-      });
-    }
-
-    // Notifications
-    document.getElementById('notificationBell').addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.getElementById('notificationsDropdown').classList.toggle('active');
-    });
-
-    document.addEventListener('click', (e) => {
-      const dropdown = document.getElementById('notificationsDropdown');
-      const bell = document.getElementById('notificationBell');
-      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
-        dropdown.classList.remove('active');
-      }
-    });
-
-    // Navigation (minimal)
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
-
-    // Načítať dáta po načítaní stránky
-    document.addEventListener('DOMContentLoaded', loadUserData);
-  </script>
 </body>
 </html>
