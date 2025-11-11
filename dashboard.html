@@ -525,11 +525,11 @@
     const ctx = document.getElementById('callsChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
-      data: {
+       {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [{
           label: 'Calls per day',
-          data: [12, 19, 15, 18, 22, 30, 28],
+           [12, 19, 15, 18, 22, 30, 28],
           borderColor: '#4f86f7',
           backgroundColor: 'rgba(79, 134, 247, 0.1)',
           tension: 0.4
@@ -546,7 +546,7 @@
     const ctx2 = document.getElementById('minutesChart').getContext('2d');
     new Chart(ctx2, {
       type: 'doughnut',
-      data: {
+       {
         labels: ['Booking', 'Info', 'Missed'],
         datasets: [{
           data: [60, 30, 10],
@@ -564,7 +564,7 @@
     const ctx3 = document.getElementById('weeklyCallsChart').getContext('2d');
     new Chart(ctx3, {
       type: 'bar',
-      data: {
+       {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [{
           label: 'Calls per week',
@@ -584,7 +584,7 @@
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [{
           label: 'Minutes used',
-          data: [250, 280, 320, 350],
+           [250, 280, 320, 350],
           backgroundColor: '#34d399'
         }]
       },
