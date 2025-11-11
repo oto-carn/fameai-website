@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Restaurant AI – FameAI</title>
+  <title>BarberBot #204 – FameAI</title>
   <link rel="stylesheet" href="dashboard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -22,20 +23,23 @@
       <a href="index.html" class="logo">FameAI</a>
     </div>
     <nav class="nav-menu">
-      <a href="dashboard.html" class="nav-item">
-        <i class="fas fa-home"></i> Overview
+      <a href="#" class="nav-item active" data-view="dashboard">
+        <i class="fas fa-home"></i> Dashboard
       </a>
-      <a href="dashboard.html#agents" class="nav-item active">
-        <i class="fas fa-robot"></i> My Agents
+      <a href="#" class="nav-item" data-view="calls">
+        <i class="fas fa-phone"></i> Calls
       </a>
-      <a href="dashboard.html#analytics" class="nav-item">
+      <a href="#" class="nav-item" data-view="analytics">
         <i class="fas fa-chart-line"></i> Analytics
       </a>
-      <a href="dashboard.html#billing" class="nav-item">
+      <a href="#" class="nav-item" data-view="settings">
+        <i class="fas fa-cog"></i> Agent Settings
+      </a>
+      <a href="#" class="nav-item" data-view="billing">
         <i class="fas fa-credit-card"></i> Billing
       </a>
-      <a href="dashboard.html#settings" class="nav-item">
-        <i class="fas fa-cog"></i> Settings
+      <a href="#" class="nav-item" data-view="support">
+        <i class="fas fa-headset"></i> Support
       </a>
     </nav>
     <div class="sidebar-footer">
@@ -43,168 +47,277 @@
         <div class="user-avatar">JD</div>
         <div>
           <div class="user-name">John Doe</div>
-          <div class="user-email">john@restaurant.sk</div>
+          <div class="user-email">john@barbershop.sk</div>
         </div>
         <button class="btn-ghost" style="margin-top:12px;" onclick="location.href='marketplace.html'">Logout</button>
       </div>
     </div>
   </aside>
 
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="container">
+      <div class="top-bar-content">
+        <div class="agent-name">BarberBot #204</div>
+        <div class="top-bar-actions">
+          <button class="notification-bell" id="notificationBell">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </div>
+          <div class="user-profile">
+            <div class="user-initials">JD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notifications Dropdown -->
+  <div class="notifications-dropdown" id="notificationsDropdown">
+    <div class="notifications-header">
+      <h3>Notifications</h3>
+      <span style="font-size: 13px; color: var(--text-secondary);">Mark all as read</span>
+    </div>
+    <div class="notifications-list">
+      <div class="notification-item">
+        <div class="notification-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="notification-content">
+          <h4>New booking</h4>
+          <p>BarberBot: Appointment for tomorrow at 3 PM</p>
+          <div class="notification-time">2 min ago</div>
+        </div>
+      </div>
+      <div class="notification-item">
+        <div class="notification-icon">
+          <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="notification-content">
+          <h4>Low minutes</h4>
+          <p>You've used 80% of your monthly minutes</p>
+          <div class="notification-time">15 min ago</div>
+        </div>
+      </div>
+      <div class="notification-item">
+        <div class="notification-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="notification-content">
+          <h4>Weekly report</h4>
+          <p>Your agent handled 120 calls this week</p>
+          <div class="notification-time">1 hour ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
   <main class="main-content">
-    <div class="page-header">
-      <a href="dashboard.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Back to dashboard
-      </a>
-      <div class="agent-header">
-        <div class="agent-icon-large">🍽️</div>
-        <div>
-          <h1>Restaurant AI</h1>
-          <p class="agent-status active">Active • +421 908 123 456</p>
+    <!-- DASHBOARD -->
+    <div class="view active" id="dashboard-view">
+      <div class="card welcome-card">
+        <h1>Hello, John!</h1>
+        <p>Your AI agent is working 24/7 to handle bookings and inquiries.</p>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">273 / 400</div>
+          <div class="stat-label">Minutes used</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+          <button class="btn-secondary" style="margin-top: 12px;" onclick="location.href='billing.html'">Buy more minutes</button>
         </div>
-        <div class="agent-controls">
-          <button class="btn-secondary">Pause Agent</button>
-          <button class="btn-primary">Settings</button>
+        <div class="stat-card">
+          <div class="stat-value">120</div>
+          <div class="stat-label">Calls this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">94%</div>
+          <div class="stat-label">Customer satisfaction</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Pro Plan</div>
+          <div class="stat-label">Active plan</div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Calls per day (last 7 days)</h3>
+          <canvas id="callsChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Minutes distribution</h3>
+          <canvas id="minutesChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Recent Activity</h2>
+          <button class="btn-ghost">View all</button>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Appointment booked</h4>
+              <p>Customer booked for tomorrow at 3 PM</p>
+              <div class="activity-time">2 min ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Missed call</h4>
+              <p>Customer called but no response</p>
+              <div class="activity-time">15 min ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="fas fa-comment"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Info request</h4>
+              <p>Customer asked about prices</p>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- STATS -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-value">42</div>
-        <div class="stat-label">Calls today</div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">85%</div>
-        <div class="stat-label">Conversion rate</div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">4.2 min</div>
-        <div class="stat-label">Avg. call duration</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">98%</div>
-        <div class="stat-label">Customer satisfaction</div>
-        <div class="progress-bar"><div class="progress-fill" style="width: 98%"></div></div>
-      </div>
-    </div>
-
-    <!-- DETAILED ANALYTICS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>Call Analytics</h2>
+    <!-- CALLS -->
+    <div class="view" id="calls-view">
+      <div class="page-header">
+        <h1>All Calls</h1>
         <div class="filter-group">
-          <button class="filter-btn active">Today</button>
-          <button class="filter-btn">7 days</button>
-          <button class="filter-btn">30 days</button>
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Successful</button>
+          <button class="filter-btn">Failed</button>
         </div>
       </div>
-      <div class="analytics-charts">
-        <div class="chart-container">
-          <h3>Call Volume</h3>
-          <div class="chart">
-            <div class="bar" style="height: 40%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 60%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 80%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 50%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 70%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 90%; background: #4f86f7;"></div>
-            <div class="bar" style="height: 100%; background: #4f86f7;"></div>
-          </div>
-        </div>
-        <div class="chart-container">
-          <h3>Conversion Rate</h3>
-          <div class="chart">
-            <div class="bar" style="height: 70%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 80%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 85%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 75%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 90%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 95%; background: #38b2ac;"></div>
-            <div class="bar" style="height: 88%; background: #38b2ac;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- CALL LOGS -->
-    <div class="card">
-      <div class="card-header">
-        <h2>Recent Calls</h2>
-        <button class="btn-ghost">Export CSV</button>
-      </div>
-      <div class="call-log-table">
-        <table>
+      <div class="card">
+        <table class="calls-table">
           <thead>
             <tr>
-              <th>Time</th>
-              <th>Caller</th>
+              <th>Date & Time</th>
               <th>Duration</th>
-              <th>Outcome</th>
-              <th>Notes</th>
+              <th>Result</th>
+              <th>Customer</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>14:32</td>
-              <td>+421 908 111 222</td>
-              <td>3:21</td>
-              <td><span class="status-badge status-success">Booking confirmed</span></td>
-              <td>Table for 2 at 7 PM</td>
+              <td>Nov 12, 14:32</td>
+              <td>4:21</td>
+              <td><span class="status-badge status-success">Booked</span></td>
+              <td>+421 908 123 456</td>
+              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
             </tr>
             <tr>
-              <td>13:45</td>
-              <td>+421 908 333 444</td>
+              <td>Nov 12, 13:45</td>
               <td>2:18</td>
-              <td><span class="status-badge status-warning">Callback requested</span></td>
-              <td>Will call back at 16:00</td>
+              <td><span class="status-badge status-warning">Info given</span></td>
+              <td>+421 908 333 444</td>
+              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
             </tr>
             <tr>
-              <td>12:10</td>
+              <td>Nov 12, 12:10</td>
+              <td>3:05</td>
+              <td><span class="status-badge status-success">Booked</span></td>
               <td>+421 908 555 666</td>
-              <td>4:05</td>
-              <td><span class="status-badge status-success">Order placed</span></td>
-              <td>Lunch takeaway for 3 people</td>
+              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
             </tr>
             <tr>
-              <td>11:22</td>
-              <td>+421 908 777 888</td>
+              <td>Nov 12, 11:22</td>
               <td>1:42</td>
-              <td><span class="status-badge status-error">No-show</span></td>
-              <td>Reservation cancelled</td>
+              <td><span class="status-badge status-error">Missed</span></td>
+              <td>+421 908 777 888</td>
+              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
             </tr>
             <tr>
-              <td>10:35</td>
-              <td>+421 908 999 000</td>
+              <td>Nov 12, 10:35</td>
               <td>5:11</td>
-              <td><span class="status-badge status-success">Special request</span></td>
-              <td>Vegan menu inquiry</td>
+              <td><span class="status-badge status-success">Inquiry</span></td>
+              <td>+421 908 999 000</td>
+              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
             </tr>
           </tbody>
         </table>
+        <div class="table-actions">
+          <button class="btn-ghost">Export CSV</button>
+        </div>
       </div>
     </div>
 
-    <!-- AGENT SETTINGS -->
-    <div class="card">
-      <h2>Agent Settings</h2>
-      <div class="settings-grid">
-        <div class="setting-item">
-          <label>Phone Number</label>
-          <input type="text" value="+421 908 123 456" />
+    <!-- ANALYTICS -->
+    <div class="view" id="analytics-view">
+      <div class="page-header">
+        <h1>Analytics</h1>
+        <div class="filter-group">
+          <button class="filter-btn active">Last 30 days</button>
+          <button class="filter-btn">Last 90 days</button>
         </div>
-        <div class="setting-item">
-          <label>AI Voice</label>
-          <select class="form-select">
-            <option>Emma (Female, EN)</option>
-            <option selected>David (Male, EN)</option>
-            <option>Custom Voice</option>
-          </select>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h3>Calls per week</h3>
+          <canvas id="weeklyCallsChart"></canvas>
         </div>
-        <div class="setting-item">
+        <div class="chart-card">
+          <h3>Minutes used by week</h3>
+          <canvas id="minutesByWeekChart"></canvas>
+        </div>
+      </div>
+
+      <div class="insights-grid">
+        <div class="insight-card">
+          <h3>Performance Insight</h3>
+          <p>Your agent saved 15 hours of manual work this week.</p>
+        </div>
+        <div class="insight-card">
+          <h3>Improvement</h3>
+          <p>Conversion rate improved by 12% vs. last month.</p>
+        </div>
+      </div>
+
+      <div class="ai-summary">
+        <h3>AI Summary</h3>
+        <p>Your assistant handled 120 calls this month and achieved a 94% success rate.</p>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="settings-view">
+      <div class="page-header">
+        <h1>Agent Settings</h1>
+      </div>
+
+      <div class="settings-section">
+        <h2>General Info</h2>
+        <div class="input-group">
+          <label>Agent Name</label>
+          <input type="text" value="BarberBot" />
+        </div>
+        <div class="input-group">
+          <label>Service Type</label>
+          <input type="text" value="Barbershop AI receptionist" />
+        </div>
+        <div class="input-group">
           <label>Language</label>
           <select class="form-select">
             <option>Slovak</option>
@@ -212,120 +325,158 @@
             <option>German</option>
           </select>
         </div>
-        <div class="setting-item">
-          <label>Business Hours</label>
-          <div class="hours-inputs">
-            <input type="time" value="09:00" /> to <input type="time" value="22:00" />
+      </div>
+
+      <div class="settings-section">
+        <h2>Phone Settings</h2>
+        <div class="input-group">
+          <label>Phone Number</label>
+          <input type="text" value="+421 908 123 456" />
+        </div>
+        <div class="input-group">
+          <label>Availability</label>
+          <div class="hours-input">
+            <input type="time" value="09:00" /> to <input type="time" value="18:00" />
           </div>
         </div>
-        <div class="setting-item">
-          <label>Response Speed</label>
-          <select class="form-select">
-            <option>Fast (2s delay)</option>
-            <option selected>Normal (4s delay)</option>
-            <option>Slow (6s delay)</option>
-          </select>
-        </div>
-        <div class="setting-item">
-          <label>Custom Greeting</label>
-          <textarea class="form-textarea" placeholder="Hello, this is Restaurant AI...">Hello, this is Restaurant AI. How can I help you today?</textarea>
+      </div>
+
+      <div class="settings-section">
+        <h2>Google Calendar</h2>
+        <button class="btn-primary">Connect Google Calendar</button>
+        <div class="calendar-preview">
+          <h4>Upcoming Bookings</h4>
+          <div class="booking-item">
+            <div>Nov 13 • 3:00 PM</div>
+            <div>John Smith</div>
+          </div>
+          <div class="booking-item">
+            <div>Nov 14 • 10:00 AM</div>
+            <div>Peter Doe</div>
+          </div>
         </div>
       </div>
+
+      <div class="settings-section">
+        <h2>Custom Responses</h2>
+        <div class="input-group">
+          <label>Greeting Message</label>
+          <textarea class="form-textarea">Hello, this is BarberBot. How can I help you today?</textarea>
+        </div>
+        <div class="input-group">
+          <label>Booking Confirmation</label>
+          <textarea class="form-textarea">Great! Your appointment is booked for tomorrow at 3 PM. See you soon!</textarea>
+        </div>
+        <div class="input-group">
+          <label>Goodbye Phrase</label>
+          <textarea class="form-textarea">Thank you for calling. Have a great day!</textarea>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h2>Test Agent</h2>
+        <button class="btn-secondary">Test your agent now</button>
+      </div>
+
       <button class="btn-primary">Save Settings</button>
     </div>
 
-    <!-- INTEGRATIONS -->
-    <div class="card">
-      <h2>Integrations</h2>
-      <div class="integration-list">
-        <div class="integration-item">
-          <div class="integration-icon">
-            <i class="fab fa-google"></i>
+    <!-- BILLING -->
+    <div class="view" id="billing-view">
+      <div class="page-header">
+        <h1>Billing</h1>
+      </div>
+
+      <div class="card billing-overview">
+        <h3>Current Plan</h3>
+        <div class="plan-info">
+          <div>
+            <div class="plan-name">Pro Plan</div>
+            <div class="plan-price">349 €/month</div>
+            <div class="plan-duration">Billing period: Nov 1 – Nov 30</div>
           </div>
-          <div class="integration-info">
-            <h3>Google Calendar</h3>
-            <p>Sync bookings and appointments</p>
-          </div>
-          <label class="switch">
-            <input type="checkbox" checked />
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="integration-item">
-          <div class="integration-icon">
-            <i class="fab fa-slack"></i>
-          </div>
-          <div class="integration-info">
-            <h3>Slack Notifications</h3>
-            <p>Get notified on new calls</p>
-          </div>
-          <label class="switch">
-            <input type="checkbox" />
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div class="integration-item">
-          <div class="integration-icon">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <div class="integration-info">
-            <h3>Email Reports</h3>
-            <p>Receive daily stats via email</p>
-          </div>
-          <label class="switch">
-            <input type="checkbox" checked />
-            <span class="slider"></span>
-          </label>
+          <button class="btn-secondary">Upgrade Plan</button>
         </div>
       </div>
-    </div>
 
-    <!-- PERFORMANCE -->
-    <div class="card">
-      <h2>Performance Metrics</h2>
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-value">98.2%</div>
-          <div class="metric-label">Uptime</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">0.8s</div>
-          <div class="metric-label">Avg. response time</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">100%</div>
-          <div class="metric-label">Call pickup rate</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-value">4.2</div>
-          <div class="metric-label">Avg. satisfaction</div>
+      <div class="card payment-method">
+        <h3>Payment Method</h3>
+        <div class="payment-card">
+          <i class="fab fa-cc-visa"></i>
+          <span>Visa •••• 4242</span>
+          <button class="btn-ghost">Edit</button>
         </div>
       </div>
+
+      <div class="card invoice-history">
+        <h3>Invoice History</h3>
+        <div class="invoice-list">
+          <div class="invoice-item">
+            <div>
+              <div class="invoice-date">Nov 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
+            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
+          </div>
+          <div class="invoice-item">
+            <div>
+              <div class="invoice-date">Oct 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
+            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary">Buy extra minutes</button>
     </div>
 
-    <!-- CUSTOMER FEEDBACK -->
-    <div class="card">
-      <h2>Customer Feedback</h2>
-      <div class="feedback-list">
-        <div class="feedback-item">
-          <div class="feedback-rating">★★★★★</div>
-          <p>"Great service! Very helpful with booking."</p>
-          <div class="feedback-meta">
-            <span>Apr 28 • +421 908 111 222</span>
+    <!-- SUPPORT -->
+    <div class="view" id="support-view">
+      <div class="page-header">
+        <h1>Help Center</h1>
+      </div>
+
+      <div class="support-grid">
+        <div class="support-section">
+          <h2>FAQ</h2>
+          <div class="faq-item">
+            <h3>How does the AI agent work?</h3>
+            <p>It handles calls automatically using natural language processing and voice synthesis.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I change my plan?</h3>
+            <p>Yes, anytime in the Billing section.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What if calls are not working?</h3>
+            <p>Check your phone number settings or contact support.</p>
           </div>
         </div>
-        <div class="feedback-item">
-          <div class="feedback-rating">★★★★☆</div>
-          <p>"Fast response, but could be more polite."</p>
-          <div class="feedback-meta">
-            <span>Apr 27 • +421 908 333 444</span>
+
+        <div class="support-section">
+          <h2>Contact Support</h2>
+          <div class="contact-form">
+            <input type="text" placeholder="Your Name" />
+            <input type="email" placeholder="Your Email" />
+            <textarea placeholder="Describe your issue..."></textarea>
+            <button class="btn-primary">Send Ticket</button>
           </div>
         </div>
-        <div class="feedback-item">
-          <div class="feedback-rating">★★★★★</div>
-          <p>"Perfect! Booked a table in seconds."</p>
-          <div class="feedback-meta">
-            <span>Apr 26 • +421 908 555 666</span>
+
+        <div class="support-section">
+          <h2>Tutorials</h2>
+          <div class="tutorial-item">
+            <h3>How to set up your agent</h3>
+            <p>Learn how to configure your AI agent in 5 minutes.</p>
+            <button class="btn-ghost">Watch video</button>
+          </div>
+          <div class="tutorial-item">
+            <h3>Connecting Google Calendar</h3>
+            <p>Step-by-step guide to sync your bookings.</p>
+            <button class="btn-ghost">Watch video</button>
           </div>
         </div>
       </div>
@@ -333,18 +484,113 @@
   </main>
 
   <script>
-    // Toggle status badge
-    document.querySelector('.status-toggle input').addEventListener('change', function() {
-      const statusText = document.querySelector('.status-text');
-      statusText.textContent = this.checked ? 'Active' : 'Inactive';
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        item.classList.add('active');
+        const viewId = item.dataset.view + '-view';
+        document.getElementById(viewId).classList.add('active');
+      });
     });
 
-    // Filter buttons
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
+    // Notifications dropdown
+    document.getElementById('notificationBell').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('notificationsDropdown').classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('notificationsDropdown');
+      const bell = document.getElementById('notificationBell');
+      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Theme toggle
+    document.querySelector('.theme-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      if (document.body.classList.contains('light-mode')) {
+        icon.className = 'fas fa-sun';
+      } else {
+        icon.className = 'fas fa-moon';
+      }
+    });
+
+    // Charts
+    const ctx = document.getElementById('callsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Calls per day',
+          data: [12, 19, 15, 18, 22, 30, 28],
+          borderColor: '#4f86f7',
+          backgroundColor: 'rgba(79, 134, 247, 0.1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    const ctx2 = document.getElementById('minutesChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Booking', 'Info', 'Missed'],
+        datasets: [{
+          data: [60, 30, 10],
+          backgroundColor: ['#3b82f6', '#34d399', '#f87171']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'right' }
+        }
+      }
+    });
+
+    const ctx3 = document.getElementById('weeklyCallsChart').getContext('2d');
+    new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Calls per week',
+          data: [85, 92, 110, 120],
+          backgroundColor: '#3b82f6'
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    const ctx4 = document.getElementById('minutesByWeekChart').getContext('2d');
+    new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Minutes used',
+          data: [250, 280, 320, 350],
+          backgroundColor: '#34d399'
+        }]
+      },
+      options: {
+        responsive: true
+      }
     });
   </script>
 </body>
