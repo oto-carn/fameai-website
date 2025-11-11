@@ -185,6 +185,28 @@ body {
   font-weight: 700;
 }
 
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  background: rgba(79, 134, 247, 0.1);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: rgba(79, 134, 247, 0.3);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* === CARDS === */
 .card {
   background: rgba(26, 35, 53, 0.6);
@@ -207,8 +229,8 @@ body {
 }
 
 .welcome-card {
-  background: linear-gradient(135deg, #1a2335, #151c2b);
-  border: 1px solid #2d3748;
+  background: linear-gradient(135deg, #1e293b, #1a2130);
+  border: 1px solid #334155;
   padding: 32px;
   margin-bottom: 32px;
 }
@@ -335,28 +357,6 @@ body {
 }
 
 /* === ANALYTICS === */
-.filter-group {
-  display: flex;
-  gap: 8px;
-}
-
-.filter-btn {
-  background: rgba(79, 134, 247, 0.1);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-  background: rgba(79, 134, 247, 0.3);
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
 .chart-card,
 .table-card {
   background: rgba(26, 35, 53, 0.6);
