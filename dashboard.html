@@ -1,597 +1,457 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BarberBot #204 – FameAI</title>
-  <link rel="stylesheet" href="dashboard.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FameAI Dashboard | Prehľad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 </head>
 <body>
 
-  <!-- Glows -->
-  <div class="glow glow-top-left"></div>
-  <div class="glow glow-top-right"></div>
-  <div class="glow glow-bottom-left"></div>
-  <div class="glow glow-bottom-right"></div>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="index.html" class="logo">FameAI</a>
-    </div>
-    <nav class="nav-menu">
-      <a href="#" class="nav-item active" data-view="dashboard">
-        <i class="fas fa-home"></i> Dashboard
-      </a>
-      <a href="#" class="nav-item" data-view="calls">
-        <i class="fas fa-phone"></i> Calls
-      </a>
-      <a href="#" class="nav-item" data-view="analytics">
-        <i class="fas fa-chart-line"></i> Analytics
-      </a>
-      <a href="#" class="nav-item" data-view="settings">
-        <i class="fas fa-cog"></i> Agent Settings
-      </a>
-      <a href="#" class="nav-item" data-view="billing">
-        <i class="fas fa-credit-card"></i> Billing
-      </a>
-      <a href="#" class="nav-item" data-view="support">
-        <i class="fas fa-headset"></i> Support
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="user-info">
-        <div class="user-avatar">JD</div>
-        <div>
-          <div class="user-name">John Doe</div>
-          <div class="user-email">john@barbershop.sk</div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2><i class="fas fa-robot"></i> FameAI</h2>
         </div>
-        <button class="btn-ghost" style="margin-top:12px;" onclick="location.href='marketplace.html'">Logout</button>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <div class="container">
-      <div class="top-bar-content">
-        <div class="agent-name">BarberBot #204</div>
-        <div class="top-bar-actions">
-          <button class="notification-bell" id="notificationBell">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
-          </button>
-          <div class="theme-toggle">
-            <i class="fas fa-moon"></i>
-          </div>
-          <div class="user-profile">
-            <div class="user-initials">JD</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Notifications Dropdown -->
-  <div class="notifications-dropdown" id="notificationsDropdown">
-    <div class="notifications-header">
-      <h3>Notifications</h3>
-      <span style="font-size: 13px; color: var(--text-secondary);">Mark all as read</span>
-    </div>
-    <div class="notifications-list">
-      <div class="notification-item">
-        <div class="notification-icon">
-          <i class="fas fa-calendar-check"></i>
-        </div>
-        <div class="notification-content">
-          <h4>New booking</h4>
-          <p>BarberBot: Appointment for tomorrow at 3 PM</p>
-          <div class="notification-time">2 min ago</div>
-        </div>
-      </div>
-      <div class="notification-item">
-        <div class="notification-icon">
-          <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <div class="notification-content">
-          <h4>Low minutes</h4>
-          <p>You've used 80% of your monthly minutes</p>
-          <div class="notification-time">15 min ago</div>
-        </div>
-      </div>
-      <div class="notification-item">
-        <div class="notification-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="notification-content">
-          <h4>Weekly report</h4>
-          <p>Your agent handled 120 calls this week</p>
-          <div class="notification-time">1 hour ago</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- DASHBOARD -->
-    <div class="view active" id="dashboard-view">
-      <div class="card welcome-card">
-        <h1>Hello, John!</h1>
-        <p>Your AI agent is working 24/7 to handle bookings and inquiries.</p>
-        <div class="plan-tag">Pro Plan • 349 €/month</div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">273 / 400</div>
-          <div class="stat-label">Minutes used</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
-          <button class="btn-secondary" style="margin-top: 12px;" onclick="location.href='billing.html'">Buy more minutes</button>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">120</div>
-          <div class="stat-label">Calls this month</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">94%</div>
-          <div class="stat-label">Customer satisfaction</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">Pro Plan</div>
-          <div class="stat-label">Active plan</div>
-        </div>
-      </div>
-
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Calls per day (last 7 days)</h3>
-          <canvas id="callsChart"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>Minutes distribution</h3>
-          <canvas id="minutesChart"></canvas>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h2>Recent Activity</h2>
-          <button class="btn-ghost">View all</button>
-        </div>
-        <div class="activity-list">
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i class="fas fa-calendar-check"></i>
+        <div class="menu">
+            <div class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span class="menu-text">Dashboard</span>
             </div>
-            <div class="activity-content">
-              <h4>Appointment booked</h4>
-              <p>Customer booked for tomorrow at 3 PM</p>
-              <div class="activity-time">2 min ago</div>
+            <div class="menu-item">
+                <i class="fas fa-phone"></i>
+                <span class="menu-text">Calls</span>
             </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i class="fas fa-phone"></i>
+            <div class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="menu-text">Analytics</span>
             </div>
-            <div class="activity-content">
-              <h4>Missed call</h4>
-              <p>Customer called but no response</p>
-              <div class="activity-time">15 min ago</div>
+            <div class="menu-item">
+                <i class="fas fa-cogs"></i>
+                <span class="menu-text">Agent Settings</span>
             </div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-icon">
-              <i class="fas fa-comment"></i>
+            <div class="menu-item">
+                <i class="fas fa-credit-card"></i>
+                <span class="menu-text">Billing</span>
             </div>
-            <div class="activity-content">
-              <h4>Info request</h4>
-              <p>Customer asked about prices</p>
-              <div class="activity-time">1 hour ago</div>
+            <div class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span class="menu-text">Support</span>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="logout menu-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span>
+        </div>
     </div>
 
-    <!-- CALLS -->
-    <div class="view" id="calls-view">
-      <div class="page-header">
-        <h1>All Calls</h1>
-        <div class="filter-group">
-          <button class="filter-btn active">All</button>
-          <button class="filter-btn">Successful</button>
-          <button class="filter-btn">Failed</button>
-        </div>
-      </div>
+    <!-- Main Content -->
+    <div class="main-content">
 
-      <div class="card">
-        <table class="calls-table">
-          <thead>
-            <tr>
-              <th>Date & Time</th>
-              <th>Duration</th>
-              <th>Result</th>
-              <th>Customer</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Nov 12, 14:32</td>
-              <td>4:21</td>
-              <td><span class="status-badge status-success">Booked</span></td>
-              <td>+421 908 123 456</td>
-              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
-            </tr>
-            <tr>
-              <td>Nov 12, 13:45</td>
-              <td>2:18</td>
-              <td><span class="status-badge status-warning">Info given</span></td>
-              <td>+421 908 333 444</td>
-              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
-            </tr>
-            <tr>
-              <td>Nov 12, 12:10</td>
-              <td>3:05</td>
-              <td><span class="status-badge status-success">Booked</span></td>
-              <td>+421 908 555 666</td>
-              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
-            </tr>
-            <tr>
-              <td>Nov 12, 11:22</td>
-              <td>1:42</td>
-              <td><span class="status-badge status-error">Missed</span></td>
-              <td>+421 908 777 888</td>
-              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
-            </tr>
-            <tr>
-              <td>Nov 12, 10:35</td>
-              <td>5:11</td>
-              <td><span class="status-badge status-success">Inquiry</span></td>
-              <td>+421 908 999 000</td>
-              <td><button class="btn-ghost"><i class="fas fa-play-circle"></i></button></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="table-actions">
-          <button class="btn-ghost">Export CSV</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ANALYTICS -->
-    <div class="view" id="analytics-view">
-      <div class="page-header">
-        <h1>Analytics</h1>
-        <div class="filter-group">
-          <button class="filter-btn active">Last 30 days</button>
-          <button class="filter-btn">Last 90 days</button>
-        </div>
-      </div>
-
-      <div class="chart-grid">
-        <div class="chart-card">
-          <h3>Calls per week</h3>
-          <canvas id="weeklyCallsChart"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>Minutes used by week</h3>
-          <canvas id="minutesByWeekChart"></canvas>
-        </div>
-      </div>
-
-      <div class="insights-grid">
-        <div class="insight-card">
-          <h3>Performance Insight</h3>
-          <p>Your agent saved 15 hours of manual work this week.</p>
-        </div>
-        <div class="insight-card">
-          <h3>Improvement</h3>
-          <p>Conversion rate improved by 12% vs. last month.</p>
-        </div>
-      </div>
-
-      <div class="ai-summary">
-        <h3>AI Summary</h3>
-        <p>Your assistant handled 120 calls this month and achieved a 94% success rate.</p>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div class="view" id="settings-view">
-      <div class="page-header">
-        <h1>Agent Settings</h1>
-      </div>
-
-      <div class="settings-section">
-        <h2>General Info</h2>
-        <div class="input-group">
-          <label>Agent Name</label>
-          <input type="text" value="BarberBot" />
-        </div>
-        <div class="input-group">
-          <label>Service Type</label>
-          <input type="text" value="Barbershop AI receptionist" />
-        </div>
-        <div class="input-group">
-          <label>Language</label>
-          <select class="form-select">
-            <option>Slovak</option>
-            <option>English</option>
-            <option>German</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <h2>Phone Settings</h2>
-        <div class="input-group">
-          <label>Phone Number</label>
-          <input type="text" value="+421 908 123 456" />
-        </div>
-        <div class="input-group">
-          <label>Availability</label>
-          <div class="hours-input">
-            <input type="time" value="09:00" /> to <input type="time" value="18:00" />
-          </div>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <h2>Google Calendar</h2>
-        <button class="btn-primary">Connect Google Calendar</button>
-        <div class="calendar-preview">
-          <h4>Upcoming Bookings</h4>
-          <div class="booking-item">
-            <div>Nov 13 • 3:00 PM</div>
-            <div>John Smith</div>
-          </div>
-          <div class="booking-item">
-            <div>Nov 14 • 10:00 AM</div>
-            <div>Peter Doe</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <h2>Custom Responses</h2>
-        <div class="input-group">
-          <label>Greeting Message</label>
-          <textarea class="form-textarea">Hello, this is BarberBot. How can I help you today?</textarea>
-        </div>
-        <div class="input-group">
-          <label>Booking Confirmation</label>
-          <textarea class="form-textarea">Great! Your appointment is booked for tomorrow at 3 PM. See you soon!</textarea>
-        </div>
-        <div class="input-group">
-          <label>Goodbye Phrase</label>
-          <textarea class="form-textarea">Thank you for calling. Have a great day!</textarea>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <h2>Test Agent</h2>
-        <button class="btn-secondary">Test your agent now</button>
-      </div>
-
-      <button class="btn-primary">Save Settings</button>
-    </div>
-
-    <!-- BILLING -->
-    <div class="view" id="billing-view">
-      <div class="page-header">
-        <h1>Billing</h1>
-      </div>
-
-      <div class="card billing-overview">
-        <h3>Current Plan</h3>
-        <div class="plan-info">
-          <div>
-            <div class="plan-name">Pro Plan</div>
-            <div class="plan-price">349 €/month</div>
-            <div class="plan-duration">Billing period: Nov 1 – Nov 30</div>
-          </div>
-          <button class="btn-secondary">Upgrade Plan</button>
-        </div>
-      </div>
-
-      <div class="card payment-method">
-        <h3>Payment Method</h3>
-        <div class="payment-card">
-          <i class="fab fa-cc-visa"></i>
-          <span>Visa •••• 4242</span>
-          <button class="btn-ghost">Edit</button>
-        </div>
-      </div>
-
-      <div class="card invoice-history">
-        <h3>Invoice History</h3>
-        <div class="invoice-list">
-          <div class="invoice-item">
-            <div>
-              <div class="invoice-date">Nov 1, 2025</div>
-              <div class="invoice-desc">Pro Plan</div>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="page-title">Dashboard</h1>
+            <div class="user-info">
+                <div class="profile-circle">JD</div>
+                <div class="user-name">John Doe</div>
             </div>
-            <div class="invoice-amount">349 €</div>
-            <span class="invoice-status paid">Paid</span>
-          </div>
-          <div class="invoice-item">
-            <div>
-              <div class="invoice-date">Oct 1, 2025</div>
-              <div class="invoice-desc">Pro Plan</div>
+            <div class="top-icons">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-sun"></i>
+                </button>
             </div>
-            <div class="invoice-amount">349 €</div>
-            <span class="invoice-status paid">Paid</span>
-          </div>
         </div>
-      </div>
 
-      <button class="btn-primary">Buy extra minutes</button>
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Available Minutes</div>
+                <div class="stat-value">1,248</div>
+                <div class="stat-change">78% of 1600 minutes</div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%;"></div>
+                    </div>
+                    <div class="progress-text">78% of 1600 minutes</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Used Minutes</div>
+                <div class="stat-value">352</div>
+                <div class="stat-change negative">-12% from last month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Active Calls</div>
+                <div class="stat-value">24</div>
+                <div class="stat-change">+3 from yesterday</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Success Rate</div>
+                <div class="stat-value">94.7%</div>
+                <div class="stat-change">+1.2% from last week</div>
+            </div>
+        </div>
+
+        <!-- Main Chart -->
+        <div class="chart-card main-chart">
+            <div class="chart-header">
+                <div class="chart-title">Agent Performance & Activity</div>
+                <div class="chart-actions">
+                    <button class="active">Month</button>
+                    <button>Quarter</button>
+                    <button>Year</button>
+                </div>
+            </div>
+            <canvas id="mainChart"></canvas>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-container">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Call Distribution</div>
+                </div>
+                <canvas id="doughnutChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Call Outcomes</div>
+                </div>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Agent Info -->
+        <div class="agent-info-card">
+            <div class="agent-header">
+                <div class="agent-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="agent-details">
+                    <h3>AI Receptionist Pro</h3>
+                    <p>English, Czech | 24/7 Availability | Sales & Support</p>
+                </div>
+            </div>
+            <div class="agent-stats">
+                <div class="agent-stat">
+                    <div class="agent-stat-value">1,248</div>
+                    <div class="agent-stat-label">Minutes Left</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="agent-stat-value">94.7%</div>
+                    <div class="agent-stat-label">Accuracy</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="agent-stat-value">24/7</div>
+                    <div class="agent-stat-label">Uptime</div>
+                </div>
+                <div class="agent-stat">
+                    <div class="agent-stat-value">+12</div>
+                    <div class="agent-stat-label">New Leads</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="activity-section">
+            <div class="activity-header">
+                <div class="chart-title">Recent Activity</div>
+            </div>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">New call completed</div>
+                        <div class="activity-time">2 minutes ago</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Performance report generated</div>
+                        <div class="activity-time">1 hour ago</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">AI model updated</div>
+                        <div class="activity-time">3 hours ago</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Billing invoice generated</div>
+                        <div class="activity-time">Yesterday</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Lead booked for tomorrow</div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Calls Table -->
+        <div class="calls-section">
+            <div class="calls-header">
+                <div class="chart-title">Recent Calls</div>
+            </div>
+            <table id="callsTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Phone</th>
+                        <th>Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025-11-12 14:30</td>
+                        <td>8 min 24 sec</td>
+                        <td><span class="status-badge success">Completed</span></td>
+                        <td>+1 555-1234</td>
+                        <td>Lead Generated</td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-12 11:15</td>
+                        <td>3 min 12 sec</td>
+                        <td><span class="status-badge warning">Missed</span></td>
+                        <td>+421 912 345 678</td>
+                        <td>No Answer</td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-11 16:45</td>
+                        <td>12 min 05 sec</td>
+                        <td><span class="status-badge success">Completed</span></td>
+                        <td>+44 20 7946 0958</td>
+                        <td>Sale Closed</td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-10 10:20</td>
+                        <td>5 min 40 sec</td>
+                        <td><span class="status-badge danger">Failed</span></td>
+                        <td>+33 1 23 45 67 89</td>
+                        <td>Line Busy</td>
+                    </tr>
+                    <tr>
+                        <td>2025-11-09 15:05</td>
+                        <td>10 min 33 sec</td>
+                        <td><span class="status-badge success">Completed</span></td>
+                        <td>+61 2 9876 5432</td>
+                        <td>Appointment Set</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-    <!-- SUPPORT -->
-    <div class="view" id="support-view">
-      <div class="page-header">
-        <h1>Help Center</h1>
-      </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main Chart - Complex Line Chart
+            const mainCtx = document.getElementById('mainChart').getContext('2d');
+            new Chart(mainCtx, {
+                type: 'line',
+                 {
+                    labels: ['Nov 1', 'Nov 2', 'Nov 3', 'Nov 4', 'Nov 5', 'Nov 6', 'Nov 7', 'Nov 8', 'Nov 9', 'Nov 10', 'Nov 11', 'Nov 12'],
+                    datasets: [{
+                        label: 'Minutes Used',
+                         [120, 190, 150, 200, 220, 180, 240, 210, 190, 260, 230, 250],
+                        borderColor: '#ff4d4d',
+                        backgroundColor: 'rgba(255, 77, 77, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Calls Completed',
+                        data: [12, 18, 15, 20, 22, 18, 24, 21, 19, 26, 23, 25],
+                        borderColor: '#ffcc00',
+                        backgroundColor: 'rgba(255, 204, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Success Rate (%)',
+                        data: [85, 88, 90, 87, 92, 89, 94, 91, 90, 93, 92, 94],
+                        borderColor: '#8a2be2',
+                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f0f0f0',
+                                font: {
+                                    size: 13
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)'
+                            },
+                            ticks: {
+                                color: '#a0a0a0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)'
+                            },
+                            ticks: {
+                                color: '#a0a0a0'
+                            }
+                        }
+                    }
+                }
+            });
 
-      <div class="support-grid">
-        <div class="support-section">
-          <h2>FAQ</h2>
-          <div class="faq-item">
-            <h3>How does the AI agent work?</h3>
-            <p>It handles calls automatically using natural language processing and voice synthesis.</p>
-          </div>
-          <div class="faq-item">
-            <h3>Can I change my plan?</h3>
-            <p>Yes, anytime in the Billing section.</p>
-          </div>
-          <div class="faq-item">
-            <h3>What if calls are not working?</h3>
-            <p>Check your phone number settings or contact support.</p>
-          </div>
-        </div>
+            // Doughnut Chart
+            const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+            new Chart(doughnutCtx, {
+                type: 'doughnut',
+                 {
+                    labels: ['Sales', 'Support', 'Lead Gen', 'Other'],
+                    datasets: [{
+                         [45, 25, 20, 10],
+                        backgroundColor: [
+                            '#ff4d4d',
+                            '#ffcc00',
+                            '#8a2be2',
+                            '#4b0082'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f0f0f0',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
 
-        <div class="support-section">
-          <h2>Contact Support</h2>
-          <div class="contact-form">
-            <input type="text" placeholder="Your Name" />
-            <input type="email" placeholder="Your Email" />
-            <textarea placeholder="Describe your issue..."></textarea>
-            <button class="btn-primary">Send Ticket</button>
-          </div>
-        </div>
+            // Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                 {
+                    labels: ['Completed', 'Missed', 'Failed'],
+                    datasets: [{
+                        label: 'Number of Calls',
+                        data: [25, 8, 2],
+                        backgroundColor: [
+                            'rgba(0, 200, 83, 0.7)',
+                            'rgba(255, 171, 0, 0.7)',
+                            'rgba(255, 23, 68, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 200, 83, 1)',
+                            'rgba(255, 171, 0, 1)',
+                            'rgba(255, 23, 68, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f0f0f0'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)'
+                            },
+                            ticks: {
+                                color: '#a0a0a0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#a0a0a0'
+                            }
+                        }
+                    }
+                }
+            });
 
-        <div class="support-section">
-          <h2>Tutorials</h2>
-          <div class="tutorial-item">
-            <h3>How to set up your agent</h3>
-            <p>Learn how to configure your AI agent in 5 minutes.</p>
-            <button class="btn-ghost">Watch video</button>
-          </div>
-          <div class="tutorial-item">
-            <h3>Connecting Google Calendar</h3>
-            <p>Step-by-step guide to sync your bookings.</p>
-            <button class="btn-ghost">Watch video</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+            // DataTable
+            $('#callsTable').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true,
+                info: true,
+                order: [[0, 'desc']],
+                columnDefs: [
+                    { targets: 2, orderable: false }
+                ]
+            });
 
-  <script>
-    // Navigation
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        item.classList.add('active');
-        const viewId = item.dataset.view + '-view';
-        document.getElementById(viewId).classList.add('active');
-      });
-    });
+            // Menu Active State
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
 
-    // Notifications dropdown
-    document.getElementById('notificationBell').addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.getElementById('notificationsDropdown').classList.toggle('active');
-    });
+            // Button Active State
+            const chartButtons = document.querySelectorAll('.chart-actions button');
+            chartButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    chartButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 
-    document.addEventListener('click', (e) => {
-      const dropdown = document.getElementById('notificationsDropdown');
-      const bell = document.getElementById('notificationBell');
-      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
-        dropdown.classList.remove('active');
-      }
-    });
-
-    // Theme toggle
-    document.querySelector('.theme-toggle').addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      const icon = document.querySelector('.theme-toggle i');
-      if (document.body.classList.contains('light-mode')) {
-        icon.className = 'fas fa-sun';
-      } else {
-        icon.className = 'fas fa-moon';
-      }
-    });
-
-    // Charts
-    const ctx = document.getElementById('callsChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-       {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-          label: 'Calls per day',
-           [12, 19, 15, 18, 22, 30, 28],
-          borderColor: '#4f86f7',
-          backgroundColor: 'rgba(79, 134, 247, 0.1)',
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false }
-        }
-      }
-    });
-
-    const ctx2 = document.getElementById('minutesChart').getContext('2d');
-    new Chart(ctx2, {
-      type: 'doughnut',
-       {
-        labels: ['Booking', 'Info', 'Missed'],
-        datasets: [{
-          data: [60, 30, 10],
-          backgroundColor: ['#3b82f6', '#34d399', '#f87171']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'right' }
-        }
-      }
-    });
-
-    const ctx3 = document.getElementById('weeklyCallsChart').getContext('2d');
-    new Chart(ctx3, {
-      type: 'bar',
-       {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-        datasets: [{
-          label: 'Calls per week',
-          data: [85, 92, 110, 120],
-          backgroundColor: '#3b82f6'
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-
-    const ctx4 = document.getElementById('minutesByWeekChart').getContext('2d');
-    new Chart(ctx4, {
-      type: 'bar',
-      data: {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-        datasets: [{
-          label: 'Minutes used',
-           [250, 280, 320, 350],
-          backgroundColor: '#34d399'
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
-  </script>
 </body>
 </html>
