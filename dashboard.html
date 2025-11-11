@@ -7,67 +7,10 @@
   <link rel="stylesheet" href="dashboard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA0eVjELzFsjP_1708Adiq6J0iKBhdf90A",
-      authDomain: "fameai-3c013.firebaseapp.com",
-      projectId: "fameai-3c013",
-      storageBucket: "fameai-3c013.firebasestorage.app",
-      messagingSenderId: "273458864263",
-      appId: "1:273458864263:web:b0397abed786489aabd822",
-      measurementId: "G-JF30Z80NZQ"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Check if user is logged in
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = 'marketplace.html';
-      } else {
-        loadUserData(user.uid);
-      }
-    });
-
-    // Load user data
-    async function loadUserData(userId) {
-      const docRef = db.collection("users").doc(userId);
-      const docSnap = await docRef.get();
-      if (docSnap.exists) {
-        const data = docSnap.data();
-        document.getElementById('userName').textContent = data.agent || 'AI Agent';
-        document.getElementById('userEmail').textContent = auth.currentUser.email;
-        document.getElementById('planTag').textContent = `${data.plan || 'Free'} Plan`;
-        document.getElementById('minutesUsed').textContent = `${data.usedMinutes || 0} / ${data.minutes || 100}`;
-
-        // Update progress bar
-        const percent = data.minutes ? (data.usedMinutes / data.minutes * 100) : 0;
-        document.querySelector('.progress-fill').style.width = `${percent}%`;
-
-        // Display phone numbers for agents
-        document.getElementById('agentPhone1').textContent = data.restaurantPhone || '+421 908 123 456';
-        document.getElementById('agentPhone2').textContent = data.dentalPhone || '+421 908 654 321';
-      } else {
-        alert('No user data found. Please go back to marketplace.');
-        window.location.href = 'marketplace.html';
-      }
-    }
-
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = 'marketplace.html';
-      });
-    }
-  </script>
 </head>
 <body>
 
-  <!-- Glow Effects -->
+  <!-- Glows -->
   <div class="glow glow-top-left"></div>
   <div class="glow glow-top-right"></div>
   <div class="glow glow-bottom-left"></div>
@@ -99,8 +42,8 @@
       <div class="user-info">
         <div class="user-avatar">JD</div>
         <div>
-          <div class="user-name" id="userName">AI Agent</div>
-          <div class="user-email" id="userEmail">user@example.com</div>
+          <div class="user-name">John Doe</div>
+          <div class="user-email">john@restaurant.sk</div>
         </div>
         <button class="btn-ghost" style="margin-top:12px;" onclick="logout()">Logout</button>
       </div>
@@ -125,7 +68,7 @@
           </div>
           <div class="notification-content">
             <h4>New reservation</h4>
-            <p id="notifAgent">Restaurant AI</p>
+            <p>Restaurant AI</p>
             <div class="notification-time">2 min ago</div>
           </div>
         </div>
@@ -135,7 +78,7 @@
           </div>
           <div class="notification-content">
             <h4>Missed call</h4>
-            <p id="notifAgent2">Dental Clinic AI</p>
+            <p>Dental Clinic AI</p>
             <div class="notification-time">15 min ago</div>
           </div>
         </div>
@@ -158,16 +101,16 @@
     <!-- OVERVIEW -->
     <div class="view active" id="overview-view">
       <div class="card welcome-card">
-        <h1>Welcome back, <span id="welcomeName">John</span>!</h1>
+        <h1>Welcome back, John!</h1>
         <p>Your AI agents are working 24/7 to grow your business.</p>
-        <div class="plan-tag" id="planTag">Free Plan</div>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value"><span id="minutesUsed">0 / 100</span></div>
+          <div class="stat-value">273 / 400</div>
           <div class="stat-label">Minutes used</div>
-          <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
         </div>
         <div class="stat-card">
           <div class="stat-value">2</div>
@@ -186,20 +129,20 @@
         </div>
         <div class="agent-list">
           <div class="agent-item">
-            <div class="agent-icon">🍽️</div>
+            <div class="agent-icon">🤖</div>
             <div class="agent-info">
               <h3>Restaurant AI</h3>
-              <p id="agentPhone1">+421 908 123 456</p>
+              <p>+421 908 123 456</p>
             </div>
-            <button class="btn-ghost" onclick="openAgentSettings('Restaurant AI', document.getElementById('agentPhone1').textContent)">Settings</button>
+            <button class="btn-ghost" onclick="openAgentSettings('Restaurant AI', '+421 908 123 456')">Settings</button>
           </div>
           <div class="agent-item">
             <div class="agent-icon">🦷</div>
             <div class="agent-info">
               <h3>Dental Clinic AI</h3>
-              <p id="agentPhone2">+421 908 654 321</p>
+              <p>+421 908 654 321</p>
             </div>
-            <button class="btn-ghost" onclick="openAgentSettings('Dental Clinic AI', document.getElementById('agentPhone2').textContent)">Settings</button>
+            <button class="btn-ghost" onclick="openAgentSettings('Dental Clinic AI', '+421 908 654 321')">Settings</button>
           </div>
         </div>
       </div>
@@ -218,9 +161,9 @@
           <p class="agent-desc">Handles reservations, menu, hours</p>
           <div class="agent-meta">
             <span class="status-badge status-active">Active</span>
-            <span id="agentPhoneDisplay1">+421 908 123 456</span>
+            <span>+421 908 123 456</span>
           </div>
-          <button class="btn-secondary" onclick="openAgentSettings('Restaurant AI', document.getElementById('agentPhoneDisplay1').textContent)">Settings</button>
+          <button class="btn-secondary" onclick="openAgentSettings('Restaurant AI', '+421 908 123 456')">Settings</button>
         </div>
         <div class="agent-card">
           <div class="agent-icon">🦷</div>
@@ -228,9 +171,9 @@
           <p class="agent-desc">Manages appointments, reminders</p>
           <div class="agent-meta">
             <span class="status-badge status-active">Active</span>
-            <span id="agentPhoneDisplay2">+421 908 654 321</span>
+            <span>+421 908 654 321</span>
           </div>
-          <button class="btn-secondary" onclick="openAgentSettings('Dental Clinic AI', document.getElementById('agentPhoneDisplay2').textContent)">Settings</button>
+          <button class="btn-secondary" onclick="openAgentSettings('Dental Clinic AI', '+421 908 654 321')">Settings</button>
         </div>
       </div>
     </div>
@@ -315,7 +258,7 @@
         <div class="payment-card">
           <i class="fab fa-cc-visa"></i>
           <span>Visa •••• 4242</span>
-          <button class="btn-ghost">Edit</button>
+          <button class="btn-ghost" onclick="openPaymentModal()">Edit</button>
         </div>
       </div>
 
@@ -388,6 +331,29 @@
     </div>
   </div>
 
+  <!-- PAYMENT MODAL -->
+  <div class="modal" id="paymentModal">
+    <div class="modal-content auth-modal" style="max-width: 500px;">
+      <button class="close-modal" onclick="closePaymentModal()">✕</button>
+      <h2>Edit Payment Method</h2>
+      <div class="input-group">
+        <label>Card Number</label>
+        <input type="text" placeholder="4242 4242 4242 4242" />
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <div class="input-group" style="flex: 2;">
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY" />
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <label>CVV</label>
+          <input type="text" placeholder="123" />
+        </div>
+      </div>
+      <button class="btn-primary btn-block">Save Card</button>
+    </div>
+  </div>
+
   <script>
     // Navigation
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -399,6 +365,20 @@
         const viewId = item.dataset.view + '-view';
         document.getElementById(viewId).classList.add('active');
       });
+    });
+
+    // Notifications dropdown
+    document.getElementById('notificationBell').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('notificationsDropdown').classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('notificationsDropdown');
+      const bell = document.getElementById('notificationBell');
+      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
     });
 
     // Agent Settings Modal
@@ -420,23 +400,23 @@
       closeAgentSettingsModal();
     }
 
-    // Notifications dropdown
-    document.getElementById('notificationBell').addEventListener('click', (e) => {
-      e.stopPropagation();
-      document.getElementById('notificationsDropdown').classList.toggle('active');
-    });
+    // Payment Modal
+    function openPaymentModal() {
+      document.getElementById('paymentModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-    document.addEventListener('click', (e) => {
-      const dropdown = document.getElementById('notificationsDropdown');
-      const bell = document.getElementById('notificationBell');
-      if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
-        dropdown.classList.remove('active');
-      }
-    });
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
 
     // Close modals on click outside
     document.getElementById('agentSettingsModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('agentSettingsModal')) closeAgentSettingsModal();
+    });
+    document.getElementById('paymentModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('paymentModal')) closePaymentModal();
     });
   </script>
 </body>
