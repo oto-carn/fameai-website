@@ -1,215 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FameAI Dashboard</title>
-<link rel="stylesheet" href="fameai-dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="logo">Fame<span>AI</span></div>
-  <ul class="menu">
-    <li class="active" data-section="dashboard">Dashboard</li>
-    <li data-section="calls">Calls</li>
-    <li data-section="analytics">Analytics</li>
-    <li data-section="agents">AI Agents</li>
-    <li data-section="billing">Billing</li>
-    <li data-section="settings">Settings</li>
-    <li data-section="support">Support</li>
-    <li data-section="profile">Profile</li>
-    <li data-section="logout">Logout</li>
-  </ul>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-content">
-
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="section active">
-    <header>
-      <h1>Good afternoon, Oto 👋</h1>
-      <p>Here’s your daily overview</p>
-    </header>
-
-    <!-- Cards -->
-    <div class="cards">
-      <div class="card">
-        <h3>Active Calls</h3>
-        <p>28</p>
-        <small>Yesterday: 34</small>
-      </div>
-      <div class="card">
-        <h3>Minutes Left (Basic)</h3>
-        <p>100 / 100</p>
-      </div>
-      <div class="card">
-        <h3>Minutes Left (Pro)</h3>
-        <p>248 / 400</p>
-      </div>
-      <div class="card">
-        <h3>Minutes Left (Business)</h3>
-        <p>520 / 900</p>
-      </div>
-      <div class="card">
-        <h3>Minutes Left (Enterprise)</h3>
-        <p>2000 / 2000+</p>
-      </div>
-      <div class="card">
-        <h3>Uptime</h3>
-        <p>99.8%</p>
-      </div>
-      <div class="card">
-        <h3>Total Revenue</h3>
-        <p>€4,500</p>
-      </div>
+    <div class="sidebar">
+        <div class="logo">FameAI</div>
+        <div class="agent-name">BarberBot #204</div>
+        <ul class="menu">
+            <li class="active" onclick="showSection('dashboard')">Dashboard</li>
+            <li onclick="showSection('calls')">Calls</li>
+            <li onclick="showSection('analytics')">Analytics</li>
+            <li onclick="showSection('settings')">Agent Settings</li>
+            <li onclick="showSection('billing')">Billing</li>
+            <li onclick="showSection('support')">Support</li>
+        </ul>
+        <button class="logout">Logout</button>
     </div>
 
-    <!-- Charts -->
-    <div class="charts">
-      <div class="chart-card">
-        <h3>Agent Performance</h3>
-        <div class="chart-placeholder">Main Graph</div>
-      </div>
-      <div class="chart-card">
-        <h3>Call Distribution</h3>
-        <div class="chart-placeholder">Distribution Graph</div>
-      </div>
-      <div class="chart-card">
-        <h3>Call Outcomes</h3>
-        <div class="chart-placeholder">Outcomes Graph</div>
-      </div>
+    <div class="main">
+        <div class="topbar">
+            <div class="profile">John Doe</div>
+            <div class="notifications">🔔</div>
+            <div class="theme-switch">🌙</div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section">
+            <h2>Dashboard Overview</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Available Minutes</h3>
+                    <p>400 / 400</p>
+                    <div class="progress-bar"><div style="width:70%"></div></div>
+                </div>
+                <div class="card">
+                    <h3>Used Minutes</h3>
+                    <p>280</p>
+                    <div class="progress-bar"><div style="width:70%"></div></div>
+                </div>
+                <div class="card">
+                    <h3>Active Plan</h3>
+                    <p>Pro</p>
+                </div>
+                <div class="card">
+                    <h3>Calls This Month</h3>
+                    <p>120</p>
+                </div>
+            </div>
+            <div class="charts">
+                <canvas id="callsChart"></canvas>
+                <canvas id="minutesChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Calls Section -->
+        <div id="calls" class="section" style="display:none">
+            <h2>Calls History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Duration</th>
+                        <th>Outcome</th>
+                        <th>Number</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10.11.2025</td>
+                        <td>5 min</td>
+                        <td>Booked</td>
+                        <td>+421900123456</td>
+                        <td>VIP client</td>
+                    </tr>
+                    <tr>
+                        <td>09.11.2025</td>
+                        <td>7 min</td>
+                        <td>Failed</td>
+                        <td>+421900654321</td>
+                        <td>No answer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="section" style="display:none">
+            <h2>Analytics</h2>
+            <canvas id="analyticsChart"></canvas>
+        </div>
+
+        <!-- Agent Settings Section -->
+        <div id="settings" class="section" style="display:none">
+            <h2>Agent Settings</h2>
+            <form>
+                <label>Name:</label>
+                <input type="text" value="BarberBot">
+                <label>Language:</label>
+                <select>
+                    <option>English</option>
+                    <option>Slovak</option>
+                    <option>Czech</option>
+                </select>
+                <label>Google Calendar:</label>
+                <button>Connect Calendar</button>
+                <label>Greeting message:</label>
+                <input type="text" value="Hello! How can I help?">
+                <label>Booking confirmation:</label>
+                <input type="text" value="Your appointment is confirmed!">
+                <button type="submit">Save Settings</button>
+            </form>
+        </div>
+
+        <!-- Billing Section -->
+        <div id="billing" class="section" style="display:none">
+            <h2>Billing</h2>
+            <p>Current Plan: Pro – 400 min</p>
+            <p>Next Billing Date: 01.12.2025</p>
+            <button>Upgrade Plan</button>
+            <button>Buy Extra Minutes</button>
+            <h3>Past Invoices</h3>
+            <table>
+                <thead><tr><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>01.11.2025</td><td>349 €</td><td>Paid</td></tr>
+                    <tr><td>01.10.2025</td><td>349 €</td><td>Paid</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Support Section -->
+        <div id="support" class="section" style="display:none">
+            <h2>Support & Help</h2>
+            <p>FAQ</p>
+            <ul>
+                <li>How to set up the agent?</li>
+                <li>How to upgrade my plan?</li>
+            </ul>
+            <p>Contact Support</p>
+            <form>
+                <input type="text" placeholder="Your name">
+                <input type="email" placeholder="Your email">
+                <textarea placeholder="Message"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
     </div>
 
-    <!-- Recent Calls -->
-    <div class="recent-calls">
-      <h3>Recent Calls</h3>
-      <table>
-        <thead>
-          <tr><th>ID</th><th>Number</th><th>Duration</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>#1023</td><td>+421940884444</td><td>04:22</td><td class="success">Completed</td></tr>
-          <tr><td>#1022</td><td>+421950333555</td><td>00:58</td><td class="failed">Missed</td></tr>
-          <tr><td>#1021</td><td>+421901777999</td><td>02:16</td><td class="success">Completed</td></tr>
-          <tr><td>#1020</td><td>+421920111222</td><td>03:05</td><td class="failed">Canceled</td></tr>
-          <tr><td>#1019</td><td>+421960222333</td><td>05:10</td><td class="success">Completed</td></tr>
-          <tr><td>#1018</td><td>+421970333444</td><td>01:45</td><td class="failed">Missed</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(sec => sec.style.display='none');
+            document.getElementById(id).style.display='block';
+            document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
+            document.querySelector(`.menu li[onclick="showSection('${id}')"]`).classList.add('active');
+        }
 
-  </section>
+        const ctxCalls = document.getElementById('callsChart').getContext('2d');
+        const callsChart = new Chart(ctxCalls, {
+            type: 'line',
+            data: {
+                labels: ['1','2','3','4','5','6','7'],
+                datasets: [{
+                    label: 'Calls per Day',
+                    data: [10,12,8,15,20,18,22],
+                    borderColor: 'rgba(75,192,192,1)',
+                    fill: false
+                }]
+            }
+        });
 
-  <!-- CALLS -->
-  <section id="calls" class="section">
-    <h2>Calls Overview</h2>
-    <table class="full-width">
-      <thead><tr><th>ID</th><th>Number</th><th>Duration</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>#2001</td><td>+421940000111</td><td>03:12</td><td class="success">Completed</td></tr>
-        <tr><td>#2002</td><td>+421950000222</td><td>01:45</td><td class="failed">Missed</td></tr>
-        <tr><td>#2003</td><td>+421960000333</td><td>05:30</td><td class="success">Completed</td></tr>
-        <tr><td>#2004</td><td>+421970000444</td><td>02:22</td><td class="success">Completed</td></tr>
-        <tr><td>#2005</td><td>+421980000555</td><td>04:05</td><td class="failed">Canceled</td></tr>
-      </tbody>
-    </table>
-  </section>
+        const ctxMinutes = document.getElementById('minutesChart').getContext('2d');
+        const minutesChart = new Chart(ctxMinutes, {
+            type: 'bar',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                datasets: [{
+                    label: 'Minutes Used',
+                    data: [40,50,35,60,70,45,55],
+                    backgroundColor: 'rgba(153,102,255,0.6)'
+                }]
+            }
+        });
 
-  <!-- ANALYTICS -->
-  <section id="analytics" class="section">
-    <h2>Analytics</h2>
-    <div class="charts">
-      <div class="chart-card"><h3>Call Activity</h3><div class="chart-placeholder">Graph</div></div>
-      <div class="chart-card"><h3>Customer Engagement</h3><div class="chart-placeholder">Graph</div></div>
-      <div class="chart-card"><h3>Revenue Trends</h3><div class="chart-placeholder">Graph</div></div>
-      <div class="chart-card"><h3>Agent Performance Over Time</h3><div class="chart-placeholder">Graph</div></div>
-    </div>
-  </section>
-
-  <!-- AI AGENTS -->
-  <section id="agents" class="section">
-    <h2>AI Agents</h2>
-    <div class="cards">
-      <div class="card"><h3>Restaurant Agent</h3><p>Minutes Left: 248 / 400</p><small>Status: Online</small></div>
-      <div class="card"><h3>Hotel Agent</h3><p>Minutes Left: 120 / 500</p><small>Status: Online</small></div>
-      <div class="card"><h3>Clinic Agent</h3><p>Minutes Left: 50 / 200</p><small>Status: Offline</small></div>
-      <div class="card"><h3>Retail Agent</h3><p>Minutes Left: 75 / 300</p><small>Status: Online</small></div>
-      <div class="card"><h3>Support Agent</h3><p>Minutes Left: 200 / 600</p><small>Status: Online</small></div>
-    </div>
-  </section>
-
-  <!-- BILLING -->
-  <section id="billing" class="section">
-    <h2>Billing</h2>
-    <table class="full-width">
-      <thead><tr><th>Invoice #</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>#2025</td><td>2025-11-10</td><td>€200</td><td class="success">Paid</td></tr>
-        <tr><td>#2024</td><td>2025-10-10</td><td>€600</td><td class="failed">Pending</td></tr>
-        <tr><td>#2023</td><td>2025-09-12</td><td>€150</td><td class="success">Paid</td></tr>
-        <tr><td>#2022</td><td>2025-08-15</td><td>€800</td><td class="success">Paid</td></tr>
-        <tr><td>#2021</td><td>2025-07-20</td><td>€400</td><td class="failed">Pending</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- SETTINGS -->
-  <section id="settings" class="section">
-    <h2>Settings</h2>
-    <form>
-      <label>Agency Name: <input type="text" value="FameAI"></label>
-      <label>Contact Email: <input type="email" value="contact@fameai.com"></label>
-      <label>Password: <input type="password"></label>
-      <label>Phone Number: <input type="text" value="+421940884444"></label>
-      <button type="submit">Save Settings</button>
-    </form>
-  </section>
-
-  <!-- SUPPORT -->
-  <section id="support" class="section">
-    <h2>Support</h2>
-    <p>Contact us at: <strong>0940 884 444</strong></p>
-    <form>
-      <label>Email: <input type="email" placeholder="Your email"></label>
-      <label>Description: <textarea placeholder="Describe your issue"></textarea></label>
-      <button type="submit">Send Request</button>
-    </form>
-  </section>
-
-  <!-- PROFILE -->
-  <section id="profile" class="section">
-    <h2>Profile</h2>
-    <p>Name: Oto</p>
-    <p>Email: oto@fameai.com</p>
-    <p>Role: Admin</p>
-  </section>
-
-  <!-- LOGOUT -->
-  <section id="logout" class="section">
-    <h2>Logout</h2>
-    <button>Logout</button>
-  </section>
-
-</div>
-
-<script>
-const sections = document.querySelectorAll('.section');
-const menuItems = document.querySelectorAll('.menu li');
-
-menuItems.forEach(item => {
-  item.addEventListener('click', () => {
-    menuItems.forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-
-    const sectionId = item.dataset.section;
-    sections.forEach(sec => sec.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
-  });
-});
-</script>
-
+        const ctxAnalytics = document.getElementById('analyticsChart').getContext('2d');
+        const analyticsChart = new Chart(ctxAnalytics, {
+            type: 'doughnut',
+            data: {
+                labels: ['Booked','Failed','Cancelled'],
+                datasets: [{
+                    data: [120, 20, 10],
+                    backgroundColor: ['#4caf50','#f44336','#ff9800']
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
