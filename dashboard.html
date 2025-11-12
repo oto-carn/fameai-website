@@ -121,7 +121,7 @@
             <!-- Main Chart -->
             <div class="chart-card main-chart">
                 <div class="chart-header">
-                    <h2>Agent Activity</h2>
+                    <h2>Agent Performance</h2>
                     <div class="chart-actions">
                         <button class="active">Month</button>
                         <button>Quarter</button>
@@ -328,6 +328,10 @@
                     <h3>Availability</h3>
                     <p>24/7</p>
                 </div>
+                <div class="setting-card">
+                    <h3>Plan</h3>
+                    <p>Pro (400 min)</p>
+                </div>
             </div>
         </div>
 
@@ -363,16 +367,12 @@
                     <p>Contact us at: <strong>0940 884 444</strong></p>
                 </div>
                 <div class="help-options">
-                    <h3>Need help with?</h3>
+                    <h3>Need help or custom agent?</h3>
                     <ul>
                         <li>Call issues</li>
                         <li>Plan upgrade</li>
                         <li>Agent customization</li>
                     </ul>
-                </div>
-                <div class="custom-agent">
-                    <h3>Need custom agent or repair?</h3>
-                    <button class="btn-contact">Contact Me</button>
                 </div>
                 <div class="support-form">
                     <h3>Contact Form</h3>
@@ -399,15 +399,15 @@
                     datasets: [{
                         label: 'Minutes Used',
                          [120, 190, 150, 200, 220, 180, 240, 210, 190, 260, 230, 250],
-                        borderColor: '#8a2be2',
-                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
+                        borderColor: '#1e90ff',
+                        backgroundColor: 'rgba(30, 144, 255, 0.1)',
                         tension: 0.4,
                         fill: true
                     }, {
                         label: 'Calls Completed',
                          [12, 18, 15, 20, 22, 18, 24, 21, 19, 26, 23, 25],
-                        borderColor: '#4b0082',
-                        backgroundColor: 'rgba(75, 0, 130, 0.1)',
+                        borderColor: '#00c853',
+                        backgroundColor: 'rgba(0, 200, 83, 0.1)',
                         tension: 0.4,
                         fill: true
                     }]
@@ -452,8 +452,8 @@
                     datasets: [{
                         label: 'Calls',
                          [12, 18, 15, 20, 22, 18, 24],
-                        backgroundColor: 'rgba(138, 43, 226, 0.7)',
-                        borderColor: 'rgba(138, 43, 226, 1)',
+                        backgroundColor: 'rgba(30, 144, 255, 0.7)',
+                        borderColor: 'rgba(30, 144, 255, 1)',
                         borderWidth: 1
                     }]
                 },
