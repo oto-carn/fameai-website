@@ -1,19 +1,21 @@
 :root {
-    --bg-dark: #0a0a0a;
-    --bg-card: #111111;
-    --bg-sidebar: #0d0d0d;
+    --bg-dark: #0a0a2e;
+    --bg-card: #11113e;
+    --bg-sidebar: #0d0d3e;
     --primary: #8a2be2;
     --secondary: #4b0082;
     --accent: #9400d3;
     --text: #f0f0f0;
     --text-light: #a0a0a0;
-    --border: #2a2a2a;
+    --border: #2a2a4e;
     --success: #00c853;
     --warning: #ffab00;
     --danger: #ff1744;
     --blue: #1e90ff;
     --green: #00ff7f;
     --red: #ff4d4d;
+    --white: #ffffff;
+    --gray: #cccccc;
     --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --card-shadow-hover: 0 12px 40px rgba(138, 43, 226, 0.3);
@@ -27,14 +29,14 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #0a0a2e;
+    background: var(--bg-dark);
     color: var(--text);
     display: flex;
     min-height: 100vh;
     overflow-x: hidden;
     background: radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.05), transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.05), transparent 20%),
-                #0a0a2e;
+                var(--bg-dark);
 }
 
 /* Sidebar */
@@ -48,7 +50,7 @@ body {
     z-index: 100;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #0a0a2e, #000);
+    background: linear-gradient(to bottom, var(--bg-sidebar), #000);
 }
 
 .logo {
