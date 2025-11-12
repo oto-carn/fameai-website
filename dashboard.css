@@ -13,6 +13,7 @@
     --danger: #ff1744;
     --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 40px rgba(138, 43, 226, 0.3);
 }
 
 * {
@@ -28,11 +29,14 @@ body {
     display: flex;
     min-height: 100vh;
     overflow-x: hidden;
+    background: radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.05), transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.05), transparent 20%),
+                var(--bg-dark);
 }
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 260px;
     background: var(--bg-sidebar);
     padding: 20px 0;
     position: fixed;
@@ -41,6 +45,7 @@ body {
     z-index: 100;
     display: flex;
     flex-direction: column;
+    background: linear-gradient(to bottom, var(--bg-sidebar), #000);
 }
 
 .logo {
@@ -50,13 +55,12 @@ body {
 }
 
 .logo h2 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text);
-}
-
-.menu {
-    flex: 1;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
 .menu-item {
@@ -90,7 +94,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    margin-left: 250px;
+    margin-left: 260px;
     padding: 25px;
 }
 
@@ -189,12 +193,25 @@ body {
     border-radius: 12px;
     padding: 20px;
     border: 1px solid var(--border);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .stat-header {
@@ -260,6 +277,18 @@ body {
     padding: 20px;
     border: 1px solid var(--border);
     box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
 }
 
 .chart-header {
@@ -314,6 +343,18 @@ canvas {
     border: 1px solid var(--border);
     box-shadow: var(--card-shadow);
     margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.agent-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
 }
 
 .agent-header {
@@ -376,6 +417,18 @@ canvas {
     border: 1px solid var(--border);
     box-shadow: var(--card-shadow);
     margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.activity-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
 }
 
 .activity-header h2 {
@@ -430,6 +483,18 @@ canvas {
     padding: 20px;
     border: 1px solid var(--border);
     box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.calls-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
 }
 
 .calls-header h2 {
