@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FameAI Dashboard | Prehľad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -16,67 +16,97 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
-            <h2><i class="fas fa-robot"></i> FameAI</h2>
+            <h2>FameAI</h2>
         </div>
         <div class="menu">
             <div class="menu-item active">
                 <i class="fas fa-home"></i>
-                <span class="menu-text">Dashboard</span>
+                <span>Dashboard</span>
             </div>
             <div class="menu-item">
                 <i class="fas fa-phone"></i>
-                <span class="menu-text">Calls</span>
+                <span>Calls</span>
             </div>
             <div class="menu-item">
                 <i class="fas fa-chart-line"></i>
-                <span class="menu-text">Analytics</span>
+                <span>Analytics</span>
             </div>
             <div class="menu-item">
                 <i class="fas fa-cogs"></i>
-                <span class="menu-text">Agent Settings</span>
+                <span>Agent Settings</span>
             </div>
             <div class="menu-item">
                 <i class="fas fa-credit-card"></i>
-                <span class="menu-text">Billing</span>
+                <span>Billing</span>
             </div>
             <div class="menu-item">
                 <i class="fas fa-question-circle"></i>
-                <span class="menu-text">Support</span>
+                <span>Support</span>
             </div>
         </div>
         <div class="logout menu-item">
             <i class="fas fa-sign-out-alt"></i>
-            <span class="menu-text">Logout</span>
+            <span>Logout</span>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-
         <!-- Top Bar -->
         <div class="top-bar">
-            <h1 class="page-title">Dashboard</h1>
-            <div class="user-info">
-                <div class="profile-circle">JD</div>
-                <div class="user-name">John Doe</div>
+            <div class="welcome">
+                <h1>Good afternoon, John!</h1>
+                <p>Here’s what’s happening with your AI agents today.</p>
             </div>
-            <div class="top-icons">
-                <button class="icon-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">5</span>
-                </button>
-                <button class="icon-btn">
-                    <i class="fas fa-sun"></i>
-                </button>
+            <div class="top-right">
+                <div class="top-icons">
+                    <button class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <button class="icon-btn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+                <div class="user-info">
+                    <div class="profile-circle">JD</div>
+                    <div class="user-name">John Doe</div>
+                </div>
             </div>
         </div>
 
         <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-title">Available Minutes</div>
+                <div class="stat-header">
+                    <div class="stat-title">Total Earnings</div>
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-value">$1,248.00</div>
+                <div class="stat-change positive">+12% from last month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Active Calls</div>
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="stat-value">24</div>
+                <div class="stat-change positive">+3 from yesterday</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Success Rate</div>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-value">94.7%</div>
+                <div class="stat-change positive">+1.2% from last week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Minutes Left</div>
+                    <i class="fas fa-clock"></i>
+                </div>
                 <div class="stat-value">1,248</div>
-                <div class="stat-change">78% of 1600 minutes</div>
                 <div class="progress-container">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 78%;"></div>
@@ -84,27 +114,12 @@
                     <div class="progress-text">78% of 1600 minutes</div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-title">Used Minutes</div>
-                <div class="stat-value">352</div>
-                <div class="stat-change negative">-12% from last month</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-title">Active Calls</div>
-                <div class="stat-value">24</div>
-                <div class="stat-change">+3 from yesterday</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-title">Success Rate</div>
-                <div class="stat-value">94.7%</div>
-                <div class="stat-change">+1.2% from last week</div>
-            </div>
         </div>
 
         <!-- Main Chart -->
         <div class="chart-card main-chart">
             <div class="chart-header">
-                <div class="chart-title">Agent Performance & Activity</div>
+                <h2>Agent Performance Over Time</h2>
                 <div class="chart-actions">
                     <button class="active">Month</button>
                     <button>Quarter</button>
@@ -114,17 +129,17 @@
             <canvas id="mainChart"></canvas>
         </div>
 
-        <!-- Charts Section -->
+        <!-- Secondary Charts -->
         <div class="charts-container">
             <div class="chart-card">
                 <div class="chart-header">
-                    <div class="chart-title">Call Distribution</div>
+                    <h2>Call Distribution</h2>
                 </div>
                 <canvas id="doughnutChart"></canvas>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
-                    <div class="chart-title">Call Outcomes</div>
+                    <h2>Call Outcomes</h2>
                 </div>
                 <canvas id="barChart"></canvas>
             </div>
@@ -164,7 +179,7 @@
         <!-- Activity Feed -->
         <div class="activity-section">
             <div class="activity-header">
-                <div class="chart-title">Recent Activity</div>
+                <h2>Recent Activity</h2>
             </div>
             <ul class="activity-list">
                 <li class="activity-item">
@@ -218,7 +233,7 @@
         <!-- Calls Table -->
         <div class="calls-section">
             <div class="calls-header">
-                <div class="chart-title">Recent Calls</div>
+                <h2>Recent Calls</h2>
             </div>
             <table id="callsTable" class="display">
                 <thead>
@@ -283,22 +298,15 @@
                     datasets: [{
                         label: 'Minutes Used',
                          [120, 190, 150, 200, 220, 180, 240, 210, 190, 260, 230, 250],
-                        borderColor: '#ff4d4d',
-                        backgroundColor: 'rgba(255, 77, 77, 0.1)',
+                        borderColor: '#8a2be2',
+                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
                         tension: 0.4,
                         fill: true
                     }, {
                         label: 'Calls Completed',
                         data: [12, 18, 15, 20, 22, 18, 24, 21, 19, 26, 23, 25],
-                        borderColor: '#ffcc00',
-                        backgroundColor: 'rgba(255, 204, 0, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }, {
-                        label: 'Success Rate (%)',
-                        data: [85, 88, 90, 87, 92, 89, 94, 91, 90, 93, 92, 94],
-                        borderColor: '#8a2be2',
-                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
+                        borderColor: '#4b0082',
+                        backgroundColor: 'rgba(75, 0, 130, 0.1)',
                         tension: 0.4,
                         fill: true
                     }]
@@ -308,10 +316,7 @@
                     plugins: {
                         legend: {
                             labels: {
-                                color: '#f0f0f0',
-                                font: {
-                                    size: 13
-                                }
+                                color: '#f0f0f0'
                             }
                         }
                     },
@@ -346,10 +351,10 @@
                     datasets: [{
                          [45, 25, 20, 10],
                         backgroundColor: [
-                            '#ff4d4d',
-                            '#ffcc00',
                             '#8a2be2',
-                            '#4b0082'
+                            '#4b0082',
+                            '#9400d3',
+                            '#6a0dad'
                         ],
                         borderWidth: 0
                     }]
@@ -376,16 +381,16 @@
                     labels: ['Completed', 'Missed', 'Failed'],
                     datasets: [{
                         label: 'Number of Calls',
-                        data: [25, 8, 2],
+                         [25, 8, 2],
                         backgroundColor: [
-                            'rgba(0, 200, 83, 0.7)',
-                            'rgba(255, 171, 0, 0.7)',
-                            'rgba(255, 23, 68, 0.7)'
+                            'rgba(138, 43, 226, 0.7)',
+                            'rgba(75, 0, 130, 0.7)',
+                            'rgba(148, 0, 211, 0.7)'
                         ],
                         borderColor: [
-                            'rgba(0, 200, 83, 1)',
-                            'rgba(255, 171, 0, 1)',
-                            'rgba(255, 23, 68, 1)'
+                            'rgba(138, 43, 226, 1)',
+                            'rgba(75, 0, 130, 1)',
+                            'rgba(148, 0, 211, 1)'
                         ],
                         borderWidth: 1
                     }]
