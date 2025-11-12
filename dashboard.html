@@ -16,30 +16,30 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
-            <h2>FameAI</h2>
+            <h2><i class="fas fa-robot"></i> FameAI</h2>
         </div>
         <div class="menu">
-            <div class="menu-item active">
+            <div class="menu-item active" data-section="dashboard">
                 <i class="fas fa-home"></i>
                 <span>Dashboard</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-section="calls">
                 <i class="fas fa-phone"></i>
                 <span>Calls</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-section="analytics">
                 <i class="fas fa-chart-line"></i>
                 <span>Analytics</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-section="settings">
                 <i class="fas fa-cogs"></i>
                 <span>Agent Settings</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-section="billing">
                 <i class="fas fa-credit-card"></i>
                 <span>Billing</span>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-section="support">
                 <i class="fas fa-question-circle"></i>
                 <span>Support</span>
             </div>
@@ -52,190 +52,192 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="welcome">
-                <h1>Good afternoon, John!</h1>
-                <p>Here’s what’s happening with your AI agents today.</p>
-            </div>
-            <div class="top-right">
-                <div class="top-icons">
-                    <button class="icon-btn">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">5</span>
-                    </button>
-                    <button class="icon-btn">
-                        <i class="fas fa-cog"></i>
-                    </button>
+        <!-- Dashboard Section -->
+        <div class="section active" id="dashboard-section">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome">
+                    <h1>Good afternoon, John!</h1>
+                    <p>Here’s what’s happening with your AI agents today.</p>
                 </div>
-                <div class="user-info">
-                    <div class="profile-circle">JD</div>
-                    <div class="user-name">John Doe</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Total Earnings</div>
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="stat-value">$1,248.00</div>
-                <div class="stat-change positive">+12% from last month</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Active Calls</div>
-                    <i class="fas fa-phone"></i>
-                </div>
-                <div class="stat-value">24</div>
-                <div class="stat-change positive">+3 from yesterday</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Success Rate</div>
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="stat-value">94.7%</div>
-                <div class="stat-change positive">+1.2% from last week</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Minutes Left</div>
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-value">1,248</div>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 78%;"></div>
+                <div class="top-right">
+                    <div class="top-icons">
+                        <button class="icon-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="icon-btn">
+                            <i class="fas fa-cog"></i>
+                        </button>
                     </div>
-                    <div class="progress-text">78% of 1600 minutes</div>
+                    <div class="user-info">
+                        <div class="profile-circle">JD</div>
+                        <div class="user-name">John Doe</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Main Chart -->
-        <div class="chart-card main-chart">
-            <div class="chart-header">
-                <h2>Agent Performance Over Time</h2>
-                <div class="chart-actions">
-                    <button class="active">Month</button>
-                    <button>Quarter</button>
-                    <button>Year</button>
-                </div>
-            </div>
-            <canvas id="mainChart"></canvas>
-        </div>
-
-        <!-- Secondary Charts -->
-        <div class="charts-container">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h2>Call Distribution</h2>
-                </div>
-                <canvas id="doughnutChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h2>Call Outcomes</h2>
-                </div>
-                <canvas id="barChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Agent Info -->
-        <div class="agent-info-card">
-            <div class="agent-header">
-                <div class="agent-avatar">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="agent-details">
-                    <h3>AI Receptionist Pro</h3>
-                    <p>English, Czech | 24/7 Availability | Sales & Support</p>
-                </div>
-            </div>
-            <div class="agent-stats">
-                <div class="agent-stat">
-                    <div class="agent-stat-value">1,248</div>
-                    <div class="agent-stat-label">Minutes Left</div>
-                </div>
-                <div class="agent-stat">
-                    <div class="agent-stat-value">94.7%</div>
-                    <div class="agent-stat-label">Accuracy</div>
-                </div>
-                <div class="agent-stat">
-                    <div class="agent-stat-value">24/7</div>
-                    <div class="agent-stat-label">Uptime</div>
-                </div>
-                <div class="agent-stat">
-                    <div class="agent-stat-value">+12</div>
-                    <div class="agent-stat-label">New Leads</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Activity Feed -->
-        <div class="activity-section">
-            <div class="activity-header">
-                <h2>Recent Activity</h2>
-            </div>
-            <ul class="activity-list">
-                <li class="activity-item">
-                    <div class="activity-icon">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Calls</div>
                         <i class="fas fa-phone"></i>
                     </div>
-                    <div class="activity-content">
-                        <div class="activity-title">New call completed</div>
-                        <div class="activity-time">2 minutes ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Performance report generated</div>
-                        <div class="activity-time">1 hour ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">AI model updated</div>
-                        <div class="activity-time">3 hours ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Billing invoice generated</div>
-                        <div class="activity-time">Yesterday</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon">
+                    <div class="stat-value">142</div>
+                    <div class="stat-change positive">+12 from yesterday</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Active Calls</div>
                         <i class="fas fa-phone-alt"></i>
                     </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Lead booked for tomorrow</div>
-                        <div class="activity-time">2 days ago</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change positive">+3 from yesterday</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Plan: Pro</div>
+                        <i class="fas fa-clock"></i>
                     </div>
-                </li>
-            </ul>
+                    <div class="stat-value">248/400 min</div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 62%;"></div>
+                        </div>
+                        <div class="progress-text">62% of 400 minutes</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Uptime</div>
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-change positive">100% availability</div>
+                </div>
+            </div>
+
+            <!-- Main Chart -->
+            <div class="chart-card main-chart">
+                <div class="chart-header">
+                    <h2>Agent Activity</h2>
+                    <div class="chart-actions">
+                        <button class="active">Month</button>
+                        <button>Quarter</button>
+                        <button>Year</button>
+                    </div>
+                </div>
+                <canvas id="mainChart"></canvas>
+            </div>
+
+            <!-- Agent Info -->
+            <div class="agent-info-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="agent-details">
+                        <h3>Restaurant AI Agent</h3>
+                        <p>English, Czech | 24/7 Availability | Reservations & Support</p>
+                    </div>
+                </div>
+                <div class="agent-stats">
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">248/400</div>
+                        <div class="agent-stat-label">Minutes Left</div>
+                    </div>
+                    <div class="agent-stat">
+                        <div class="agent-stat-value">24/7</div>
+                        <div class="agent-stat-label">Uptime</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="activity-header">
+                    <h2>Recent Calls</h2>
+                </div>
+                <ul class="activity-list">
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">+1 555-1234</div>
+                            <div class="activity-time">2 minutes ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">+421 912 345 678</div>
+                            <div class="activity-time">1 hour ago</div>
+                        </div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">+44 20 7946 0958</div>
+                            <div class="activity-time">3 hours ago</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Calls Table -->
+            <div class="calls-section">
+                <div class="calls-header">
+                    <h2>Recent Calls</h2>
+                </div>
+                <table id="callsTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Phone</th>
+                            <th>Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-11-12 14:30</td>
+                            <td>8 min 24 sec</td>
+                            <td><span class="status-badge success">Completed</span></td>
+                            <td>+1 555-1234</td>
+                            <td>Reservation Made</td>
+                        </tr>
+                        <tr>
+                            <td>2025-11-12 11:15</td>
+                            <td>3 min 12 sec</td>
+                            <td><span class="status-badge warning">Missed</span></td>
+                            <td>+421 912 345 678</td>
+                            <td>No Answer</td>
+                        </tr>
+                        <tr>
+                            <td>2025-11-11 16:45</td>
+                            <td>12 min 05 sec</td>
+                            <td><span class="status-badge success">Completed</span></td>
+                            <td>+44 20 7946 0958</td>
+                            <td>Info Provided</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Calls Table -->
-        <div class="calls-section">
-            <div class="calls-header">
-                <h2>Recent Calls</h2>
+        <!-- Calls Section -->
+        <div class="section" id="calls-section">
+            <div class="section-header">
+                <h2>Calls</h2>
             </div>
-            <table id="callsTable" class="display">
+            <table id="callsTableFull" class="display">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -251,7 +253,7 @@
                         <td>8 min 24 sec</td>
                         <td><span class="status-badge success">Completed</span></td>
                         <td>+1 555-1234</td>
-                        <td>Lead Generated</td>
+                        <td>Reservation Made</td>
                     </tr>
                     <tr>
                         <td>2025-11-12 11:15</td>
@@ -265,7 +267,7 @@
                         <td>12 min 05 sec</td>
                         <td><span class="status-badge success">Completed</span></td>
                         <td>+44 20 7946 0958</td>
-                        <td>Sale Closed</td>
+                        <td>Info Provided</td>
                     </tr>
                     <tr>
                         <td>2025-11-10 10:20</td>
@@ -285,11 +287,110 @@
             </table>
         </div>
 
+        <!-- Analytics Section -->
+        <div class="section" id="analytics-section">
+            <div class="section-header">
+                <h2>Analytics</h2>
+            </div>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2>Call Activity</h2>
+                    </div>
+                    <canvas id="analyticsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2>Call Outcomes</h2>
+                    </div>
+                    <canvas id="analyticsChart2"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agent Settings Section -->
+        <div class="section" id="settings-section">
+            <div class="section-header">
+                <h2>Agent Settings</h2>
+            </div>
+            <div class="settings-content">
+                <div class="setting-card">
+                    <h3>Agent Info</h3>
+                    <p>Restaurant AI Agent</p>
+                    <p>English, Czech</p>
+                </div>
+                <div class="setting-card">
+                    <h3>Phone Number</h3>
+                    <p>+1 555-0123</p>
+                    <button class="btn-change">Change Number</button>
+                </div>
+                <div class="setting-card">
+                    <h3>Availability</h3>
+                    <p>24/7</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Billing Section -->
+        <div class="section" id="billing-section">
+            <div class="section-header">
+                <h2>Billing</h2>
+            </div>
+            <div class="billing-content">
+                <div class="billing-card">
+                    <h3>Current Plan: Pro</h3>
+                    <p>400 minutes per month</p>
+                    <p>Minutes used: 152</p>
+                    <p>Minutes left: 248</p>
+                </div>
+                <div class="billing-card">
+                    <h3>Invoice History</h3>
+                    <ul>
+                        <li>Nov 2025 - $49.99</li>
+                        <li>Oct 2025 - $49.99</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="section" id="support-section">
+            <div class="section-header">
+                <h2>Support</h2>
+            </div>
+            <div class="support-content">
+                <div class="contact-info">
+                    <p>Contact us at: <strong>0940 884 444</strong></p>
+                </div>
+                <div class="help-options">
+                    <h3>Need help with?</h3>
+                    <ul>
+                        <li>Call issues</li>
+                        <li>Plan upgrade</li>
+                        <li>Agent customization</li>
+                    </ul>
+                </div>
+                <div class="custom-agent">
+                    <h3>Need custom agent or repair?</h3>
+                    <button class="btn-contact">Contact Me</button>
+                </div>
+                <div class="support-form">
+                    <h3>Contact Form</h3>
+                    <form>
+                        <input type="text" placeholder="Name" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea placeholder="Description" required></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Main Chart - Complex Line Chart
+            // Main Chart
             const mainCtx = document.getElementById('mainChart').getContext('2d');
             new Chart(mainCtx, {
                 type: 'line',
@@ -304,7 +405,7 @@
                         fill: true
                     }, {
                         label: 'Calls Completed',
-                        data: [12, 18, 15, 20, 22, 18, 24, 21, 19, 26, 23, 25],
+                         [12, 18, 15, 20, 22, 18, 24, 21, 19, 26, 23, 25],
                         borderColor: '#4b0082',
                         backgroundColor: 'rgba(75, 0, 130, 0.1)',
                         tension: 0.4,
@@ -342,56 +443,17 @@
                 }
             });
 
-            // Doughnut Chart
-            const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
-            new Chart(doughnutCtx, {
-                type: 'doughnut',
-                 {
-                    labels: ['Sales', 'Support', 'Lead Gen', 'Other'],
-                    datasets: [{
-                         [45, 25, 20, 10],
-                        backgroundColor: [
-                            '#8a2be2',
-                            '#4b0082',
-                            '#9400d3',
-                            '#6a0dad'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#f0f0f0',
-                                padding: 20
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Bar Chart
-            const barCtx = document.getElementById('barChart').getContext('2d');
-            new Chart(barCtx, {
+            // Analytics Charts
+            const analyticsCtx = document.getElementById('analyticsChart').getContext('2d');
+            new Chart(analyticsCtx, {
                 type: 'bar',
                  {
-                    labels: ['Completed', 'Missed', 'Failed'],
+                    labels: ['Nov 1', 'Nov 2', 'Nov 3', 'Nov 4', 'Nov 5', 'Nov 6', 'Nov 7'],
                     datasets: [{
-                        label: 'Number of Calls',
-                         [25, 8, 2],
-                        backgroundColor: [
-                            'rgba(138, 43, 226, 0.7)',
-                            'rgba(75, 0, 130, 0.7)',
-                            'rgba(148, 0, 211, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(138, 43, 226, 1)',
-                            'rgba(75, 0, 130, 1)',
-                            'rgba(148, 0, 211, 1)'
-                        ],
+                        label: 'Calls',
+                         [12, 18, 15, 20, 22, 18, 24],
+                        backgroundColor: 'rgba(138, 43, 226, 0.7)',
+                        borderColor: 'rgba(138, 43, 226, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -426,8 +488,37 @@
                 }
             });
 
+            const analyticsCtx2 = document.getElementById('analyticsChart2').getContext('2d');
+            new Chart(analyticsCtx2, {
+                type: 'doughnut',
+                 {
+                    labels: ['Completed', 'Missed', 'Failed'],
+                    datasets: [{
+                         [25, 8, 2],
+                        backgroundColor: [
+                            'rgba(0, 200, 83, 0.7)',
+                            'rgba(255, 171, 0, 0.7)',
+                            'rgba(255, 23, 68, 0.7)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f0f0f0',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+
             // DataTable
-            $('#callsTable').DataTable({
+            $('#callsTable, #callsTableFull').DataTable({
                 responsive: true,
                 paging: true,
                 searching: true,
@@ -438,21 +529,17 @@
                 ]
             });
 
-            // Menu Active State
+            // Section Switching
             const menuItems = document.querySelectorAll('.menu-item');
             menuItems.forEach(item => {
                 item.addEventListener('click', function() {
-                    menuItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // Button Active State
-            const chartButtons = document.querySelectorAll('.chart-actions button');
-            chartButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    chartButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
+                    if (!this.classList.contains('logout')) {
+                        const sectionId = this.getAttribute('data-section');
+                        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+                        document.getElementById(`${sectionId}-section`).classList.add('active');
+                        menuItems.forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                    }
                 });
             });
         });
