@@ -1,538 +1,215 @@
-<!-- fameai-dashboard.html -->
-<!doctype html>
-<html lang="sk">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FameAI — Professional Dashboard</title>
-  <link rel="stylesheet" href="fameai-dashboard.css">
-  <!-- Meta for social previews, SEO, etc. (placeholder) -->
-  <meta name="description" content="FameAI agency dashboard — mock, professional UI for demos and screenshots.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FameAI Dashboard</title>
+<link rel="stylesheet" href="fameai-dashboard.css">
 </head>
-<body class="fa-body">
-  <!-- SIDEBAR -->
-  <aside class="fa-sidebar" aria-label="Main navigation">
-    <div class="fa-brand">
-      <div class="fa-logo" aria-hidden="true">F</div>
-      <div class="fa-brand-meta">
-        <div class="fa-title">FameAI</div>
-        <div class="fa-sub">Agency dashboard</div>
-      </div>
-    </div>
+<body>
 
-    <nav class="fa-nav" role="navigation" aria-label="Primary">
-      <ul>
-        <li class="fa-nav-item active" data-target="dashboard">Dashboard</li>
-        <li class="fa-nav-item" data-target="calls">Calls</li>
-        <li class="fa-nav-item" data-target="analytics">Analytics</li>
-        <li class="fa-nav-item" data-target="agents">Agent Settings</li>
-        <li class="fa-nav-item" data-target="billing">Billing</li>
-        <li class="fa-nav-item" data-target="support">Support</li>
-      </ul>
-    </nav>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo">Fame<span>AI</span></div>
+  <ul class="menu">
+    <li class="active" data-section="dashboard">Dashboard</li>
+    <li data-section="calls">Calls</li>
+    <li data-section="analytics">Analytics</li>
+    <li data-section="agents">AI Agents</li>
+    <li data-section="billing">Billing</li>
+    <li data-section="settings">Settings</li>
+    <li data-section="support">Support</li>
+    <li data-section="profile">Profile</li>
+    <li data-section="logout">Logout</li>
+  </ul>
+</div>
 
-    <div class="fa-sidebar-footer">
-      <button id="fa-create-btn" class="fa-btn-primary">Create Agent</button>
-      <div class="fa-foot-meta">Live mock · not linked</div>
-    </div>
-  </aside>
+<!-- MAIN CONTENT -->
+<div class="main-content">
 
-  <!-- MAIN CONTENT -->
-  <main class="fa-main" id="main">
-    <!-- TOP BAR -->
-    <header class="fa-topbar">
-      <div class="fa-greeting">
-        <div class="fa-greet-text">Good afternoon, <strong>Oto</strong></div>
-        <div class="fa-greet-sub muted">Here’s what’s happening with your agents</div>
-      </div>
-
-      <div class="fa-top-controls">
-        <div class="fa-search">
-          <input type="search" placeholder="Search calls, agents, invoices..." aria-label="Search">
-        </div>
-        <div class="fa-user">
-          <img src="" alt="avatar" class="fa-avatar" aria-hidden="true">
-          <button class="fa-icon-btn" id="fa-notif-btn" aria-label="Notifications">🔔</button>
-        </div>
-      </div>
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="section active">
+    <header>
+      <h1>Good afternoon, Oto 👋</h1>
+      <p>Here’s your daily overview</p>
     </header>
 
-    <!-- SECTIONS: all sections present, toggled by nav -->
-    <section id="dashboard-section" class="fa-section active">
-      <div class="fa-grid fa-grid-2col">
-        <div class="fa-left-col">
-          <!-- Summary cards -->
-          <div class="fa-cards-row">
-            <article class="fa-card stat-card">
-              <div class="fa-card-title">Active Calls</div>
-              <div class="fa-card-value" id="fa-active-calls">18</div>
-              <div class="fa-card-meta muted">Yesterday: 24</div>
-            </article>
-
-            <article class="fa-card stat-card">
-              <div class="fa-card-title">Minutes Left <span class="muted small"> (Pro)</span></div>
-              <div class="fa-card-value" id="fa-minutes-left">248 / 400</div>
-              <div class="fa-card-meta muted">Plan: Pro</div>
-            </article>
-
-            <article class="fa-card stat-card">
-              <div class="fa-card-title">Uptime</div>
-              <div class="fa-card-value" id="fa-uptime">99.8%</div>
-              <div class="fa-card-meta muted">Last 24h</div>
-            </article>
-          </div>
-
-          <!-- Main chart -->
-          <div class="fa-card large-card">
-            <div class="fa-card-header">
-              <h3>Agent performance</h3>
-              <div class="muted small">Period: 7d</div>
-            </div>
-            <div class="fa-chart" id="fa-main-chart" aria-hidden="true">
-              <!-- Inline SVG placeholder for a polished look -->
-              <svg viewBox="0 0 1000 320" preserveAspectRatio="none" role="img" aria-label="Agent performance graph">
-                <defs>
-                  <linearGradient id="gMain" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0" stop-color="#6ec0ff" stop-opacity="0.92"/>
-                    <stop offset="1" stop-color="#1f6feb" stop-opacity="0.08"/>
-                  </linearGradient>
-                </defs>
-                <rect x="0" y="0" width="100%" height="100%" fill="url(#gMain)"></rect>
-                <!-- mock lines -->
-                <polyline fill="none" stroke="#cfefff" stroke-width="3" points="0,260 80,220 160,190 240,140 320,150 400,110 480,120 560,90 640,100 720,80 800,60 880,70 960,50"></polyline>
-                <polyline fill="none" stroke="#7fb8ff" stroke-width="2" stroke-dasharray="8 6" points="0,280 160,240 320,230 480,200 640,190 800,170 960,160"></polyline>
-              </svg>
-            </div>
-
-            <div class="fa-card-footer">
-              <div class="footer-stat">
-                <div class="muted">Avg call duration</div>
-                <div class="value">2m 34s</div>
-              </div>
-              <div class="footer-stat">
-                <div class="muted">Total calls</div>
-                <div class="value">1,234</div>
-              </div>
-              <div class="footer-stat">
-                <div class="muted">Active agents</div>
-                <div class="value">6</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Smaller charts row -->
-          <div class="fa-cards-row charts-row">
-            <div class="fa-card mini-card">
-              <div class="fa-card-title">Call distribution</div>
-              <div class="muted small">by hour</div>
-              <div class="fa-mini-chart" aria-hidden="true">
-                <!-- mini sparkline -->
-                <svg viewBox="0 0 200 60" preserveAspectRatio="none"><polyline fill="none" stroke="#9fd6ff" stroke-width="2" points="0,40 30,30 60,35 90,20 120,25 150,15 180,20 200,18"></polyline></svg>
-              </div>
-            </div>
-
-            <div class="fa-card mini-card">
-              <div class="fa-card-title">Call outcomes</div>
-              <div class="muted small">Answered / Missed / Voicemail</div>
-              <div class="fa-mini-pie" aria-hidden="true">
-                <!-- small pie mock -->
-                <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" stroke="#19314f" stroke-width="8" fill="none"></circle></svg>
-              </div>
-            </div>
-
-            <div class="fa-card mini-card">
-              <div class="fa-card-title">Recent calls</div>
-              <div class="muted small">Latest activity</div>
-              <div class="fa-recent-inline">
-                <div class="muted">+421 940 884 444 • 03:21 • Answered</div>
-                <div class="muted">+421 950 333 555 • 00:58 • Missed</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recent calls table -->
-          <div class="fa-card table-card">
-            <div class="fa-card-header">
-              <h4>Recent calls / activity</h4>
-              <div class="muted small">No names — numbers + statuses</div>
-            </div>
-            <div class="fa-table-wrap">
-              <table class="fa-table" aria-describedby="recent-calls-desc">
-                <caption id="recent-calls-desc" class="sr-only">Recent calls list</caption>
-                <thead>
-                  <tr>
-                    <th>From</th>
-                    <th>Time</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th>Agent</th>
-                  </tr>
-                </thead>
-                <tbody id="fa-recent-list">
-                  <!-- JS filled -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div> <!-- end left col -->
-
-        <!-- RIGHT COLUMN -->
-        <aside class="fa-right-col">
-          <div class="fa-card plan-card">
-            <div class="fa-plan-title">Plan</div>
-            <div class="fa-plan-name">Pro — 400 minutes</div>
-            <div class="fa-plan-used">Used: <strong id="fa-used-mins">152</strong></div>
-            <div class="fa-progress">
-              <div class="fa-progress-fill" style="width:62%"></div>
-            </div>
-            <div class="muted small">248 / 400 minutes left</div>
-
-            <div class="fa-plans-list">
-              <div class="fa-plan-entry"><strong>Basic</strong> — 100 min</div>
-              <div class="fa-plan-entry"><strong>Pro</strong> — 400 min</div>
-              <div class="fa-plan-entry"><strong>Business</strong> — 900 min</div>
-              <div class="fa-plan-entry"><strong>Enterprise</strong> — 2000+ min</div>
-            </div>
-          </div>
-
-          <div class="fa-card agent-card">
-            <div class="fa-card-title">Agent</div>
-            <div class="fa-agent-name">Restaurant AI Agent</div>
-            <div class="muted">Phone: +421 940 884 444</div>
-            <div class="muted">Status: <span class="status-online">Online</span></div>
-            <div class="muted">Uptime: <strong id="fa-agent-uptime">99.8%</strong></div>
-            <div class="fa-agent-actions">
-              <button class="fa-btn" id="fa-edit-agent">Edit</button>
-              <button class="fa-btn-outline" id="fa-change-number">Change number</button>
-            </div>
-          </div>
-
-          <div class="fa-card stats-card">
-            <div class="fa-card-title">Call stats</div>
-            <div class="fa-stats-grid">
-              <div>
-                <div class="muted">Answered</div>
-                <div class="value green">68%</div>
-              </div>
-              <div>
-                <div class="muted">Missed</div>
-                <div class="value red">18%</div>
-              </div>
-              <div>
-                <div class="muted">Voicemail</div>
-                <div class="value">14%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fa-card support-card">
-            <div class="fa-card-title">Support</div>
-            <div class="muted">Call: 0940 884 444</div>
-            <div class="muted small">Need custom agent or repair? Contact support.</div>
-            <button class="fa-btn-primary" id="fa-contact-support">Contact support</button>
-          </div>
-
-        </aside>
-      </div> <!-- grid -->
-    </section>
-
-    <!-- CALLS SECTION -->
-    <section id="calls-section" class="fa-section">
-      <div class="fa-card full-card">
-        <div class="fa-card-header">
-          <h3>Calls — detailed</h3>
-          <div class="muted small">Filter and inspect individual call records</div>
-        </div>
-
-        <div class="fa-controls-row">
-          <div class="fa-filter">
-            <select id="fa-filter-agent"><option>All agents</option><option>Restaurant AI Agent</option></select>
-            <select id="fa-filter-status"><option>All statuses</option><option>Answered</option><option>Missed</option><option>Voicemail</option></select>
-            <input type="date" id="fa-filter-from"> — <input type="date" id="fa-filter-to">
-          </div>
-          <div>
-            <input type="search" placeholder="Search number or id..." id="fa-call-search">
-            <button class="fa-btn" id="fa-export-csv">Export CSV</button>
-          </div>
-        </div>
-
-        <div class="fa-table-wrap">
-          <table class="fa-table large">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Agent</th>
-                <th>Time</th>
-                <th>Duration</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="fa-calls-list">
-              <!-- JS will append many rows for screenshots -->
-            </tbody>
-          </table>
-        </div>
+    <!-- Cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>Active Calls</h3>
+        <p>28</p>
+        <small>Yesterday: 34</small>
       </div>
-    </section>
-
-    <!-- ANALYTICS SECTION -->
-    <section id="analytics-section" class="fa-section">
-      <div class="fa-card full-card">
-        <div class="fa-card-header">
-          <h3>Analytics</h3>
-          <div class="muted small">Call activity, distribution, outcomes, trends</div>
-        </div>
-
-        <div class="fa-analytics-grid">
-          <div class="fa-card analytic-widget">
-            <div class="fa-card-title">Calls over time</div>
-            <div class="fa-visual" aria-hidden="true">
-              <!-- placeholder big chart -->
-              <svg viewBox="0 0 800 220" preserveAspectRatio="none"><polyline fill="none" stroke="#cfefff" stroke-width="3" points="0,170 80,150 160,120 240,100 320,120 400,90 480,120 560,70 640,80 720,60 800,40"></polyline></svg>
-            </div>
-          </div>
-
-          <div class="fa-card analytic-widget">
-            <div class="fa-card-title">Hourly distribution</div>
-            <div class="fa-visual"></div>
-          </div>
-
-          <div class="fa-card analytic-widget">
-            <div class="fa-card-title">Call outcomes</div>
-            <div class="fa-visual"></div>
-          </div>
-
-          <div class="fa-card analytic-widget">
-            <div class="fa-card-title">Top performing agents</div>
-            <div class="fa-visual"></div>
-          </div>
-        </div>
+      <div class="card">
+        <h3>Minutes Left (Basic)</h3>
+        <p>100 / 100</p>
       </div>
-    </section>
-
-    <!-- AGENT SETTINGS SECTION -->
-    <section id="agents-section" class="fa-section">
-      <div class="fa-card full-card">
-        <div class="fa-card-header">
-          <h3>Agent settings</h3>
-          <div class="muted small">Edit agent, assigned number, plan, status</div>
-        </div>
-
-        <form id="fa-agent-form" class="fa-form">
-          <div class="fa-form-grid">
-            <label>
-              Agent name
-              <input type="text" value="Restaurant AI Agent" id="agent-name">
-            </label>
-
-            <label>
-              Assigned number
-              <input type="tel" value="+421 940 884 444" id="agent-number">
-            </label>
-
-            <label>
-              Plan
-              <select id="agent-plan">
-                <option value="basic">Basic — 100m</option>
-                <option value="pro" selected>Pro — 400m</option>
-                <option value="business">Business — 900m</option>
-                <option value="enterprise">Enterprise — 2000m+</option>
-              </select>
-            </label>
-
-            <label>
-              Status
-              <select id="agent-status"><option>Online</option><option>Paused</option><option>Offline</option></select>
-            </label>
-          </div>
-
-          <div class="fa-form-actions">
-            <button class="fa-btn-primary" id="save-agent">Save</button>
-            <button type="button" class="fa-btn-outline" id="reset-agent">Reset</button>
-          </div>
-        </form>
+      <div class="card">
+        <h3>Minutes Left (Pro)</h3>
+        <p>248 / 400</p>
       </div>
-    </section>
-
-    <!-- BILLING SECTION -->
-    <section id="billing-section" class="fa-section">
-      <div class="fa-card full-card">
-        <div class="fa-card-header">
-          <h3>Billing</h3>
-          <div class="muted small">Invoices, payment method, usage</div>
-        </div>
-
-        <div class="fa-billing-grid">
-          <div class="fa-card billing-widget">
-            <div class="fa-card-title">Current plan</div>
-            <div class="fa-card-body">Pro — €600/month</div>
-            <div class="muted">Minutes left: 248 / 400</div>
-            <button class="fa-btn">Change plan</button>
-          </div>
-
-          <div class="fa-card billing-widget">
-            <div class="fa-card-title">Invoices</div>
-            <div class="fa-table-wrap small">
-              <table class="fa-table">
-                <thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
-                <tbody>
-                  <tr><td>2025-10-01</td><td>€600</td><td>Paid</td><td><button class="fa-btn-outline">View</button></td></tr>
-                  <tr><td>2025-09-01</td><td>€600</td><td>Paid</td><td><button class="fa-btn-outline">View</button></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="fa-card billing-widget">
-            <div class="fa-card-title">Payment method</div>
-            <div class="fa-card-body">
-              • Visa • **** 4242 <br><span class="muted">Expires 08/27</span>
-            </div>
-            <button class="fa-btn">Update payment</button>
-          </div>
-        </div>
+      <div class="card">
+        <h3>Minutes Left (Business)</h3>
+        <p>520 / 900</p>
       </div>
-    </section>
-
-    <!-- SUPPORT SECTION -->
-    <section id="support-section" class="fa-section">
-      <div class="fa-card full-card">
-        <div class="fa-card-header">
-          <h3>Support / Contact</h3>
-          <div class="muted small">Need custom agent or repair? Reach out.</div>
-        </div>
-
-        <form id="fa-support-form" class="fa-form">
-          <label>
-            Name
-            <input type="text" placeholder="Your name">
-          </label>
-          <label>
-            Email
-            <input type="email" placeholder="you@domain.com">
-          </label>
-          <label>
-            Phone (optional)
-            <input type="tel" placeholder="+421 9xx xxx xxx">
-          </label>
-          <label>
-            Description
-            <textarea placeholder="Describe the issue or request" rows="6"></textarea>
-          </label>
-
-          <div class="fa-form-actions">
-            <button class="fa-btn-primary">Send</button>
-          </div>
-        </form>
+      <div class="card">
+        <h3>Minutes Left (Enterprise)</h3>
+        <p>2000 / 2000+</p>
       </div>
-    </section>
-
-    <!-- GLOBAL MODALS -->
-    <div id="fa-modal-backdrop" class="fa-modal-backdrop" hidden></div>
-
-    <div id="fa-modal-edit-agent" class="fa-modal" role="dialog" aria-modal="true" hidden>
-      <div class="fa-modal-card">
-        <div class="fa-modal-header">
-          <h4>Edit agent</h4>
-          <button class="fa-modal-close" data-close>✕</button>
-        </div>
-        <div class="fa-modal-body">
-          <label>Agent name <input id="modal-agent-name" type="text"></label>
-          <label>Phone <input id="modal-agent-phone" type="tel"></label>
-        </div>
-        <div class="fa-modal-actions">
-          <button class="fa-btn-primary" data-save>Save</button>
-          <button class="fa-btn-outline" data-close>Cancel</button>
-        </div>
+      <div class="card">
+        <h3>Uptime</h3>
+        <p>99.8%</p>
+      </div>
+      <div class="card">
+        <h3>Total Revenue</h3>
+        <p>€4,500</p>
       </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="fa-footer muted">
-      © 2025 FameAI — demo dashboard. Built for screenshots & mockups.
-    </footer>
+    <!-- Charts -->
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Agent Performance</h3>
+        <div class="chart-placeholder">Main Graph</div>
+      </div>
+      <div class="chart-card">
+        <h3>Call Distribution</h3>
+        <div class="chart-placeholder">Distribution Graph</div>
+      </div>
+      <div class="chart-card">
+        <h3>Call Outcomes</h3>
+        <div class="chart-placeholder">Outcomes Graph</div>
+      </div>
+    </div>
 
-  </main>
+    <!-- Recent Calls -->
+    <div class="recent-calls">
+      <h3>Recent Calls</h3>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Number</th><th>Duration</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>#1023</td><td>+421940884444</td><td>04:22</td><td class="success">Completed</td></tr>
+          <tr><td>#1022</td><td>+421950333555</td><td>00:58</td><td class="failed">Missed</td></tr>
+          <tr><td>#1021</td><td>+421901777999</td><td>02:16</td><td class="success">Completed</td></tr>
+          <tr><td>#1020</td><td>+421920111222</td><td>03:05</td><td class="failed">Canceled</td></tr>
+          <tr><td>#1019</td><td>+421960222333</td><td>05:10</td><td class="success">Completed</td></tr>
+          <tr><td>#1018</td><td>+421970333444</td><td>01:45</td><td class="failed">Missed</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Minimal JS for navigation + sample data population -->
-  <script>
-    (function(){
-      // navigation
-      const navItems = document.querySelectorAll('.fa-nav-item');
-      const sections = document.querySelectorAll('.fa-section');
-      navItems.forEach(item => {
-        item.addEventListener('click', () => {
-          navItems.forEach(i => i.classList.remove('active'));
-          item.classList.add('active');
-          const target = item.dataset.target + '-section';
-          sections.forEach(s => s.classList.remove('active'));
-          document.getElementById(target).classList.add('active');
-        });
-      });
+  </section>
 
-      // populate recent calls with sample rows (enough rows for screenshots)
-      const recentTbody = document.getElementById('fa-recent-list');
-      const callsTbody = document.getElementById('fa-calls-list');
+  <!-- CALLS -->
+  <section id="calls" class="section">
+    <h2>Calls Overview</h2>
+    <table class="full-width">
+      <thead><tr><th>ID</th><th>Number</th><th>Duration</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>#2001</td><td>+421940000111</td><td>03:12</td><td class="success">Completed</td></tr>
+        <tr><td>#2002</td><td>+421950000222</td><td>01:45</td><td class="failed">Missed</td></tr>
+        <tr><td>#2003</td><td>+421960000333</td><td>05:30</td><td class="success">Completed</td></tr>
+        <tr><td>#2004</td><td>+421970000444</td><td>02:22</td><td class="success">Completed</td></tr>
+        <tr><td>#2005</td><td>+421980000555</td><td>04:05</td><td class="failed">Canceled</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-      const sampleNumbers = [
-        '+421 940 884 444', '+421 900 333 444', '+421 601 777 888',
-        '+421 903 123 456', '+421 912 345 678', '+421 915 222 333'
-      ];
+  <!-- ANALYTICS -->
+  <section id="analytics" class="section">
+    <h2>Analytics</h2>
+    <div class="charts">
+      <div class="chart-card"><h3>Call Activity</h3><div class="chart-placeholder">Graph</div></div>
+      <div class="chart-card"><h3>Customer Engagement</h3><div class="chart-placeholder">Graph</div></div>
+      <div class="chart-card"><h3>Revenue Trends</h3><div class="chart-placeholder">Graph</div></div>
+      <div class="chart-card"><h3>Agent Performance Over Time</h3><div class="chart-placeholder">Graph</div></div>
+    </div>
+  </section>
 
-      function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-      function pad(n){return String(n).padStart(2,'0');}
-      function sampleDuration(){ return pad(rand(0,9))+':'+pad(rand(0,59)); }
-      function sampleTimeDay(i){
-        const h = pad(8 + (i%12));
-        const m = pad(rand(0,59));
-        return `${h}:${m}`;
-      }
+  <!-- AI AGENTS -->
+  <section id="agents" class="section">
+    <h2>AI Agents</h2>
+    <div class="cards">
+      <div class="card"><h3>Restaurant Agent</h3><p>Minutes Left: 248 / 400</p><small>Status: Online</small></div>
+      <div class="card"><h3>Hotel Agent</h3><p>Minutes Left: 120 / 500</p><small>Status: Online</small></div>
+      <div class="card"><h3>Clinic Agent</h3><p>Minutes Left: 50 / 200</p><small>Status: Offline</small></div>
+      <div class="card"><h3>Retail Agent</h3><p>Minutes Left: 75 / 300</p><small>Status: Online</small></div>
+      <div class="card"><h3>Support Agent</h3><p>Minutes Left: 200 / 600</p><small>Status: Online</small></div>
+    </div>
+  </section>
 
-      for(let i=0;i<12;i++){
-        const num = sampleNumbers[i % sampleNumbers.length];
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${num}</td><td>${sampleTimeDay(i)}</td><td>${sampleDuration()}</td><td>${['Answered','Missed','Voicemail'][rand(0,2)]}</td><td>Restaurant AI</td>`;
-        recentTbody.appendChild(tr);
-      }
+  <!-- BILLING -->
+  <section id="billing" class="section">
+    <h2>Billing</h2>
+    <table class="full-width">
+      <thead><tr><th>Invoice #</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>#2025</td><td>2025-11-10</td><td>€200</td><td class="success">Paid</td></tr>
+        <tr><td>#2024</td><td>2025-10-10</td><td>€600</td><td class="failed">Pending</td></tr>
+        <tr><td>#2023</td><td>2025-09-12</td><td>€150</td><td class="success">Paid</td></tr>
+        <tr><td>#2022</td><td>2025-08-15</td><td>€800</td><td class="success">Paid</td></tr>
+        <tr><td>#2021</td><td>2025-07-20</td><td>€400</td><td class="failed">Pending</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-      for(let i=0;i<40;i++){
-        const id = 2000 + i;
-        const from = sampleNumbers[i % sampleNumbers.length];
-        const to = '+421 999 888 777';
-        const time = `2025-11-${pad(rand(1,12))} ${pad(rand(8,20))}:${pad(rand(0,59))}`;
-        const dur = sampleDuration();
-        const status = ['Answered','Missed','Voicemail'][rand(0,2)];
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>#${id}</td><td>${from}</td><td>${to}</td><td>Restaurant AI</td><td>${time}</td><td>${dur}</td><td>${status}</td><td><button class="fa-btn-outline">Inspect</button></td>`;
-        callsTbody.appendChild(tr);
-      }
+  <!-- SETTINGS -->
+  <section id="settings" class="section">
+    <h2>Settings</h2>
+    <form>
+      <label>Agency Name: <input type="text" value="FameAI"></label>
+      <label>Contact Email: <input type="email" value="contact@fameai.com"></label>
+      <label>Password: <input type="password"></label>
+      <label>Phone Number: <input type="text" value="+421940884444"></label>
+      <button type="submit">Save Settings</button>
+    </form>
+  </section>
 
-      // Modal handlers
-      const modal = document.getElementById('fa-modal-edit-agent');
-      const backdrop = document.getElementById('fa-modal-backdrop');
-      document.getElementById('fa-edit-agent')?.addEventListener('click', () => {
-        modal.hidden = false; backdrop.hidden = false;
-        document.getElementById('modal-agent-name').value = document.getElementById('agent-name').value;
-        document.getElementById('modal-agent-phone').value = document.getElementById('agent-number').value;
-      });
-      document.querySelectorAll('[data-close]').forEach(btn => {
-        btn.addEventListener('click', () => { modal.hidden = true; backdrop.hidden = true; });
-      });
-      document.querySelector('[data-save]')?.addEventListener('click', () => {
-        document.getElementById('agent-name').value = document.getElementById('modal-agent-name').value;
-        document.getElementById('agent-number').value = document.getElementById('modal-agent-phone').value;
-        modal.hidden = true; backdrop.hidden = true;
-      });
+  <!-- SUPPORT -->
+  <section id="support" class="section">
+    <h2>Support</h2>
+    <p>Contact us at: <strong>0940 884 444</strong></p>
+    <form>
+      <label>Email: <input type="email" placeholder="Your email"></label>
+      <label>Description: <textarea placeholder="Describe your issue"></textarea></label>
+      <button type="submit">Send Request</button>
+    </form>
+  </section>
 
-      // Contact support quick open
-      document.getElementById('fa-contact-support')?.addEventListener('click', () => {
-        document.getElementById('fa-support-form').scrollIntoView({behavior:'smooth'});
-      });
+  <!-- PROFILE -->
+  <section id="profile" class="section">
+    <h2>Profile</h2>
+    <p>Name: Oto</p>
+    <p>Email: oto@fameai.com</p>
+    <p>Role: Admin</p>
+  </section>
 
-    })();
-  </script>
+  <!-- LOGOUT -->
+  <section id="logout" class="section">
+    <h2>Logout</h2>
+    <button>Logout</button>
+  </section>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section');
+const menuItems = document.querySelectorAll('.menu li');
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    menuItems.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+
+    const sectionId = item.dataset.section;
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+  });
+});
+</script>
+
 </body>
 </html>
