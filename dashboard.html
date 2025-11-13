@@ -1,228 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Agent Dashboard Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="dashboard.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.7/dist/countUp.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FameAI Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
-<div class="dashboard-container">
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">AI Dashboard</div>
-    <nav>
-      <ul>
-        <li class="active">Dashboard</li>
-        <li>Calls & Analytics</li>
-        <li>Bookings</li>
-        <li>Billing</li>
-        <li>Settings</li>
-        <li>Support</li>
-      </ul>
-    </nav>
-    <div class="sidebar-footer">
-      <p>&copy; 2025 AI Agents</p>
-    </div>
-  </aside>
-
-  <!-- Main content -->
-  <main class="main-content">
-
-    <!-- Topbar -->
-    <div class="topbar">
-      <div class="greeting">Good afternoon! 👋</div>
-      <div class="profile">👤</div>
-    </div>
-
-    <!-- Dashboard Cards -->
-    <div class="cards">
-      <div class="card gradient-card">
-        <h3>Minutes Left</h3>
-        <p id="minutes-left" class="count">1200</p>
-        <div class="progress-bar"><div class="progress" style="width:60%;"></div></div>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">F</span>
+          <span class="logo-text">FameAI</span>
+        </a>
       </div>
-      <div class="card gradient-card">
-        <h3>Minutes Used</h3>
-        <p id="minutes-used" class="count">300</p>
-        <div class="progress-bar"><div class="progress" style="width:40%;"></div></div>
+      
+      <nav class="nav-menu">
+        <div class="nav-section">
+          <div class="nav-section-title">MAIN</div>
+          <a href="#" class="nav-item active">
+            <i class="nav-icon fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="nav-icon fas fa-robot"></i>
+            <span>My Agents</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <span>Analytics</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="nav-icon fas fa-credit-card"></i>
+            <span>Billing</span>
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">ACCOUNT</div>
+          <a href="#" class="nav-item">
+            <i class="nav-icon fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="nav-icon fas fa-question-circle"></i>
+            <span>Help & Support</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="#" class="user-profile">
+          <div class="user-avatar">JD</div>
+          <div class="user-info">
+            <div class="user-name">John Doe</div>
+            <div class="user-email">john@restaurant.sk</div>
+          </div>
+        </a>
       </div>
-      <div class="card gradient-card">
-        <h3>Active Plan</h3>
-        <p>Pro Plan</p>
-      </div>
-      <div class="card gradient-card">
-        <h3>Calls This Month</h3>
-        <p class="count">45</p>
-      </div>
-      <div class="card gradient-card">
-        <h3>Upcoming Booking</h3>
-        <p>2025-11-14 | 10:30</p>
-      </div>
-      <div class="card gradient-card">
-        <h3>Support Tickets</h3>
-        <p class="count">2</p>
-      </div>
-    </div>
-
-    <!-- Live Chart -->
-    <div class="chart-section">
-      <h2>Live Usage Chart</h2>
-      <canvas id="liveChart"></canvas>
-    </div>
-
-    <!-- Calls & Analytics -->
-    <section class="calls-analytics">
-      <h2>Calls & Analytics</h2>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Duration</th>
-              <th>Status</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2025-11-12</td>
-              <td>10:00</td>
-              <td>15 min</td>
-              <td>Completed</td>
-              <td>Booked appointment</td>
-            </tr>
-            <tr>
-              <td>2025-11-11</td>
-              <td>14:30</td>
-              <td>10 min</td>
-              <td>Cancelled</td>
-              <td>Client no-show</td>
-            </tr>
-            <tr>
-              <td>2025-11-10</td>
-              <td>09:15</td>
-              <td>20 min</td>
-              <td>Completed</td>
-              <td>Follow-up</td>
-            </tr>
-            <tr>
-              <td>2025-11-09</td>
-              <td>13:45</td>
-              <td>12 min</td>
-              <td>Completed</td>
-              <td>General inquiry</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Billing -->
-    <section class="billing">
-      <h2>Billing & Payment</h2>
-      <div class="billing-container">
-        <div class="card billing-card gradient-card">
-          <h3>Current Plan: Pro</h3>
-          <p>Minutes Left: 1,200</p>
-          <div class="card-info">
-            <p>Card: **** **** **** 1234</p>
-            <p>Expiry: 12/26</p>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-content">
+          <h1 class="page-title">Dashboard</h1>
+          <div class="breadcrumbs">
+            <a href="#" class="breadcrumb">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb active">Dashboard</span>
           </div>
         </div>
-        <button class="upgrade-btn">Upgrade / Buy More Minutes</button>
+        <div class="header-actions">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search...">
+          </div>
+          <div class="notification-bell">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Welcome Card -->
+      <div class="card welcome-card">
+        <h2 class="welcome-title">Welcome back, John!</h2>
+        <p class="welcome-text">Your AI agents are working 24/7 to grow your business.</p>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
       </div>
-    </section>
 
-    <!-- Bookings -->
-    <section class="bookings">
-      <h2>Bookings</h2>
-      <form>
-        <label for="client-name">Client Name</label>
-        <input type="text" id="client-name" placeholder="Enter client name">
-        <label for="date">Date</label>
-        <input type="date" id="date">
-        <label for="time">Time</label>
-        <input type="time" id="time">
-        <button type="submit">Add Booking</button>
-      </form>
-    </section>
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3 class="stat-title">Minutes used</h3>
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">273 / 400</div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 68%"></div>
+            </div>
+          </div>
+          <button class="btn-secondary">Buy more minutes</button>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3 class="stat-title">Active agents</h3>
+            <div class="stat-icon">
+              <i class="fas fa-robot"></i>
+            </div>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Restaurant & Dental Clinic</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3 class="stat-title">Customer satisfaction</h3>
+            <div class="stat-icon">
+              <i class="fas fa-smile"></i>
+            </div>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">98%</div>
+            <div class="stat-label">Based on 156 reviews</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3 class="stat-title">Monthly savings</h3>
+            <div class="stat-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">€520</div>
+            <div class="stat-label">Compared to manual handling</div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Settings -->
-    <section class="settings">
-      <h2>Settings</h2>
-      <form>
-        <label for="plan">Select Plan</label>
-        <select id="plan">
-          <option value="basic">Basic</option>
-          <option value="pro" selected>Pro</option>
-          <option value="business">Business</option>
-        </select>
-        <label for="notification">Email Notifications</label>
-        <input type="checkbox" id="notification" checked>
-        <button type="submit">Save Settings</button>
-      </form>
-    </section>
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h2 class="card-title">Call Volume Analysis</h2>
+            <div class="chart-actions">
+              <button class="chart-btn active">Week</button>
+              <button class="chart-btn">Month</button>
+              <button class="chart-btn">Year</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="callsChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="card chart-card">
+          <div class="card-header">
+            <h2 class="card-title">Agent Performance</h2>
+            <div class="chart-actions">
+              <button class="chart-btn">
+                <i class="fas fa-ellipsis-h"></i>
+              </button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="agentChart"></canvas>
+          </div>
+        </div>
+      </div>
 
-    <!-- Support -->
-    <section class="support">
-      <h2>Support</h2>
-      <form>
-        <label for="ticket-subject">Subject</label>
-        <input type="text" id="ticket-subject" placeholder="Issue subject">
-        <label for="ticket-message">Message</label>
-        <textarea id="ticket-message" placeholder="Describe your issue"></textarea>
-        <button type="submit">Submit Ticket</button>
-      </form>
-    </section>
+      <!-- Main Content Grid -->
+      <div class="content-grid">
+        <!-- My Agents Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">My AI Agents</h2>
+            <button class="btn-primary"><i class="fas fa-plus"></i> Add Agent</button>
+          </div>
+          <div class="agents-list">
+            <div class="agent-item">
+              <div class="agent-avatar">🍽️</div>
+              <div class="agent-info">
+                <h3 class="agent-name">Restaurant AI</h3>
+                <p class="agent-phone">+421 908 123 456</p>
+                <div class="agent-status status-active">Active</div>
+              </div>
+              <button class="btn-icon"><i class="fas fa-cog"></i></button>
+            </div>
+            <div class="agent-item">
+              <div class="agent-avatar">🦷</div>
+              <div class="agent-info">
+                <h3 class="agent-name">Dental Clinic AI</h3>
+                <p class="agent-phone">+421 908 654 321</p>
+                <div class="agent-status status-active">Active</div>
+              </div>
+              <button class="btn-icon"><i class="fas fa-cog"></i></button>
+            </div>
+            <div class="agent-item">
+              <div class="agent-avatar">+</div>
+              <div class="agent-info">
+                <h3 class="agent-name">Add new agent</h3>
+                <p class="agent-desc">Create a custom AI agent for your business</p>
+              </div>
+              <button class="btn-icon"><i class="fas fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Activity Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Activity</h2>
+            <a href="#" class="view-all">View all</a>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">New reservation</h4>
+                <p class="activity-desc">Restaurant AI: Table for 2 at 7 PM</p>
+              </div>
+              <div class="activity-time">2 min ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">Missed call</h4>
+                <p class="activity-desc">Dental Clinic AI: 1 missed call</p>
+              </div>
+              <div class="activity-time">15 min ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">Weekly report</h4>
+                <p class="activity-desc">Your agents handled 82 calls this week</p>
+              </div>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-comment"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">Customer feedback</h4>
+                <p class="activity-desc">New 5-star review for Restaurant AI</p>
+              </div>
+              <div class="activity-time">3 hours ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-bell"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">Low minutes warning</h4>
+                <p class="activity-desc">You've used 80% of your monthly minutes</p>
+              </div>
+              <div class="activity-time">6 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  </main>
-</div>
+      <!-- Footer -->
+      <footer class="dashboard-footer">
+        <p>&copy; 2025 FameAI. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact Support</a>
+        </div>
+      </footer>
+    </main>
+  </div>
 
-<script>
-  // CountUp animation
-  const countElems = document.querySelectorAll('.count');
-  countElems.forEach(el=>{
-    let countUp = new CountUp(el, el.innerText);
-    countUp.start();
-  });
-
-  // Live Chart placeholder
-  const ctx = document.getElementById('liveChart').getContext('2d');
-  const liveChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Week 1','Week 2','Week 3','Week 4'],
-      datasets: [{
-        label: 'Minutes Used',
-        data: [200, 400, 600, 900],
-        backgroundColor: 'rgba(79,70,229,0.2)',
-        borderColor: 'rgba(79,70,229,1)',
-        borderWidth: 2,
-        tension: 0.4,
-        fill: true,
-        pointRadius: 5,
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: { mode: 'index', intersect: false }
-      },
-      interaction: { mode: 'nearest', axis: 'x', intersect: false },
-      scales: {
-        y: { beginAtZero: true }
-      }
-    }
-  });
-</script>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Chart.js implementation for the dashboard
+      const callsCtx = document.getElementById('callsChart').getContext('2d');
+      const callsChart = new Chart(callsCtx, {
+        type: 'line',
+         {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Calls per day',
+             [12, 19, 15, 18, 22, 30, 28],
+            borderColor: '#4f86f7',
+            backgroundColor: 'rgba(79, 134, 247, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.3,
+            pointRadius: 5,
+            pointBackgroundColor: '#4f86f7',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(30, 41, 59, 0.9)',
+              titleColor: '#f1f5f9',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(56, 189, 248, 0.2)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: true
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                color: 'rgba(56, 189, 248, 0.05)'
+              },
+              ticks: {
+                color: '#94a3b8',
+                font: {
+                  family: 'Inter',
+                  size: 12
+                }
+              }
+            },
+            y: {
+              grid: {
+                color: 'rgba(56, 189, 248, 0.05)'
+              },
+              ticks: {
+                color: '#94a3b8',
+                font: {
+                  family: 'Inter',
+                  size: 12
+                }
+              }
+            }
+          },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          }
+        }
+      });
+      
+      const agentCtx = document.getElementById('agentChart').getContext('2d');
+      const agentChart = new Chart(agentCtx, {
+        type: 'bar',
+         {
+          labels: ['Restaurant AI', 'Dental Clinic AI'],
+          datasets: [{
+            label: 'Success Rate',
+            data: [94, 97],
+            backgroundColor: [
+              'rgba(79, 134, 247, 0.5)',
+              'rgba(16, 185, 129, 0.5)'
+            ],
+            borderColor: [
+              '#4f86f7',
+              '#10b981'
+            ],
+            borderWidth: 2,
+            borderRadius: 8,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(30, 41, 59, 0.9)',
+              titleColor: '#f1f5f9',
+              bodyColor: '#cbd5e1',
+              borderColor: 'rgba(56, 189, 248, 0.2)',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: true
+            }
+          },
+          scales: {
+            x: {
+              max: 100,
+              grid: {
+                color: 'rgba(56, 189, 248, 0.05)'
+              },
+              ticks: {
+                color: '#94a3b8',
+                font: {
+                  family: 'Inter',
+                  size: 12
+                },
+                callback: function(value) {
+                  return value + '%';
+                }
+              }
+            },
+            y: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                color: '#94a3b8',
+                font: {
+                  family: 'Inter',
+                  size: 12
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Theme toggle functionality
+      const themeToggle = document.querySelector('.theme-toggle');
+      themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('light-mode');
+        const icon = themeToggle.querySelector('i');
+        if (document.body.classList.contains('light-mode')) {
+          icon.className = 'fas fa-sun';
+        } else {
+          icon.className = 'fas fa-moon';
+        }
+      });
+      
+      // Navigation items toggle
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          navItems.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // Chart buttons toggle
+      const chartBtns = document.querySelectorAll('.chart-btn');
+      chartBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          chartBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
