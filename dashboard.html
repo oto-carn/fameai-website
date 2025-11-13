@@ -1,819 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FameAI — Mega Dashboard</title>
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="dashboard.css" />
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – FameAI</title>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-  <!-- ======= Glow & Background ======= -->
-  <div class="bg-plate"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  <div class="glow glow-3"></div>
+  <!-- Glow Effects -->
+  <div class="glow glow-top-left"></div>
+  <div class="glow glow-bottom-right"></div>
 
-  <!-- ======= Sidebar ======= -->
+  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-top">
-      <a href="#" class="brand">
-        <div class="brand-mark">FA</div>
-        <div class="brand-text">FameAI</div>
-      </a>
-      <div class="sidebar-quick">
-        <button class="icon-btn" title="New agent"><i class="fas fa-plus"></i></button>
-        <button class="icon-btn" title="Deploy"><i class="fas fa-rocket"></i></button>
-        <button class="icon-btn" title="Settings"><i class="fas fa-sliders-h"></i></button>
-      </div>
+    <div class="sidebar-header">
+      <a href="#" class="logo">FameAI</a>
     </div>
-
-    <nav class="nav">
-      <a href="#" class="nav-link active" data-view="overview"><i class="fas fa-home"></i><span>Overview</span></a>
-      <a href="#" class="nav-link" data-view="agents"><i class="fas fa-robot"></i><span>My Agents</span></a>
-      <a href="#" class="nav-link" data-view="analytics"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-      <a href="#" class="nav-link" data-view="billing"><i class="fas fa-credit-card"></i><span>Billing</span></a>
-      <a href="#" class="nav-link" data-view="settings"><i class="fas fa-cog"></i><span>Settings</span></a>
-      <div class="nav-divider"></div>
-      <a href="#" class="nav-link small" data-view="logs"><i class="fas fa-file-alt"></i><span>Logs</span></a>
-      <a href="#" class="nav-link small" data-view="integrations"><i class="fas fa-plug"></i><span>Integrations</span></a>
+    <nav class="nav-menu">
+      <a href="#" class="nav-item active" data-view="overview"><i class="fas fa-home"></i> Overview</a>
+      <a href="#" class="nav-item" data-view="agents"><i class="fas fa-robot"></i> My Agents</a>
+      <a href="#" class="nav-item" data-view="analytics"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="#" class="nav-item" data-view="billing"><i class="fas fa-credit-card"></i> Billing</a>
+      <a href="#" class="nav-item" data-view="settings"><i class="fas fa-cog"></i> Settings</a>
     </nav>
-
-    <div class="sidebar-bottom">
-      <div class="user-compact">
-        <div class="avatar">JD</div>
-        <div class="user-meta">
-          <div class="name">John Doe</div>
-          <div class="email">john@restaurant.sk</div>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">JD</div>
+        <div>
+          <div class="user-name">John Doe</div>
+          <div class="user-email">john@restaurant.sk</div>
         </div>
       </div>
-      <div class="legal">© 2025 FameAI</div>
     </div>
   </aside>
 
-  <!-- ======= Main ======= -->
-  <main class="main">
-
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="search">
-        <input id="globalSearch" placeholder="Search agents, calls, invoices..." />
-        <button class="icon-btn"><i class="fas fa-search"></i></button>
+  <!-- Notification Bell -->
+  <div class="notification-wrapper">
+    <button class="notification-bell" id="notificationBell">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge"></span>
+    </button>
+    <div class="notifications-dropdown" id="notificationsDropdown">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+        <span class="mark-all">Mark all as read</span>
       </div>
-
-      <div class="top-actions">
-        <div class="quick-stats">
-          <div class="qs-item">
-            <div class="qs-label">Active Agents</div>
-            <div class="qs-value" id="qsAgents">12</div>
-          </div>
-          <div class="qs-item">
-            <div class="qs-label">This Week Calls</div>
-            <div class="qs-value" id="qsCalls">528</div>
+      <div class="notifications-list">
+        <div class="notification-item">
+          <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="notification-content">
+            <h4>New reservation</h4>
+            <p>Table for 2 at 7 PM</p>
+            <div class="notification-time">2 min ago</div>
           </div>
         </div>
+        <div class="notification-item">
+          <div class="notification-icon"><i class="fas fa-phone"></i></div>
+          <div class="notification-content">
+            <h4>Missed call</h4>
+            <p>Dental Clinic AI: 1 missed call</p>
+            <div class="notification-time">15 min ago</div>
+          </div>
+        </div>
+        <div class="notification-item">
+          <div class="notification-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="notification-content">
+            <h4>Weekly report</h4>
+            <p>Your agents handled 82 calls this week</p>
+            <div class="notification-time">1 hour ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <button class="icon-btn" id="openNotifications" title="Notifications"><i class="fas fa-bell"></i><span class="badge" id="notBadge">3</span></button>
-        <button class="icon-btn" id="openProfile" title="Profile"><i class="fas fa-user-circle"></i></button>
-      </div>
-    </header>
+  <!-- Main Content -->
+  <main class="main-content">
 
-    <!-- Notifications dropdown -->
-    <div id="notificationsPanel" class="panel dropdown-panel">
-      <div class="panel-header">
-        <h4>Notifications</h4>
-        <button class="linkish" id="markAllRead">Mark all read</button>
+    <!-- OVERVIEW -->
+    <div class="view active" id="overview-view">
+      <div class="card welcome-card">
+        <h1>Welcome back, John!</h1>
+        <p>Your AI agents are working 24/7 to grow your business.</p>
+        <div class="plan-tag">Pro Plan • 349 €/month</div>
       </div>
-      <div class="panel-body" id="notificationsList">
-        <!-- dynamic notifications -->
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">273 / 400</div>
+          <div class="stat-label">Minutes used</div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Active agents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">98%</div>
+          <div class="stat-label">Customer satisfaction</div>
+        </div>
       </div>
-      <div class="panel-footer">
-        <button class="btn-link">View all</button>
+
+      <div class="card analytics-overview">
+        <h2>Activity Overview</h2>
+        <canvas id="overviewChart" height="130"></canvas>
+        <div class="chart-legend">
+          <span class="legend green"></span> Picked Up Calls
+          <span class="legend red"></span> Missed Calls
+        </div>
+      </div>
+
+      <div class="card agent-preview">
+        <h2>My Agents</h2>
+        <div class="agent-list-overview">
+          <div class="agent-item">
+            <div class="agent-icon">🍽️</div>
+            <div class="agent-info">
+              <h3>Restaurant AI</h3>
+              <p>+421 908 123 456</p>
+              <div class="agent-status"><span class="status-badge status-active">Active</span> Handles reservations</div>
+            </div>
+          </div>
+          <div class="agent-item">
+            <div class="agent-icon">🦷</div>
+            <div class="agent-info">
+              <h3>Dental Clinic AI</h3>
+              <p>+421 908 654 321</p>
+              <div class="agent-status"><span class="status-badge status-active">Active</span> Manages appointments</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- ======= Content Views ======= -->
-    <section class="content">
+    <!-- AGENTS -->
+    <div class="view" id="agents-view">
+      <div class="page-header">
+        <h1>My AI Agents</h1>
+        <button class="btn-secondary" onclick="location.href='marketplace.html'">+ Add New Agent</button>
+      </div>
 
-      <!-- ---------- OVERVIEW ---------- -->
-      <section class="view active" id="overview">
-        <!-- Welcome card and KPIs -->
-        <div class="row wrap">
-          <div class="col large">
-            <div class="card welcome">
-              <div class="welcome-left">
-                <h1>Welcome back, John 👋</h1>
-                <p class="muted">Your AI agents handled <strong id="welcomeCalls">528</strong> calls this week. Performance trending up.</p>
-                <div class="badges">
-                  <span class="pill">Pro Plan</span>
-                  <span class="pill secondary">349 €/month</span>
-                </div>
-              </div>
-              <div class="welcome-right">
-                <!-- mini spark bars -->
-                <div class="mini-stats">
-                  <div class="mini">
-                    <div class="mini-label">Uptime</div>
-                    <div class="mini-value">99.98%</div>
-                  </div>
-                  <div class="mini">
-                    <div class="mini-label">Satisfaction</div>
-                    <div class="mini-value">98%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Activity Chart big -->
-            <div class="card">
-              <div class="card-head">
-                <h3>Activity — Hourly & Daily</h3>
-                <div class="controls">
-                  <button class="btn-ghost active" data-range="7">7d</button>
-                  <button class="btn-ghost" data-range="30">30d</button>
-                  <button class="btn-ghost" data-range="90">90d</button>
-                </div>
-              </div>
-
-              <div class="graph-heavy">
-                <canvas id="mainActivityChart" height="220"></canvas>
-              </div>
-
-              <div class="graph-meta">
-                <div class="legend">
-                  <span><i class="dot green"></i> Picked Up</span>
-                  <span><i class="dot red"></i> Missed</span>
-                  <span><i class="dot blue"></i> Outgoing</span>
-                </div>
-                <div class="graph-stats">
-                  <div class="gs">
-                    <div class="gs-label">Total minutes</div>
-                    <div class="gs-value" id="totalMinutes">12,420</div>
-                  </div>
-                  <div class="gs">
-                    <div class="gs-label">Avg call</div>
-                    <div class="gs-value">14m 20s</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Quick actions + agent mini-grid -->
-            <div class="row">
-              <div class="col small">
-                <div class="card">
-                  <h4>Quick actions</h4>
-                  <div class="actions-grid">
-                    <button class="action"><i class="fas fa-phone"></i><span>Place test call</span></button>
-                    <button class="action"><i class="fas fa-robot"></i><span>Deploy agent</span></button>
-                    <button class="action"><i class="fas fa-envelope"></i><span>Send broadcast</span></button>
-                    <button class="action"><i class="fas fa-cloud-upload-alt"></i><span>Upload audio</span></button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col medium">
-                <div class="card">
-                  <h4>Top agents (by activity)</h4>
-                  <div class="top-agents list" id="topAgentsList">
-                    <!-- dynamic list -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right column — Overview sidebar widgets -->
-          <div class="col narrow">
-            <div class="card compact">
-              <h4>Usage</h4>
-              <div class="meter">
-                <div class="meter-bar">
-                  <div class="meter-fill" style="width:68%"></div>
-                </div>
-                <div class="meter-info">273 / 400 minutes</div>
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Plan</h4>
-              <div class="card-row">
-                <div>
-                  <div class="muted">Current</div>
-                  <div class="bold">Pro</div>
-                </div>
-                <div class="align-right">
-                  <button class="btn-secondary">Change</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Health</h4>
-              <div class="health-grid">
-                <div class="h-item"><div class="h-dot ok"></div><div>Telephony</div></div>
-                <div class="h-item"><div class="h-dot ok"></div><div>AI Engine</div></div>
-                <div class="h-item"><div class="h-dot warn"></div><div>Sync</div></div>
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Shortcuts</h4>
-              <div class="shortcuts">
-                <button class="shortcut"><i class="fas fa-file-csv"></i> Export CSV</button>
-                <button class="shortcut"><i class="fas fa-arrow-down"></i> Download report</button>
-              </div>
-            </div>
+      <div class="agent-grid">
+        <!-- Example agent cards -->
+        <div class="agent-card">
+          <div class="agent-icon">🍽️</div>
+          <h3>Restaurant AI</h3>
+          <p class="agent-desc">Handles reservations, menu, hours</p>
+          <div class="agent-meta">
+            <span class="status-badge status-active">Active</span>
+            <span>+421 908 123 456</span>
           </div>
         </div>
-      </section>
-
-      <!-- ---------- AGENTS PAGE ---------- -->
-      <section class="view" id="agents">
-        <div class="row">
-          <div class="col large">
-            <div class="card">
-              <div class="card-head">
-                <h3>My AI Agents</h3>
-                <div class="controls">
-                  <input id="agentSearch" placeholder="Search agents..." />
-                  <button class="btn-primary" id="createAgentBtn">+ New Agent</button>
-                </div>
-              </div>
-
-              <div class="agents-grid" id="agentsGrid">
-                <!-- dynamic agent-cards inserted by JS -->
-              </div>
-
-              <div class="pager">
-                <button class="btn-ghost" id="prevPage">Prev</button>
-                <div class="pager-info" id="pagerInfo">1-12 of 34</div>
-                <button class="btn-ghost" id="nextPage">Next</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col narrow">
-            <div class="card compact">
-              <h4>Agent Filters</h4>
-              <div class="filter-list">
-                <label><input type="checkbox" checked class="filter" data-filter="active"> Active</label>
-                <label><input type="checkbox" checked class="filter" data-filter="paused"> Paused</label>
-                <label><input type="checkbox" checked class="filter" data-filter="error"> With errors</label>
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Agent Health</h4>
-              <div id="agentHealthSummary">
-                <!-- dynamic -->
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Templates</h4>
-              <div class="template-list">
-                <button class="btn-ghost">Restaurant</button>
-                <button class="btn-ghost">Dental</button>
-                <button class="btn-ghost">Appointments</button>
-              </div>
-            </div>
+        <div class="agent-card">
+          <div class="agent-icon">🦷</div>
+          <h3>Dental Clinic AI</h3>
+          <p class="agent-desc">Manages appointments, reminders</p>
+          <div class="agent-meta">
+            <span class="status-badge status-active">Active</span>
+            <span>+421 908 654 321</span>
           </div>
         </div>
-      </section>
-
-      <!-- ---------- ANALYTICS PAGE ---------- -->
-      <section class="view" id="analytics">
-        <div class="card">
-          <div class="card-head">
-            <h3>Call History & Analytics</h3>
-            <div class="controls">
-              <input id="analyticsSearch" placeholder="Find call by number or agent..." />
-              <select id="analyticsFilter">
-                <option value="all">All</option>
-                <option value="picked">Picked up</option>
-                <option value="missed">Missed</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="analytics-body">
-            <div class="table-wrap">
-              <table id="callsTable" class="calls-table">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" id="selectAllCalls"></th>
-                    <th>Date</th>
-                    <th>Agent</th>
-                    <th>Phone</th>
-                    <th>Type</th>
-                    <th>Minutes</th>
-                    <th>Result</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="callsTbody">
-                  <!-- filled by JS -->
-                </tbody>
-              </table>
-            </div>
-
-            <div class="analytics-side">
-              <div class="card compact">
-                <h4>Summary</h4>
-                <div class="summary-row"><div>Picked up</div><div class="value" id="sumPicked">312</div></div>
-                <div class="summary-row"><div>Missed</div><div class="value" id="sumMissed">84</div></div>
-                <div class="summary-row"><div>Avg length</div><div class="value">13m 20s</div></div>
-              </div>
-
-              <div class="card compact">
-                <h4>Calls chart</h4>
-                <canvas id="callsTrend" height="160"></canvas>
-              </div>
-
-              <div class="card compact">
-                <h4>Export</h4>
-                <button class="btn-primary" id="exportCsv">Export selected CSV</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ---------- BILLING PAGE ---------- -->
-      <section class="view" id="billing">
-        <div class="row">
-          <div class="col large">
-            <div class="card">
-              <h3>Billing Overview</h3>
-              <div class="billing-grid">
-                <div class="billing-card">
-                  <div class="bc-left">
-                    <div class="muted">Current Plan</div>
-                    <div class="bc-title">Pro</div>
-                    <div class="bc-amt">349 € / month</div>
-                  </div>
-                  <div class="bc-right">
-                    <button class="btn-secondary" id="changePlanBtn">Change plan</button>
-                  </div>
-                </div>
-
-                <div class="billing-card">
-                  <div class="muted">Next Invoice</div>
-                  <div class="bc-title">Dec 1, 2025</div>
-                  <div class="bc-amt">349 €</div>
-                </div>
-
-                <div class="billing-card">
-                  <div class="muted">Payment method</div>
-                  <div class="bc-title">Visa •••• 4242</div>
-                  <button class="btn-ghost" id="editPayment">Edit</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3>Invoice History</h3>
-              <div class="invoice-list" id="invoiceList">
-                <!-- invoice rows -->
-              </div>
-            </div>
-          </div>
-
-          <div class="col narrow">
-            <div class="card compact">
-              <h4>Billing actions</h4>
-              <button class="btn-primary" id="downloadInvoices">Download all</button>
-              <button class="btn-ghost" id="setupPaypal">Add PayPal</button>
-            </div>
-
-            <div class="card compact">
-              <h4>Billing FAQ</h4>
-              <div class="faq">
-                <details><summary>How do I change billing?</summary><div class="muted">Open payment and update card or switch to PayPal.</div></details>
-                <details><summary>Invoices not arriving?</summary><div class="muted">Check your spam or contact support.</div></details>
-              </div>
-            </div>
+        <div class="agent-card">
+          <div class="agent-icon">🏪</div>
+          <h3>Retail AI</h3>
+          <p class="agent-desc">Customer queries & stock management</p>
+          <div class="agent-meta">
+            <span class="status-badge status-inactive">Inactive</span>
+            <span>+421 908 777 888</span>
           </div>
         </div>
-      </section>
+        <div class="agent-card">
+          <div class="agent-icon">🏨</div>
+          <h3>Hotel AI</h3>
+          <p class="agent-desc">Bookings & inquiries</p>
+          <div class="agent-meta">
+            <span class="status-badge status-active">Active</span>
+            <span>+421 908 999 111</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <!-- ---------- SETTINGS PAGE ---------- -->
-      <section class="view" id="settings">
-        <div class="card">
-          <h3>Account Settings</h3>
-          <div class="settings-grid">
+    <!-- ANALYTICS -->
+    <div class="view" id="analytics-view">
+      <div class="page-header">
+        <h1>Analytics</h1>
+      </div>
+
+      <div class="card analytics-table-card">
+        <h3>Recent Calls</h3>
+        <table class="analytics-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Agent</th>
+              <th>Client</th>
+              <th>Duration</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nov 12</td>
+              <td>Restaurant AI</td>
+              <td>+421 908 123 456</td>
+              <td>42 min</td>
+              <td class="picked">Picked Up</td>
+            </tr>
+            <tr>
+              <td>Nov 12</td>
+              <td>Dental Clinic AI</td>
+              <td>+421 908 654 321</td>
+              <td>38 min</td>
+              <td class="missed">Missed</td>
+            </tr>
+            <tr>
+              <td>Nov 11</td>
+              <td>Restaurant AI</td>
+              <td>+421 908 111 222</td>
+              <td>51 min</td>
+              <td class="picked">Picked Up</td>
+            </tr>
+            <tr>
+              <td>Nov 10</td>
+              <td>Retail AI</td>
+              <td>+421 908 777 888</td>
+              <td>30 min</td>
+              <td class="missed">Missed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card analytics-chart-card">
+        <h3>Call Summary Chart</h3>
+        <canvas id="analyticsChart" height="130"></canvas>
+        <div class="chart-legend">
+          <span class="legend green"></span> Picked Up Calls
+          <span class="legend red"></span> Missed Calls
+        </div>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="view" id="billing-view">
+      <div class="page-header"><h1>Billing</h1></div>
+
+      <div class="card billing-overview">
+        <h3>Current Plan</h3>
+        <div class="plan-info">
+          <div>
+            <div class="plan-name">Pro Plan</div>
+            <div class="plan-price">349 €/month</div>
+          </div>
+          <button class="btn-secondary">Change Plan</button>
+        </div>
+      </div>
+
+      <div class="card payment-method">
+        <h3>Payment Methods</h3>
+        <div class="payment-card">
+          <i class="fab fa-cc-visa"></i>
+          <span>Visa •••• 4242</span>
+          <button class="btn-ghost">Edit</button>
+        </div>
+        <div class="payment-card">
+          <i class="fab fa-cc-paypal"></i>
+          <span>PayPal linked</span>
+          <button class="btn-ghost">Edit</button>
+        </div>
+      </div>
+
+      <div class="card invoice-history">
+        <h3>Invoice History</h3>
+        <div class="invoice-list">
+          <div class="invoice-item">
             <div>
-              <label>Full name</label>
-              <input id="settingName" value="John Doe" />
+              <div class="invoice-date">Nov 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
             </div>
-            <div>
-              <label>Email</label>
-              <input id="settingEmail" value="john@restaurant.sk" />
-            </div>
-            <div>
-              <label>Timezone</label>
-              <select id="settingTZ"><option>Europe/Bratislava</option></select>
-            </div>
-            <div>
-              <label>Language</label>
-              <select id="settingLang"><option>Slovak</option><option>English</option></select>
-            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
           </div>
-          <div style="margin-top:16px;">
-            <button class="btn-primary" id="saveSettings">Save changes</button>
-            <button class="btn-ghost" id="resetSettings">Reset</button>
+          <div class="invoice-item">
+            <div>
+              <div class="invoice-date">Oct 1, 2025</div>
+              <div class="invoice-desc">Pro Plan</div>
+            </div>
+            <div class="invoice-amount">349 €</div>
+            <span class="invoice-status paid">Paid</span>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="card">
-          <h3>Help Center</h3>
-          <div class="help-grid">
-            <div class="help-item">
-              <h4>Need custom AI?</h4>
-              <p class="muted">Request a custom agent build with integrations & phone routing.</p>
-              <button class="btn-ghost">Request</button>
-            </div>
-            <div class="help-item">
-              <h4>FAQs</h4>
-              <ul class="muted">
-                <li>How to add an agent?</li>
-                <li>How to manage calls?</li>
-                <li>How to export logs?</li>
-              </ul>
-            </div>
-            <div class="help-item">
-              <h4>Contact support</h4>
-              <p class="muted">support@fameai.example</p>
-              <button class="btn-primary">Open ticket</button>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- SETTINGS -->
+    <div class="view" id="settings-view">
+      <div class="page-header"><h1>Settings & Help</h1></div>
 
-    </section>
+      <div class="card">
+        <h3>Profile</h3>
+        <input type="text" value="John Doe" placeholder="Name"/>
+        <input type="email" value="john@restaurant.sk" placeholder="Email"/>
+        <button class="btn-primary">Save Changes</button>
+      </div>
+
+      <div class="card">
+        <h3>FAQs</h3>
+        <ul class="faq-list">
+          <li>How do I add a new AI Agent?</li>
+          <li>How can I edit payment methods?</li>
+          <li>How can I track calls?</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Need a custom AI Agent?</h3>
+        <p>Contact our support to create a fully customized AI assistant for your business.</p>
+        <button class="btn-secondary">Contact Support</button>
+      </div>
+    </div>
+
   </main>
 
-  <!-- ======= Modals & Templates ======= -->
-  <div id="modalRoot"></div>
-
-  <!-- Floating toasts -->
-  <div id="toastRoot" class="toast-root"></div>
-
-  <!-- ======= Scripts (render + UI logic) ======= -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  // *******************************
-  // Utility helpers and sample data
-  // *******************************
-  const sampleAgents = [
-    { id:1, name:"Restaurant AI", phone:"+421908123456", emoji:"🍽️", active:true, activity:78, satisfaction:98 },
-    { id:2, name:"Dental Clinic AI", phone:"+421908654321", emoji:"🦷", active:true, activity:64, satisfaction:95 },
-    { id:3, name:"Car Dealership AI", phone:"+421908555555", emoji:"🚗", active:true, activity:54, satisfaction:92 },
-    { id:4, name:"Spa AI", phone:"+421908222222", emoji:"💆", active:false, activity:12, satisfaction:88 },
-    { id:5, name:"Gym AI", phone:"+421908333333", emoji:"🏋️", active:true, activity:40, satisfaction:90 },
-    { id:6, name:"Clinic AI", phone:"+421908444444", emoji:"🏥", active:true, activity:22, satisfaction:85 },
-    { id:7, name:"Salon AI", phone:"+421908777777", emoji:"💇", active:true, activity:33, satisfaction:93 },
-    { id:8, name:"Hotel AI", phone:"+421908888888", emoji:"🏨", active:true, activity:46, satisfaction:96 },
-    { id:9, name:"Taxi AI", phone:"+421908999999", emoji:"🚕", active:false, activity:7, satisfaction:81 },
-    { id:10, name:"Bakery AI", phone:"+421908111111", emoji:"🥐", active:true, activity:29, satisfaction:89 },
-    { id:11, name:"Pharmacy AI", phone:"+421908121212", emoji:"💊", active:true, activity:36, satisfaction:87 },
-    { id:12, name:"Tailor AI", phone:"+421908131313", emoji:"🧵", active:true, activity:15, satisfaction:84 },
-    // ... add more to create dense UI
-  ];
-
-  const sampleCalls = (function buildCalls(){
-    const rows=[]; const agents=sampleAgents;
-    const results = ["picked","missed"];
-    for(let d=0; d<45; d++){
-      const day = new Date(); day.setDate(day.getDate()-d);
-      const dateStr = day.toLocaleDateString('en-GB',{month:'short',day:'numeric'});
-      for(let i=0;i<3;i++){
-        const a = agents[Math.floor(Math.random()*agents.length)];
-        const minutes = Math.floor(Math.random()*60)+2;
-        const res = Math.random()>0.75 ? "missed":"picked";
-        rows.push({
-          id: 'C'+(1000+d*10+i),
-          date: dateStr,
-          agent: a.name,
-          phone: a.phone,
-          type: (Math.random()>0.6?'Incoming':'Outgoing'),
-          minutes,
-          result: res
-        });
-      }
-    }
-    return rows;
-  })();
-
-  // *******************************
-  // DOM helpers
-  // *******************************
-  function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
-  function q(sel){ return document.querySelector(sel); }
-  function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
-
-  // *******************************
-  // Render top agents (overview)
-  // *******************************
-  function renderTopAgents(){
-    const container = document.getElementById('topAgentsList');
-    if(!container) return;
-    container.innerHTML = '';
-    const top = sampleAgents.slice(0).sort((a,b)=>b.activity-a.activity).slice(0,6);
-    top.forEach(a=>{
-      const item = el(`<div class="top-agent">
-        <div class="avatar-small">${a.emoji}</div>
-        <div class="ta-info">
-          <div class="ta-name">${a.name}</div>
-          <div class="ta-meta"><span class="muted">${a.phone}</span> • <strong>${a.activity}%</strong></div>
-        </div>
-        <div class="ta-progress"><div style="width:${a.activity}%"></div></div>
-      </div>`);
-      container.appendChild(item);
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item=>{
+      item.addEventListener('click',e=>{
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+        item.classList.add('active');
+        const viewId = item.dataset.view+'-view';
+        document.getElementById(viewId).classList.add('active');
+      });
     });
-  }
 
-  // *******************************
-  // Notifications sample
-  // *******************************
-  const sampleNotifications = [
-    { id:1, title:'New reservation', text:'Table for 2 at 19:00', time:'2m' },
-    { id:2, title:'Missed call', text:'Dental Clinic missed a call', time:'15m' },
-    { id:3, title:'Weekly report ready', text:'Your weekly report is ready', time:'1h' }
-  ];
-
-  function renderNotifications(){
-    const list = document.getElementById('notificationsList');
-    list.innerHTML = '';
-    sampleNotifications.forEach(n=>{
-      const item = el(`<div class="notify-item"><div><strong>${n.title}</strong><div class="muted">${n.text}</div></div><div class="muted">${n.time}</div></div>`);
-      list.appendChild(item);
+    // Notification
+    const bell=document.getElementById('notificationBell');
+    const dropdown=document.getElementById('notificationsDropdown');
+    bell.addEventListener('click',e=>{
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
     });
-  }
-
-  // *******************************
-  // Agents grid render (lots of features)
-  // *******************************
-  function renderAgentsGrid(filterText=''){
-    const grid = document.getElementById('agentsGrid');
-    grid.innerHTML = '';
-    const data = sampleAgents.filter(a=>a.name.toLowerCase().includes(filterText.toLowerCase()) || a.phone.includes(filterText));
-    data.forEach(a=>{
-      // create progress ring (SVG) as activity indicator
-      const ring = `<svg class="ring" viewBox="0 0 36 36">
-        <path class="ring-bg" d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <path class="ring-fg" stroke-dasharray="${a.activity},100" d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text x="18" y="20" class="ring-text">${a.activity}%</text>
-      </svg>`;
-
-      const node = el(`<div class="agent-card-full">
-        <div class="acf-top">
-          <div class="acf-left">
-            <div class="avatar-lg">${a.emoji}</div>
-            <div>
-              <div class="acf-name">${a.name}</div>
-              <div class="muted">${a.phone}</div>
-            </div>
-          </div>
-          <div class="acf-right">${ring}</div>
-        </div>
-        <div class="acf-body">
-          <div class="acf-row">
-            <div><div class="muted">Status</div><div class="${a.active?'tag tag-success':'tag tag-muted'}">${a.active?'Active':'Paused'}</div></div>
-            <div><div class="muted">Satisfaction</div><div class="bold">${a.satisfaction}%</div></div>
-            <div><div class="muted">Avg call</div><div class="bold">${Math.floor(5+Math.random()*25)}m</div></div>
-          </div>
-        </div>
-        <div class="acf-footer">
-          <button class="btn-ghost small" onclick="openAgent('${a.name}','${a.phone}')">Settings</button>
-          <button class="btn-secondary small" onclick="testCall('${a.phone}')">Test call</button>
-        </div>
-      </div>`);
-      grid.appendChild(node);
+    document.addEventListener('click',e=>{
+      if(!dropdown.contains(e.target)&&!bell.contains(e.target)) dropdown.classList.remove('active');
     });
-  }
 
-  function openAgent(name, phone){
-    toast(`Open settings for ${name} (${phone})`);
-  }
-  function testCall(phone){
-    toast(`Placing test call to ${phone}`);
-  }
-
-  // *******************************
-  // Render calls table
-  // *******************************
-  function renderCallsTable(filter='all'){
-    const tbody = document.getElementById('callsTbody');
-    tbody.innerHTML = '';
-    const rows = sampleCalls.filter(r=> filter==='all' ? true : r.result===filter);
-    rows.slice(0,100).forEach(r=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input type="checkbox" class="callSel" data-id="${r.id}"></td>
-        <td>${r.date}</td>
-        <td>${r.agent}</td>
-        <td>${r.phone}</td>
-        <td>${r.type}</td>
-        <td>${r.minutes}</td>
-        <td><span class="badge ${r.result==='picked'?'badge-green':'badge-red'}">${r.result==='picked'?'Picked up':'Missed'}</span></td>
-        <td>
-          <button class="btn-ghost tiny" onclick="playCall('${r.id}')"><i class="fas fa-play"></i></button>
-          <button class="btn-ghost tiny" onclick="viewCall('${r.id}')"><i class="fas fa-eye"></i></button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-    document.getElementById('sumPicked').textContent = rows.filter(r=>r.result==='picked').length;
-    document.getElementById('sumMissed').textContent = rows.filter(r=>r.result==='missed').length;
-  }
-
-  function playCall(id){ toast('Playing call '+id); }
-  function viewCall(id){ toast('Open call details '+id); }
-
-  // *******************************
-  // Export CSV of selected calls
-  // *******************************
-  function exportSelectedCSV(){
-    const sels = Array.from(document.querySelectorAll('.callSel:checked')).map(i=>i.dataset.id);
-    if(!sels.length){ toast('No calls selected', 'warning'); return; }
-    const rows = sampleCalls.filter(r=>sels.includes(r.id.toString()));
-    const csv = [
-      ['id','date','agent','phone','type','minutes','result'],
-      ...rows.map(r=>[r.id,r.date,r.agent,r.phone,r.type,r.minutes,r.result])
-    ].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\\n');
-    const blob = new Blob([csv],{type:'text/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download='calls_export.csv'; a.click(); URL.revokeObjectURL(url);
-    toast('CSV exported');
-  }
-
-  // *******************************
-  // Chart rendering
-  // *******************************
-  let mainChart, callsChart;
-  function renderCharts(){
-    // mainActivityChart
-    const ctx = document.getElementById('mainActivityChart').getContext('2d');
-    const labels = Array.from({length:7}).map((_,i)=>{
-      const d = new Date(); d.setDate(d.getDate()-6+i); return d.toLocaleDateString('en-GB',{weekday:'short'});
-    });
-    const pickedData = labels.map(()=>Math.floor(10+Math.random()*40));
-    const missedData = labels.map(()=>Math.floor(0+Math.random()*8));
-    const outgoing = labels.map(()=>Math.floor(4+Math.random()*10));
-
-    if(mainChart) mainChart.destroy();
-    mainChart = new Chart(ctx, {
+    // Chart.js Overview Chart
+    const ctxOverview=document.getElementById('overviewChart').getContext('2d');
+    new Chart(ctxOverview,{
       type:'line',
-      data:{
-        labels,
-        datasets:[
-          { label:'Picked Up', data:pickedData, borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,0.08)', tension:0.35, pointRadius:3, pointBackgroundColor:'#0f172a' },
-          { label:'Missed', data:missedData, borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.06)', tension:0.35, pointRadius:3, borderDash:[6,4] },
-          { label:'Outgoing', data:outgoing, borderColor:'#60a5fa', backgroundColor:'rgba(96,165,250,0.06)', tension:0.35, pointRadius:2 }
-        ]
-      },
-      options:{
-        responsive:true,
-        interaction:{mode:'index', intersect:false},
-        plugins:{legend:{display:false}, tooltip:{callbacks:{label:ctx=> ctx.dataset.label+': '+ctx.parsed.y}}},
-        scales:{
-          x:{ grid:{display:false}, ticks:{color:'#9ca3af'} },
-          y:{ grid:{color:'rgba(255,255,255,0.03)'}, ticks:{color:'#9ca3af'} }
-        }
-      }
-    });
-
-    // callsTrend
-    const ctx2 = document.getElementById('callsTrend').getContext('2d');
-    if(callsChart) callsChart.destroy();
-    callsChart = new Chart(ctx2, {
-      type:'bar',
       data:{
         labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         datasets:[
-          { label:'Picked up', data:[12,15,10,18,20,22,30], backgroundColor:'#22c55e' },
-          { label:'Missed', data:[3,2,4,1,2,3,1], backgroundColor:'#f87171' }
+          {label:'Picked Up Calls', data:[12,19,14,18,23,20,25], borderColor:'#38b2ac', backgroundColor:'rgba(56,178,172,0.1)', tension:0.4, fill:true},
+          {label:'Missed Calls', data:[5,8,6,7,4,5,6], borderColor:'#f56565', backgroundColor:'rgba(245,102,101,0.1)', tension:0.4, fill:true}
         ]
       },
-      options:{responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
+      options:{plugins:{legend:{display:true,position:'bottom'}},responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-  }
 
-  // *******************************
-  // Invoice rendering
-  // *******************************
-  function renderInvoices(){
-    const list = document.getElementById('invoiceList');
-    list.innerHTML = '';
-    const invoices = [
-      {date:'Apr 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'},
-      {date:'Mar 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'},
-      {date:'Feb 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'}
-    ];
-    invoices.forEach(inv=>{
-      const node = el(`<div class="invoice-row">
-        <div>${inv.date}<div class="muted small">${inv.desc}</div></div>
-        <div class="invoice-amt">${inv.amount}</div>
-      </div>`);
-      list.appendChild(node);
+    // Chart.js Analytics Chart
+    const ctxAnalytics=document.getElementById('analyticsChart').getContext('2d');
+    new Chart(ctxAnalytics,{
+      type:'bar',
+      data:{
+        labels:['Nov 10','Nov 11','Nov 12','Nov 13'],
+        datasets:[
+          {label:'Picked Up', data:[2,3,5,4], backgroundColor:'#38b2ac'},
+          {label:'Missed', data:[1,1,0,2], backgroundColor:'#f56565'}
+        ]
+      },
+      options:{plugins:{legend:{display:true,position:'bottom'}},responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
     });
-  }
-
-  // *******************************
-  // Misc UI: toasts, modals
-  // *******************************
-  function toast(msg, type='success'){
-    const root = document.getElementById('toastRoot');
-    const t = document.createElement('div'); t.className = 'toast '+type; t.textContent = msg;
-    root.appendChild(t);
-    setTimeout(()=>{ t.classList.add('show'); },20);
-    setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),300); },2500);
-  }
-
-  function openNotifications(){
-    document.getElementById('notificationsPanel').classList.toggle('open');
-  }
-
-  // *******************************
-  // Event bindings
-  // *******************************
-  document.getElementById('openNotifications').addEventListener('click', (e)=>{
-    e.stopPropagation(); openNotifications();
-  });
-  document.addEventListener('click', ()=>{ document.getElementById('notificationsPanel').classList.remove('open'); });
-
-  document.getElementById('exportCsv').addEventListener('click', exportSelectedCSV);
-  document.getElementById('analyticsFilter').addEventListener('change', (e)=> renderCallsTable(e.target.value==='picked'?'picked':(e.target.value==='missed'?'missed':'all')));
-  document.getElementById('selectAllCalls')?.addEventListener('change', (e)=>{
-    const checked = e.target.checked;
-    document.querySelectorAll('.callSel').forEach(c=>c.checked=checked);
-  });
-
-  // nav switching
-  document.querySelectorAll('.nav-link').forEach(link=>{
-    link.addEventListener('click', e=>{
-      e.preventDefault();
-      document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-      link.classList.add('active');
-      const view = link.dataset.view;
-      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-      document.getElementById(view).classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
-  });
-
-  // search agents
-  document.getElementById('agentSearch').addEventListener('input', (e)=> renderAgentsGrid(e.target.value));
-
-  // global search (quick)
-  document.getElementById('globalSearch').addEventListener('keydown', (e)=>{
-    if(e.key==='Enter'){ toast('Search: '+e.target.value); }
-  });
-
-  // export invoices
-  document.getElementById('downloadInvoices').addEventListener('click', ()=> toast('Downloading invoices...'));
-
-  // quick init render
-  function init(){
-    renderTopAgents();
-    renderNotifications();
-    renderAgentsGrid('');
-    renderCallsTable('all');
-    renderCharts();
-    renderInvoices();
-
-    // set quick stats
-    q('#qsAgents').textContent = sampleAgents.length;
-    q('#qsCalls').textContent = sampleCalls.length;
-  }
-  init();
-
-  // attach some global shortcuts
-  document.addEventListener('keydown', (e)=>{
-    if((e.ctrlKey||e.metaKey) && e.key==='k'){ e.preventDefault(); q('#globalSearch').focus(); }
-  });
-
-  // helper q
-  function q(sel){ return document.querySelector(sel); }
-
   </script>
 
-  <!-- End body -->
 </body>
 </html>
