@@ -143,7 +143,7 @@
               </div>
 
               <div class="graph-heavy">
-                <canvas id="mainActivityChart" height="200"></canvas>
+                <canvas id="mainActivityChart" style="width:21cm; height:14.5cm;"></canvas>
               </div>
 
               <div class="graph-meta">
@@ -568,16 +568,16 @@
     if(mainChart) mainChart.destroy();
     mainChart = new Chart(ctx, {
       type:'line',
-      data:{
+      {
         labels,
         datasets:[
-          { label:'Picked Up', data:pickedData, borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,0.08)', tension:0.15, pointRadius:3, pointBackgroundColor:'#0f172a' },
-          { label:'Missed', data:missedData, borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.06)', tension:0.15, pointRadius:3, borderDash:[6,4] },
-          { label:'Outgoing', data:outgoing, borderColor:'#60a5fa', backgroundColor:'rgba(96,165,250,0.06)', tension:0.15, pointRadius:2 }
+          { label:'Picked Up', pickedData, borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,0.08)', tension:0.15, pointRadius:3, pointBackgroundColor:'#0f172a' },
+          { label:'Missed', missedData, borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.06)', tension:0.15, pointRadius:3, borderDash:[6,4] },
+          { label:'Outgoing', outgoing, borderColor:'#60a5fa', backgroundColor:'rgba(96,165,250,0.06)', tension:0.15, pointRadius:2 }
         ]
       },
       options:{
-        responsive:true,
+        responsive:false,
         interaction:{mode:'index', intersect:false},
         plugins:{legend:{display:false}, tooltip:{callbacks:{label:ctx=> ctx.dataset.label+': '+ctx.parsed.y}}},
         scales:{
@@ -592,11 +592,11 @@
     if(callsChart) callsChart.destroy();
     callsChart = new Chart(ctx2, {
       type:'bar',
-      data:{
+      {
         labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         datasets:[
-          { label:'Picked up', data:[12,15,10,18,20,22,30], backgroundColor:'#22c55e' },
-          { label:'Missed', data:[3,2,4,1,2,3,1], backgroundColor:'#f87171' }
+          { label:'Picked up', [12,15,10,18,20,22,30], backgroundColor:'#22c55e' },
+          { label:'Missed', [3,2,4,1,2,3,1], backgroundColor:'#f87171' }
         ]
       },
       options:{responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
