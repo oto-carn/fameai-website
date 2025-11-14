@@ -1,703 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FameAI — Mega Dashboard</title>
-
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="dashboard.css" />
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FameAI Dashboard - AI Agent Management</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-  <!-- ======= Glow & Background ======= -->
-  <div class="bg-plate"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  <div class="glow glow-3"></div>
-
-  <!-- ======= Sidebar ======= -->
-  <aside class="sidebar">
-    <div class="sidebar-top">
-      <a href="#" class="brand">
-        <div class="brand-mark">FA</div>
-        <div class="brand-text">FameAI</div>
-      </a>
-      <div class="sidebar-quick">
-        <button class="icon-btn" title="New agent"><i class="fas fa-plus"></i></button>
-        <button class="icon-btn" title="Deploy"><i class="fas fa-rocket"></i></button>
-        <button class="icon-btn" title="Settings"><i class="fas fa-sliders-h"></i></button>
-      </div>
-    </div>
-
-    <nav class="nav">
-      <a href="#" class="nav-link active" data-view="overview"><i class="fas fa-home"></i><span>Overview</span></a>
-      <a href="#" class="nav-link" data-view="agents"><i class="fas fa-robot"></i><span>My Agents</span></a>
-      <a href="#" class="nav-link" data-view="analytics"><i class="fas fa-chart-line"></i><span>Analytics</span></a>
-      <a href="#" class="nav-link" data-view="billing"><i class="fas fa-credit-card"></i><span>Billing</span></a>
-      <a href="#" class="nav-link" data-view="settings"><i class="fas fa-cog"></i><span>Settings</span></a>
-      <div class="nav-divider"></div>
-      <a href="#" class="nav-link small" data-view="logs"><i class="fas fa-file-alt"></i><span>Logs</span></a>
-      <a href="#" class="nav-link small" data-view="integrations"><i class="fas fa-plug"></i><span>Integrations</span></a>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="user-compact">
-        <div class="avatar">JD</div>
-        <div class="user-meta">
-          <div class="name">John Doe</div>
-          <div class="email">john@restaurant.sk</div>
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>FameAI Dashboard</span>
+            </div>
         </div>
-      </div>
-      <div class="legal">© 2025 FameAI</div>
-    </div>
-  </aside>
-
-  <!-- ======= Main ======= -->
-  <main class="main">
-
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="search">
-        <input id="globalSearch" placeholder="Search agents, calls, invoices..." />
-        <button class="icon-btn"><i class="fas fa-search"></i></button>
-      </div>
-
-      <div class="top-actions">
-        <div class="quick-stats">
-          <div class="qs-item">
-            <div class="qs-label">Active Agents</div>
-            <div class="qs-value" id="qsAgents">12</div>
-          </div>
-          <div class="qs-item">
-            <div class="qs-label">This Week Calls</div>
-            <div class="qs-value" id="qsCalls">528</div>
-          </div>
+        <div class="nav-right">
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Oto&background=4F46E5&color=fff" alt="User Avatar" class="user-avatar">
+                <span class="user-name">Oto</span>
+                <i class="fas fa-chevron-down"></i>
+                <div class="dropdown-menu">
+                    <a href="#"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
         </div>
-
-        <button class="icon-btn" id="openNotifications" title="Notifications"><i class="fas fa-bell"></i><span class="badge" id="notBadge">3</span></button>
-        <button class="icon-btn" id="openProfile" title="Profile"><i class="fas fa-user-circle"></i></button>
-      </div>
     </header>
 
-    <!-- Notifications dropdown -->
-    <div id="notificationsPanel" class="panel dropdown-panel">
-      <div class="panel-header">
-        <h4>Notifications</h4>
-        <button class="linkish" id="markAllRead">Mark all read</button>
-      </div>
-      <div class="panel-body" id="notificationsList">
-        <!-- dynamic notifications -->
-      </div>
-      <div class="panel-footer">
-        <button class="btn-link">View all</button>
-      </div>
-    </div>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard Overview</span>
+            </a>
+            <a href="#agents" class="nav-item">
+                <i class="fas fa-robot"></i>
+                <span>My AI Agents</span>
+            </a>
+            <a href="#calls" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Calls & Messages</span>
+            </a>
+            <a href="#analytics" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#billing" class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Billing & Subscription</span>
+            </a>
+            <a href="#settings" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#support" class="nav-item">
+                <i class="fas fa-life-ring"></i>
+                <span>Support</span>
+            </a>
+        </nav>
+    </aside>
 
-    <!-- ======= Content Views ======= -->
-    <section class="content">
-
-      <!-- ---------- OVERVIEW ---------- -->
-      <section class="view active" id="overview">
-        <div class="row wrap">
-          <div class="col large">
-            <div class="card welcome">
-              <div class="welcome-left">
-                <h1>Welcome back, John 👋</h1>
-                <p class="muted">Your AI agents handled <strong id="welcomeCalls">528</strong> calls this week. Performance trending up.</p>
-                <div class="badges">
-                  <span class="pill">Pro Plan</span>
-                  <span class="pill secondary">349 €/month</span>
-                </div>
-              </div>
-              <div class="welcome-right">
-                <div class="mini-stats">
-                  <div class="mini">
-                    <div class="mini-label">Uptime</div>
-                    <div class="mini-value">99.98%</div>
-                  </div>
-                  <div class="mini">
-                    <div class="mini-label">Satisfaction</div>
-                    <div class="mini-value">98%</div>
-                  </div>
-                </div>
-              </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Overview Section -->
+        <section id="dashboard" class="section active">
+            <div class="welcome-section">
+                <h1>Welcome back, Oto</h1>
+                <p>Here are your AI business insights.</p>
             </div>
 
-            <!-- Activity Chart big -->
-            <div class="card">
-              <div class="card-head">
-                <h3>Activity — Hourly & Daily</h3>
-                <div class="controls">
-                  <button class="btn-ghost active" data-range="7">7d</button>
-                  <button class="btn-ghost" data-range="30">30d</button>
-                  <button class="btn-ghost" data-range="90">90d</button>
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon blue">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Calls Handled</h3>
+                        <div class="kpi-value">1,247</div>
+                        <p class="kpi-subtitle">+12% vs last month</p>
+                    </div>
                 </div>
-              </div>
 
-              <div class="graph-heavy">
-                <canvas id="mainActivityChart" style="width:21cm; height:14.5cm;"></canvas>
-              </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon purple">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Minutes Used</h3>
+                        <div class="kpi-value">248 / 400</div>
+                        <p class="kpi-subtitle">Pro Plan</p>
+                    </div>
+                </div>
 
-              <div class="graph-meta">
-                <div class="legend">
-                  <span><i class="dot green"></i> Picked Up</span>
-                  <span><i class="dot red"></i> Missed</span>
-                  <span><i class="dot blue"></i> Outgoing</span>
+                <div class="kpi-card">
+                    <div class="kpi-icon orange">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Active AI Agents</h3>
+                        <div class="kpi-value">3</div>
+                        <p class="kpi-subtitle">All online</p>
+                    </div>
                 </div>
-                <div class="graph-stats">
-                  <div class="gs">
-                    <div class="gs-label">Total minutes</div>
-                    <div class="gs-value" id="totalMinutes">12,420</div>
-                  </div>
-                  <div class="gs">
-                    <div class="gs-label">Avg call</div>
-                    <div class="gs-value">14m 20s</div>
-                  </div>
-                </div>
-              </div>
             </div>
 
-          </div>
-
-          <div class="col narrow">
-            <div class="card compact">
-              <h4>Usage</h4>
-              <div class="meter">
-                <div class="meter-bar">
-                  <div class="meter-fill" style="width:68%"></div>
+            <!-- Call Activity Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Call Activity (Last 7 Days)</h2>
+                    <div class="chart-filters">
+                        <button class="filter-btn">Day</button>
+                        <button class="filter-btn active">Week</button>
+                        <button class="filter-btn">Month</button>
+                    </div>
                 </div>
-                <div class="meter-info">273 / 400 minutes</div>
-              </div>
-            </div>
-
-            <div class="card compact">
-              <h4>Plan</h4>
-              <div class="card-row">
-                <div>
-                  <div class="muted">Current</div>
-                  <div class="bold">Pro</div>
+                <div class="modern-chart">
+                    <div class="chart-grid">
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                    </div>
+                    <svg class="line-chart" viewBox="0 0 700 300" preserveAspectRatio="none">
+                        <!-- Answered Calls Line -->
+                        <path class="chart-line answered" d="M 0 180 L 100 150 L 200 120 L 300 140 L 400 90 L 500 160 L 600 170 L 700 140" />
+                        <path class="chart-area answered" d="M 0 180 L 100 150 L 200 120 L 300 140 L 400 90 L 500 160 L 600 170 L 700 140 L 700 300 L 0 300 Z" />
+                        
+                        <!-- Call Hangups Line -->
+                        <path class="chart-line hangups" d="M 0 240 L 100 220 L 200 200 L 300 210 L 400 180 L 500 230 L 600 240 L 700 220" />
+                        <path class="chart-area hangups" d="M 0 240 L 100 220 L 200 200 L 300 210 L 400 180 L 500 230 L 600 240 L 700 220 L 700 300 L 0 300 Z" />
+                        
+                        <!-- Data Points -->
+                        <circle class="chart-dot answered" cx="0" cy="180" r="5" />
+                        <circle class="chart-dot answered" cx="100" cy="150" r="5" />
+                        <circle class="chart-dot answered" cx="200" cy="120" r="5" />
+                        <circle class="chart-dot answered" cx="300" cy="140" r="5" />
+                        <circle class="chart-dot answered" cx="400" cy="90" r="5" />
+                        <circle class="chart-dot answered" cx="500" cy="160" r="5" />
+                        <circle class="chart-dot answered" cx="600" cy="170" r="5" />
+                        <circle class="chart-dot answered" cx="700" cy="140" r="5" />
+                        
+                        <circle class="chart-dot hangups" cx="0" cy="240" r="5" />
+                        <circle class="chart-dot hangups" cx="100" cy="220" r="5" />
+                        <circle class="chart-dot hangups" cx="200" cy="200" r="5" />
+                        <circle class="chart-dot hangups" cx="300" cy="210" r="5" />
+                        <circle class="chart-dot hangups" cx="400" cy="180" r="5" />
+                        <circle class="chart-dot hangups" cx="500" cy="230" r="5" />
+                        <circle class="chart-dot hangups" cx="600" cy="240" r="5" />
+                        <circle class="chart-dot hangups" cx="700" cy="220" r="5" />
+                    </svg>
+                    <div class="chart-labels">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
                 </div>
-                <div class="align-right">
-                  <button class="btn-secondary">Change</button>
+                <div class="chart-legend-modern">
+                    <div class="legend-item-modern">
+                        <span class="legend-dot answered"></span>
+                        <span>Answered Calls</span>
+                        <strong>892</strong>
+                    </div>
+                    <div class="legend-item-modern">
+                        <span class="legend-dot hangups"></span>
+                        <span>Call Hangups</span>
+                        <strong>355</strong>
+                    </div>
                 </div>
-              </div>
             </div>
 
-            <div class="card compact">
-              <h4>Active Agents</h4>
-              <div class="big-number">12</div>
+            <!-- Recent Calls Table -->
+            <div class="table-container">
+                <h2>Recent Calls</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Customer Name</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>AI Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10:45 AM</td>
+                            <td>James Anderson</td>
+                            <td>3:24</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Sales Agent Pro</td>
+                        </tr>
+                        <tr>
+                            <td>10:32 AM</td>
+                            <td>Emily Roberts</td>
+                            <td>2:15</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Customer Support</td>
+                        </tr>
+                        <tr>
+                            <td>10:18 AM</td>
+                            <td>Michael Chen</td>
+                            <td>4:12</td>
+                            <td><span class="status-badge callback">Callback Needed</span></td>
+                            <td>Sales Agent Pro</td>
+                        </tr>
+                        <tr>
+                            <td>09:55 AM</td>
+                            <td>Sarah Williams</td>
+                            <td>1:58</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Booking Assistant</td>
+                        </tr>
+                        <tr>
+                            <td>09:40 AM</td>
+                            <td>David Martinez</td>
+                            <td>2:58</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Sales Agent Pro</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- My AI Agents Section -->
+        <section id="agents" class="section">
+            <div class="section-header">
+                <h1>My AI Agents</h1>
+                <button class="btn-primary"><i class="fas fa-plus"></i> Add New Agent</button>
             </div>
 
-            <div class="card compact">
-              <h4>Calls This Week</h4>
-              <div class="big-number">528</div>
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <img src="https://ui-avatars.com/api/?name=SA&background=4F46E5&color=fff" alt="Agent Avatar" class="agent-avatar">
+                        <span class="agent-status active">Active</span>
+                    </div>
+                    <h3>Sales Agent Pro</h3>
+                    <div class="agent-info">
+                        <div class="info-item">
+                            <i class="fas fa-language"></i>
+                            <span>English, Slovak</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone Assistant</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Circular Progress Chart -->
+                    <div class="agent-chart">
+                        <svg viewBox="0 0 120 120" class="circular-chart">
+                            <circle class="circle-bg" cx="60" cy="60" r="50" />
+                            <circle class="circle-progress" cx="60" cy="60" r="50" stroke-dasharray="220, 314" />
+                            <text x="60" y="65" class="chart-text">70%</text>
+                        </svg>
+                        <p class="chart-label">Minutes Usage</p>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat">
+                            <span class="stat-label">Calls Today</span>
+                            <span class="stat-value">47</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Minutes Used</span>
+                            <span class="stat-value">124 min</span>
+                        </div>
+                    </div>
+                    <button class="btn-secondary">Manage Agent</button>
+                </div>
+
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <img src="https://ui-avatars.com/api/?name=CS&background=10B981&color=fff" alt="Agent Avatar" class="agent-avatar">
+                        <span class="agent-status active">Active</span>
+                    </div>
+                    <h3>Customer Support</h3>
+                    <div class="agent-info">
+                        <div class="info-item">
+                            <i class="fas fa-language"></i>
+                            <span>English</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-headset"></i>
+                            <span>Support Chat</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Circular Progress Chart -->
+                    <div class="agent-chart">
+                        <svg viewBox="0 0 120 120" class="circular-chart">
+                            <circle class="circle-bg" cx="60" cy="60" r="50" />
+                            <circle class="circle-progress green" cx="60" cy="60" r="50" stroke-dasharray="157, 314" />
+                            <text x="60" y="65" class="chart-text">50%</text>
+                        </svg>
+                        <p class="chart-label">Minutes Usage</p>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat">
+                            <span class="stat-label">Chats Today</span>
+                            <span class="stat-value">89</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Minutes Used</span>
+                            <span class="stat-value">82 min</span>
+                        </div>
+                    </div>
+                    <button class="btn-secondary">Manage Agent</button>
+                </div>
+
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <img src="https://ui-avatars.com/api/?name=BA&background=8B5CF6&color=fff" alt="Agent Avatar" class="agent-avatar">
+                        <span class="agent-status active">Active</span>
+                    </div>
+                    <h3>Booking Assistant</h3>
+                    <div class="agent-info">
+                        <div class="info-item">
+                            <i class="fas fa-language"></i>
+                            <span>English, German</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Booking & Scheduling</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Circular Progress Chart -->
+                    <div class="agent-chart">
+                        <svg viewBox="0 0 120 120" class="circular-chart">
+                            <circle class="circle-bg" cx="60" cy="60" r="50" />
+                            <circle class="circle-progress purple" cx="60" cy="60" r="50" stroke-dasharray="94, 314" />
+                            <text x="60" y="65" class="chart-text">30%</text>
+                        </svg>
+                        <p class="chart-label">Minutes Usage</p>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat">
+                            <span class="stat-label">Bookings Today</span>
+                            <span class="stat-value">23</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Minutes Used</span>
+                            <span class="stat-value">42 min</span>
+                        </div>
+                    </div>
+                    <button class="btn-secondary">Manage Agent</button>
+                </div>
             </div>
-          </div>
+        </section>
+
+        <!-- Calls & Messages Section -->
+        <section id="calls" class="section">
+            <h1>Calls & Messages</h1>
+
+            <div class="calls-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Answered Calls</h3>
+                        <div class="stat-number">892</div>
+                        <p>Last 7 days</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-phone-slash"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Call Hangups</h3>
+                        <div class="stat-number">355</div>
+                        <p>Last 7 days</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Callback Needed</h3>
+                        <div class="stat-number">47</div>
+                        <p>Pending action</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Avg Call Duration</h3>
+                        <div class="stat-number">3:24</div>
+                        <p>Minutes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Calls Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>All Calls</h2>
+                    <button class="btn-primary"><i class="fas fa-download"></i> Export</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Customer Name</th>
+                            <th>Phone Number</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>AI Agent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10:45 AM</td>
+                            <td>James Anderson</td>
+                            <td>+1 555 0123</td>
+                            <td>3:24</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Sales Agent Pro</td>
+                            <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>10:32 AM</td>
+                            <td>Emily Roberts</td>
+                            <td>+1 555 0456</td>
+                            <td>2:15</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Customer Support</td>
+                            <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>10:18 AM</td>
+                            <td>Michael Chen</td>
+                            <td>+1 555 0789</td>
+                            <td>4:12</td>
+                            <td><span class="status-badge callback">Callback Needed</span></td>
+                            <td>Sales Agent Pro</td>
+                            <td><button class="btn-icon"><i class="fas fa-phone"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>09:55 AM</td>
+                            <td>Sarah Williams</td>
+                            <td>+1 555 0321</td>
+                            <td>1:58</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Booking Assistant</td>
+                            <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>09:40 AM</td>
+                            <td>David Martinez</td>
+                            <td>+1 555 0654</td>
+                            <td>2:58</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>Sales Agent Pro</td>
+                            <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <h1>Analytics</h1>
+
+            <div class="analytics-grid">
+                <!-- Minutes Usage Chart -->
+                <div class="analytics-card">
+                    <h3>Minutes Usage Overview</h3>
+                    <div class="minutes-chart">
+                        <div class="minutes-visual">
+                            <svg viewBox="0 0 200 200" class="donut-chart">
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#334155" stroke-width="30" />
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#4F46E5" stroke-width="30" 
+                                        stroke-dasharray="314" stroke-dashoffset="125" transform="rotate(-90 100 100)" />
+                            </svg>
+                            <div class="chart-center">
+                                <div class="center-value">248</div>
+                                <div class="center-label">of 400 min</div>
+                            </div>
+                        </div>
+                        <div class="minutes-info">
+                            <div class="info-row">
+                                <span>Used</span>
+                                <strong>248 minutes</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Remaining</span>
+                                <strong>152 minutes</strong>
+                            </div>
+                            <div class="info-row">
+                                <span>Usage</span>
+                                <strong>62%</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Distribution -->
+                <div class="analytics-card">
+                    <h3>Call Distribution by Agent</h3>
+                    <div class="distribution-chart">
+                        <div class="dist-item">
+                            <div class="dist-bar" style="width: 55%; background: linear-gradient(90deg, #4F46E5, #6366F1);">
+                                <span class="dist-label">Sales Agent Pro</span>
+                                <span class="dist-value">55%</span>
+                            </div>
+                        </div>
+                        <div class="dist-item">
+                            <div class="dist-bar" style="width: 30%; background: linear-gradient(90deg, #10B981, #34D399);">
+                                <span class="dist-label">Customer Support</span>
+                                <span class="dist-value">30%</span>
+                            </div>
+                        </div>
+                        <div class="dist-item">
+                            <div class="dist-bar" style="width: 15%; background: linear-gradient(90deg, #8B5CF6, #A78BFA);">
+                                <span class="dist-label">Booking Assistant</span>
+                                <span class="dist-value">15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Performance -->
+                <div class="analytics-card wide">
+                    <h3>Weekly Performance Summary</h3>
+                    <div class="performance-grid">
+                        <div class="performance-item">
+                            <i class="fas fa-arrow-up"></i>
+                            <div>
+                                <strong>+18%</strong>
+                                <span>Call Volume</span>
+                            </div>
+                        </div>
+                        <div class="performance-item">
+                            <i class="fas fa-arrow-down"></i>
+                            <div>
+                                <strong>-23%</strong>
+                                <span>Call Hangups</span>
+                            </div>
+                        </div>
+                        <div class="performance-item">
+                            <i class="fas fa-arrow-up"></i>
+                            <div>
+                                <strong>+15%</strong>
+                                <span>Avg Duration</span>
+                            </div>
+                        </div>
+                        <div class="performance-item">
+                            <i class="fas fa-arrow-up"></i>
+                            <div>
+                                <strong>+25%</strong>
+                                <span>Customer Satisfaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peak Hours Chart -->
+                <div class="analytics-card wide">
+                    <h3>Peak Call Hours</h3>
+                    <div class="peak-hours-chart">
+                        <div class="hour-bar" style="height: 40%"><span>8 AM</span></div>
+                        <div class="hour-bar" style="height: 55%"><span>9 AM</span></div>
+                        <div class="hour-bar" style="height: 75%"><span>10 AM</span></div>
+                        <div class="hour-bar" style="height: 90%"><span>11 AM</span></div>
+                        <div class="hour-bar" style="height: 85%"><span>12 PM</span></div>
+                        <div class="hour-bar" style="height: 70%"><span>1 PM</span></div>
+                        <div class="hour-bar" style="height: 80%"><span>2 PM</span></div>
+                        <div class="hour-bar" style="height: 75%"><span>3 PM</span></div>
+                        <div class="hour-bar" style="height: 65%"><span>4 PM</span></div>
+                        <div class="hour-bar" style="height: 50%"><span>5 PM</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Billing Section -->
+        <section id="billing" class="section">
+            <h1>Billing & Subscription</h1>
+
+            <div class="billing-grid">
+                <div class="billing-card current-plan">
+                    <div class="plan-badge">Current Plan</div>
+                    <h2>Pro Plan</h2>
+                    <div class="plan-price">
+                        <span class="price">€348</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> 400 minutes/month</li>
+                        <li><i class="fas fa-check"></i> Custom AI Voice</li>
+                        <li><i class="fas fa-check"></i> Dashboard Access</li>
+                        <li><i class="fas fa-check"></i> Google Calendar Integration</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                    </ul>
+                    <div class="usage-bar">
+                        <div class="usage-label">
+                            <span>Minutes Usage</span>
+                            <span>248 / 400</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 62%"></div>
+                        </div>
+                    </div>
+                    <div class="plan-actions">
+                        <button class="btn-secondary">Upgrade Plan</button>
+                        <button class="btn-outline">Cancel Subscription</button>
+                    </div>
+                </div>
+
+                <div class="payment-history">
+                    <h3>Payment History</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Invoice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nov 1, 2024</td>
+                                <td>€348.00</td>
+                                <td><span class="status-badge completed">Paid</span></td>
+                                <td><button class="btn-icon"><i class="fas fa-download"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 1, 2024</td>
+                                <td>€348.00</td>
+                                <td><span class="status-badge completed">Paid</span></td>
+                                <td><button class="btn-icon"><i class="fas fa-download"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>Sep 1, 2024</td>
+                                <td>€348.00</td>
+                                <td><span class="status-badge completed">Paid</span></td>
+                                <td><button class="btn-icon"><i class="fas fa-download"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>Aug 1, 2024</td>
+                                <td>€348.00</td>
+                                <td><span class="status-badge completed">Paid</span></td>
+                                <td><button class="btn-icon"><i class="fas fa-download"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section">
+            <h1>Settings</h1>
+
+            <div class="settings-container">
+                <div class="settings-card-modern">
+                    <div class="card-header">
+                        <i class="fas fa-building"></i>
+                        <h3>Business Information</h3>
+                    </div>
+                    <form class="settings-form">
+                        <div class="form-group-modern">
+                            <label>Business Name</label>
+                            <input type="text" value="Oto's Business" placeholder="Enter business name">
+                        </div>
+                        <div class="form-group-modern">
+                            <label>Email</label>
+                            <input type="email" value="oto@business.com" placeholder="Enter email">
+                        </div>
+                        <div class="form-group-modern">
+                            <label>Phone</label>
+                            <input type="tel" value="+1 555 0123" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group-modern">
+                            <label>Website</label>
+                            <input type="url" value="https://business.com" placeholder="Enter website URL">
+                        </div>
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="settings-card-modern">
+                    <div class="card-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security</h3>
+                    </div>
+                    <form class="settings-form">
+                        <div class="form-group-modern">
+                            <label>Current Password</label>
+                            <input type="password" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group-modern">
+                            <label>New Password</label>
+                            <input type="password" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group-modern">
+                            <label>Confirm New Password</label>
+                            <input type="password" placeholder="Confirm new password">
+                        </div>
+                        <button type="submit" class="btn-primary">Update Password</button>
+                    </form>
+
+                    <div class="security-option-modern">
+                        <div class="option-content">
+                            <i class="fas fa-lock"></i>
+                            <div>
+                                <h4>Two-Factor Authentication</h4>
+                                <p>Add an extra layer of security to your account</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="section">
+            <h1>Support</h1>
+
+            <div class="support-grid-modern">
+                <div class="support-card-modern">
+                    <div class="support-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Find answers to common questions about FameAI</p>
+                    <button class="btn-secondary">View FAQ</button>
+                </div>
+
+                <div class="support-card-modern">
+                    <div class="support-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Documentation</h3>
+                    <p>Learn how to use FameAI Dashboard effectively</p>
+                    <button class="btn-secondary">Read Docs</button>
+                </div>
+
+                <div class="support-card-modern">
+                    <div class="support-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Contact Support</h3>
+                    <p>Get help from our dedicated support team</p>
+                    <button class="btn-secondary">Contact Us</button>
+                </div>
+
+                <div class="support-card-modern">
+                    <div class="support-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Tutorials</h3>
+                    <p>Watch step-by-step guides and tutorials</p>
+                    <button class="btn-secondary">Watch Now</button>
+                </div>
+            </div>
+
+            <div class="contact-form-modern">
+                <div class="form-header">
+                    <i class="fas fa-paper-plane"></i>
+                    <h3>Send us a message</h3>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group-modern">
+                        <label>Subject</label>
+                        <input type="text" placeholder="What do you need help with?">
+                    </div>
+                    <div class="form-group-modern">
+                        <label>Message</label>
+                        <textarea rows="6" placeholder="Describe your issue or question in detail..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 FameAI – All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Help</a>
         </div>
-      </section>
+    </footer>
 
-      <!-- ---------- AGENTS PAGE ---------- -->
-      <section class="view" id="agents">
-        <div class="card">
-          <h3>My AI Agents</h3>
-          <div class="agents-grid" id="agentsGrid">
-            <!-- dynamic agent-cards inserted by JS -->
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- ANALYTICS PAGE ---------- -->
-      <section class="view" id="analytics">
-        <div class="card">
-          <div class="card-head">
-            <h3>Call History & Analytics</h3>
-            <div class="controls">
-              <input id="analyticsSearch" placeholder="Find call by number or agent..." />
-              <select id="analyticsFilter">
-                <option value="all">All</option>
-                <option value="picked">Picked up</option>
-                <option value="missed">Missed</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="analytics-body">
-            <div class="table-wrap">
-              <table id="callsTable" class="calls-table">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" id="selectAllCalls"></th>
-                    <th>Date</th>
-                    <th>Agent</th>
-                    <th>Phone</th>
-                    <th>Type</th>
-                    <th>Minutes</th>
-                    <th>Result</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="callsTbody">
-                  <!-- filled by JS -->
-                </tbody>
-              </table>
-            </div>
-
-            <div class="analytics-side">
-              <div class="card compact">
-                <h4>Summary</h4>
-                <div class="summary-row"><div>Picked up</div><div class="value" id="sumPicked">312</div></div>
-                <div class="summary-row"><div>Missed</div><div class="value" id="sumMissed">84</div></div>
-                <div class="summary-row"><div>Avg length</div><div class="value">13m 20s</div></div>
-              </div>
-
-              <div class="card compact">
-                <h4>Calls chart</h4>
-                <canvas id="callsTrend" height="160"></canvas>
-              </div>
-
-              <div class="card compact">
-                <h4>Export</h4>
-                <button class="btn-primary" id="exportCsv">Export selected CSV</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ---------- BILLING PAGE ---------- -->
-      <section class="view" id="billing">
-        <div class="row">
-          <div class="col large">
-            <div class="card">
-              <h3>Billing Overview</h3>
-              <div class="billing-grid">
-                <div class="billing-card">
-                  <div class="bc-left">
-                    <div class="muted">Current Plan</div>
-                    <div class="bc-title">Pro</div>
-                    <div class="bc-amt">349 € / month</div>
-                  </div>
-                  <div class="bc-right">
-                    <button class="btn-secondary" id="changePlanBtn">Change plan</button>
-                  </div>
-                </div>
-
-                <div class="billing-card">
-                  <div class="muted">Next Invoice</div>
-                  <div class="bc-title">Dec 1, 2025</div>
-                  <div class="bc-amt">349 €</div>
-                </div>
-
-                <div class="billing-card">
-                  <div class="muted">Payment method</div>
-                  <div class="bc-title">Visa •••• 4242</div>
-                  <button class="btn-ghost" id="editPayment">Edit</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3>Invoice History</h3>
-              <div class="invoice-list" id="invoiceList">
-                <!-- invoice rows -->
-              </div>
-            </div>
-          </div>
-
-          <div class="col narrow">
-            <div class="card compact">
-              <h4>Billing actions</h4>
-              <button class="btn-primary" id="downloadInvoices">Download all</button>
-              <button class="btn-ghost" id="setupPaypal">Add PayPal</button>
-            </div>
-
-            <div class="card compact">
-              <h4>Billing FAQ</h4>
-              <div class="faq">
-                <details><summary>How do I change billing?</summary><div class="muted">Open payment and update card or switch to PayPal.</div></details>
-                <details><summary>Invoices not arriving?</summary><div class="muted">Check your spam or contact support.</div></details>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------- SETTINGS PAGE ---------- -->
-      <section class="view" id="settings">
-        <div class="card">
-          <h3>Account Settings</h3>
-          <div class="settings-grid">
-            <div>
-              <label>Full name</label>
-              <input id="settingName" value="John Doe" />
-            </div>
-            <div>
-              <label>Email</label>
-              <input id="settingEmail" value="john@restaurant.sk" />
-            </div>
-            <div>
-              <label>Timezone</label>
-              <select id="settingTZ"><option>Europe/Bratislava</option></select>
-            </div>
-            <div>
-              <label>Language</label>
-              <select id="settingLang"><option>Slovak</option><option>English</option></select>
-            </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="btn-primary" id="saveSettings">Save changes</button>
-            <button class="btn-ghost" id="resetSettings">Reset</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Help Center</h3>
-          <div class="help-grid">
-            <div class="help-item">
-              <h4>Need custom AI?</h4>
-              <p class="muted">Request a custom agent build with integrations & phone routing.</p>
-              <button class="btn-ghost">Request</button>
-            </div>
-            <div class="help-item">
-              <h4>FAQs</h4>
-              <ul class="muted">
-                <li>How to add an agent?</li>
-                <li>How to manage calls?</li>
-                <li>How to export logs?</li>
-              </ul>
-            </div>
-            <div class="help-item">
-              <h4>Contact support</h4>
-              <p class="muted">support@fameai.example</p>
-              <button class="btn-primary">Open ticket</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </section>
-  </main>
-
-  <!-- ======= Modals & Templates ======= -->
-  <div id="modalRoot"></div>
-
-  <!-- Floating toasts -->
-  <div id="toastRoot" class="toast-root"></div>
-
-  <!-- ======= Scripts (render + UI logic) ======= -->
-  <script>
-  // *******************************
-  // Utility helpers and sample data
-  // *******************************
-  const sampleAgents = [
-    { id:1, name:"Restaurant AI", phone:"+421908123456", emoji:"🍽️", active:true, activity:78, satisfaction:98 },
-    { id:2, name:"Dental Clinic AI", phone:"+421908654321", emoji:"🦷", active:true, activity:64, satisfaction:95 }
-  ];
-
-  const sampleCalls = (function buildCalls(){
-    const rows=[]; const agents=sampleAgents;
-    const results = ["picked","missed"];
-    for(let d=0; d<45; d++){
-      const day = new Date(); day.setDate(day.getDate()-d);
-      const dateStr = day.toLocaleDateString('en-GB',{month:'short',day:'numeric'});
-      for(let i=0;i<3;i++){
-        const a = agents[Math.floor(Math.random()*agents.length)];
-        const minutes = Math.floor(Math.random()*60)+2;
-        const res = Math.random()>0.75 ? "missed":"picked";
-        rows.push({
-          id: 'C'+(1000+d*10+i),
-          date: dateStr,
-          agent: a.name,
-          phone: a.phone,
-          type: (Math.random()>0.6?'Incoming':'Outgoing'),
-          minutes,
-          result: res
+    <script>
+        // Navigation
+        document.querySelectorAll('.sidebar .nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelectorAll('.sidebar .nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+                
+                const target = this.getAttribute('href').substring(1);
+                document.getElementById(target).classList.add('active');
+            });
         });
-      }
-    }
-    return rows;
-  })();
 
-  // *******************************
-  // DOM helpers
-  // *******************************
-  function el(html){ const div=document.createElement('div'); div.innerHTML=html.trim(); return div.firstChild; }
-  function q(sel){ return document.querySelector(sel); }
-  function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
+        // User dropdown
+        document.querySelector('.user-profile').addEventListener('click', function() {
+            this.querySelector('.dropdown-menu').classList.toggle('show');
+        });
 
-  // *******************************
-  // Render agents grid (only 2)
-  // *******************************
-  function renderAgentsGrid(){
-    const grid = document.getElementById('agentsGrid');
-    grid.innerHTML = '';
-    sampleAgents.forEach(a=>{
-      const ring = `<svg class="ring" viewBox="0 0 36 36">
-        <path class="ring-bg" d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <path class="ring-fg" stroke-dasharray="${a.activity},100" d="M18 2.0845
-        a 15.9155 15.9155 0 0 1 0 31.831
-        a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text x="18" y="20" class="ring-text">${a.activity}%</text>
-      </svg>`;
-
-      const node = el(`<div class="agent-card-full">
-        <div class="acf-top">
-          <div class="acf-left">
-            <div class="avatar-lg">${a.emoji}</div>
-            <div>
-              <div class="acf-name">${a.name}</div>
-              <div class="muted">${a.phone}</div>
-            </div>
-          </div>
-          <div class="acf-right">${ring}</div>
-        </div>
-        <div class="acf-body">
-          <div class="acf-row">
-            <div><div class="muted">Status</div><div class="${a.active?'tag tag-success':'tag tag-muted'}">${a.active?'Active':'Paused'}</div></div>
-            <div><div class="muted">Satisfaction</div><div class="bold">${a.satisfaction}%</div></div>
-            <div><div class="muted">Avg call</div><div class="bold">${Math.floor(5+Math.random()*25)}m</div></div>
-          </div>
-        </div>
-        <div class="acf-footer">
-          <button class="btn-ghost small" onclick="openAgent('${a.name}','${a.phone}')">Settings</button>
-          <button class="btn-secondary small" onclick="testCall('${a.phone}')">Test call</button>
-        </div>
-      </div>`);
-      grid.appendChild(node);
-    });
-  }
-
-  function openAgent(name, phone){
-    toast(`Open settings for ${name} (${phone})`);
-  }
-  function testCall(phone){
-    toast(`Placing test call to ${phone}`);
-  }
-
-  // *******************************
-  // Notifications sample
-  // *******************************
-  const sampleNotifications = [
-    { id:1, title:'New reservation', text:'Table for 2 at 19:00', time:'2m' },
-    { id:2, title:'Missed call', text:'Dental Clinic missed a call', time:'15m' },
-    { id:3, title:'Weekly report ready', text:'Your weekly report is ready', time:'1h' }
-  ];
-
-  function renderNotifications(){
-    const list = document.getElementById('notificationsList');
-    list.innerHTML = '';
-    sampleNotifications.forEach(n=>{
-      const item = el(`<div class="notify-item"><div><strong>${n.title}</strong><div class="muted">${n.text}</div></div><div class="muted">${n.time}</div></div>`);
-      list.appendChild(item);
-    });
-  }
-
-  // *******************************
-  // Render calls table
-  // *******************************
-  function renderCallsTable(filter='all'){
-    const tbody = document.getElementById('callsTbody');
-    tbody.innerHTML = '';
-    const rows = sampleCalls.filter(r=> filter==='all' ? true : r.result===filter);
-    rows.slice(0,100).forEach(r=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input type="checkbox" class="callSel" data-id="${r.id}"></td>
-        <td>${r.date}</td>
-        <td>${r.agent}</td>
-        <td>${r.phone}</td>
-        <td>${r.type}</td>
-        <td>${r.minutes}</td>
-        <td><span class="badge ${r.result==='picked'?'badge-green':'badge-red'}">${r.result==='picked'?'Picked up':'Missed'}</span></td>
-        <td>
-          <button class="btn-ghost tiny" onclick="playCall('${r.id}')"><i class="fas fa-play"></i></button>
-          <button class="btn-ghost tiny" onclick="viewCall('${r.id}')"><i class="fas fa-eye"></i></button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-    document.getElementById('sumPicked').textContent = rows.filter(r=>r.result==='picked').length;
-    document.getElementById('sumMissed').textContent = rows.filter(r=>r.result==='missed').length;
-  }
-
-  function playCall(id){ toast('Playing call '+id); }
-  function viewCall(id){ toast('Open call details '+id); }
-
-  // *******************************
-  // Export CSV of selected calls
-  // *******************************
-  function exportSelectedCSV(){
-    const sels = Array.from(document.querySelectorAll('.callSel:checked')).map(i=>i.dataset.id);
-    if(!sels.length){ toast('No calls selected', 'warning'); return; }
-    const rows = sampleCalls.filter(r=>sels.includes(r.id.toString()));
-    const csv = [
-      ['id','date','agent','phone','type','minutes','result'],
-      ...rows.map(r=>[r.id,r.date,r.agent,r.phone,r.type,r.minutes,r.result])
-    ].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\\n');
-    const blob = new Blob([csv],{type:'text/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href=url; a.download='calls_export.csv'; a.click(); URL.revokeObjectURL(url);
-    toast('CSV exported');
-  }
-
-  // *******************************
-  // Chart rendering
-  // *******************************
-  let mainChart, callsChart;
-  function renderCharts(){
-    // mainActivityChart
-    const ctx = document.getElementById('mainActivityChart').getContext('2d');
-    const labels = Array.from({length:7}).map((_,i)=>{
-      const d = new Date(); d.setDate(d.getDate()-6+i); return d.toLocaleDateString('en-GB',{weekday:'short'});
-    });
-    const pickedData = labels.map(()=>Math.floor(10+Math.random()*40));
-    const missedData = labels.map(()=>Math.floor(0+Math.random()*8));
-    const outgoing = labels.map(()=>Math.floor(4+Math.random()*10));
-
-    if(mainChart) mainChart.destroy();
-    mainChart = new Chart(ctx, {
-      type:'line',
-      {
-        labels,
-        datasets:[
-          { label:'Picked Up', pickedData, borderColor:'#22c55e', backgroundColor:'rgba(34,197,94,0.08)', tension:0.15, pointRadius:3, pointBackgroundColor:'#0f172a' },
-          { label:'Missed', missedData, borderColor:'#f87171', backgroundColor:'rgba(248,113,113,0.06)', tension:0.15, pointRadius:3, borderDash:[6,4] },
-          { label:'Outgoing', outgoing, borderColor:'#60a5fa', backgroundColor:'rgba(96,165,250,0.06)', tension:0.15, pointRadius:2 }
-        ]
-      },
-      options:{
-        responsive:false,
-        interaction:{mode:'index', intersect:false},
-        plugins:{legend:{display:false}, tooltip:{callbacks:{label:ctx=> ctx.dataset.label+': '+ctx.parsed.y}}},
-        scales:{
-          x:{ grid:{display:false}, ticks:{color:'#9ca3af'} },
-          y:{ grid:{color:'rgba(255,255,255,0.03)'}, ticks:{color:'#9ca3af'} }
-        }
-      }
-    });
-
-    // callsTrend
-    const ctx2 = document.getElementById('callsTrend').getContext('2d');
-    if(callsChart) callsChart.destroy();
-    callsChart = new Chart(ctx2, {
-      type:'bar',
-      {
-        labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-        datasets:[
-          { label:'Picked up', [12,15,10,18,20,22,30], backgroundColor:'#22c55e' },
-          { label:'Missed', [3,2,4,1,2,3,1], backgroundColor:'#f87171' }
-        ]
-      },
-      options:{responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
-    });
-  }
-
-  // *******************************
-  // Invoice rendering
-  // *******************************
-  function renderInvoices(){
-    const list = document.getElementById('invoiceList');
-    list.innerHTML = '';
-    const invoices = [
-      {date:'Apr 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'},
-      {date:'Mar 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'},
-      {date:'Feb 1, 2025',desc:'Pro Plan',amount:'349 €',status:'Paid'}
-    ];
-    invoices.forEach(inv=>{
-      const node = el(`<div class="invoice-row">
-        <div>${inv.date}<div class="muted small">${inv.desc}</div></div>
-        <div class="invoice-amt">${inv.amount}</div>
-      </div>`);
-      list.appendChild(node);
-    });
-  }
-
-  // *******************************
-  // Misc UI: toasts, modals
-  // *******************************
-  function toast(msg, type='success'){
-    const root = document.getElementById('toastRoot');
-    const t = document.createElement('div'); t.className = 'toast '+type; t.textContent = msg;
-    root.appendChild(t);
-    setTimeout(()=>{ t.classList.add('show'); },20);
-    setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),300); },2500);
-  }
-
-  function openNotifications(){
-    document.getElementById('notificationsPanel').classList.toggle('open');
-  }
-
-  // *******************************
-  // Event bindings
-  // *******************************
-  document.getElementById('openNotifications').addEventListener('click', (e)=>{
-    e.stopPropagation(); openNotifications();
-  });
-  document.addEventListener('click', ()=>{ document.getElementById('notificationsPanel').classList.remove('open'); });
-
-  document.getElementById('exportCsv').addEventListener('click', exportSelectedCSV);
-  document.getElementById('analyticsFilter').addEventListener('change', (e)=> renderCallsTable(e.target.value==='picked'?'picked':(e.target.value==='missed'?'missed':'all')));
-  document.getElementById('selectAllCalls')?.addEventListener('change', (e)=>{
-    const checked = e.target.checked;
-    document.querySelectorAll('.callSel').forEach(c=>c.checked=checked);
-  });
-
-  // nav switching
-  document.querySelectorAll('.nav-link').forEach(link=>{
-    link.addEventListener('click', e=>{
-      e.preventDefault();
-      document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-      link.classList.add('active');
-      const view = link.dataset.view;
-      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-      document.getElementById(view).classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
-  });
-
-  // global search (quick)
-  document.getElementById('globalSearch').addEventListener('keydown', (e)=>{
-    if(e.key==='Enter'){ toast('Search: '+e.target.value); }
-  });
-
-  // export invoices
-  document.getElementById('downloadInvoices').addEventListener('click', ()=> toast('Downloading invoices...'));
-
-  // quick init render
-  function init(){
-    renderAgentsGrid();
-    renderNotifications();
-    renderCallsTable('all');
-    renderCharts();
-    renderInvoices();
-
-    // set quick stats
-    q('#qsAgents').textContent = sampleAgents.length;
-    q('#qsCalls').textContent = sampleCalls.length;
-  }
-  init();
-
-  // attach some global shortcuts
-  document.addEventListener('keydown', (e)=>{
-    if((e.ctrlKey||e.metaKey) && e.key==='k'){ e.preventDefault(); q('#globalSearch').focus(); }
-  });
-
-  // helper q
-  function q(sel){ return document.querySelector(sel); }
-
-  </script>
-
-  <!-- End body -->
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-profile')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+            }
+        });
+    </script>
 </body>
 </html>
