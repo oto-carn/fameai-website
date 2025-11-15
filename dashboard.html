@@ -123,62 +123,91 @@
                         <button class="filter-btn">Month</button>
                     </div>
                 </div>
-                <div class="modern-chart">
-                    <div class="chart-grid">
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
+                <div class="professional-chart">
+                    <!-- Y-axis labels -->
+                    <div class="y-axis">
+                        <span class="y-label">200</span>
+                        <span class="y-label">150</span>
+                        <span class="y-label">100</span>
+                        <span class="y-label">50</span>
+                        <span class="y-label">0</span>
                     </div>
-                    <svg class="line-chart" viewBox="0 0 700 300" preserveAspectRatio="none">
-                        <!-- Answered Calls Line -->
-                        <path class="chart-line answered" d="M 0 180 L 100 150 L 200 120 L 300 140 L 400 90 L 500 160 L 600 170 L 700 140" />
-                        <path class="chart-area answered" d="M 0 180 L 100 150 L 200 120 L 300 140 L 400 90 L 500 160 L 600 170 L 700 140 L 700 300 L 0 300 Z" />
+                    
+                    <!-- Chart area -->
+                    <div class="chart-area-wrapper">
+                        <div class="chart-grid-lines">
+                            <div class="grid-line-h"></div>
+                            <div class="grid-line-h"></div>
+                            <div class="grid-line-h"></div>
+                            <div class="grid-line-h"></div>
+                            <div class="grid-line-h"></div>
+                        </div>
                         
-                        <!-- Call Hangups Line -->
-                        <path class="chart-line hangups" d="M 0 240 L 100 220 L 200 200 L 300 210 L 400 180 L 500 230 L 600 240 L 700 220" />
-                        <path class="chart-area hangups" d="M 0 240 L 100 220 L 200 200 L 300 210 L 400 180 L 500 230 L 600 240 L 700 220 L 700 300 L 0 300 Z" />
+                        <svg class="line-chart-svg" viewBox="0 0 700 250" preserveAspectRatio="none">
+                            <!-- Answered Calls Area -->
+                            <defs>
+                                <linearGradient id="gradientAnswered" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0" />
+                                </linearGradient>
+                                <linearGradient id="gradientHangups" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Answered Calls -->
+                            <path class="chart-area-fill" d="M 0 150 L 100 125 L 200 100 L 300 115 L 400 75 L 500 130 L 600 135 L 700 110 L 700 250 L 0 250 Z" fill="url(#gradientAnswered)" />
+                            <path class="chart-line-stroke answered" d="M 0 150 L 100 125 L 200 100 L 300 115 L 400 75 L 500 130 L 600 135 L 700 110" />
+                            
+                            <!-- Call Hangups -->
+                            <path class="chart-area-fill" d="M 0 190 L 100 175 L 200 160 L 300 168 L 400 145 L 500 185 L 600 192 L 700 175 L 700 250 L 0 250 Z" fill="url(#gradientHangups)" />
+                            <path class="chart-line-stroke hangups" d="M 0 190 L 100 175 L 200 160 L 300 168 L 400 145 L 500 185 L 600 192 L 700 175" />
+                            
+                            <!-- Data Points Answered -->
+                            <circle class="chart-point answered" cx="0" cy="150" r="6" />
+                            <circle class="chart-point answered" cx="100" cy="125" r="6" />
+                            <circle class="chart-point answered" cx="200" cy="100" r="6" />
+                            <circle class="chart-point answered" cx="300" cy="115" r="6" />
+                            <circle class="chart-point answered" cx="400" cy="75" r="6" />
+                            <circle class="chart-point answered" cx="500" cy="130" r="6" />
+                            <circle class="chart-point answered" cx="600" cy="135" r="6" />
+                            <circle class="chart-point answered" cx="700" cy="110" r="6" />
+                            
+                            <!-- Data Points Hangups -->
+                            <circle class="chart-point hangups" cx="0" cy="190" r="6" />
+                            <circle class="chart-point hangups" cx="100" cy="175" r="6" />
+                            <circle class="chart-point hangups" cx="200" cy="160" r="6" />
+                            <circle class="chart-point hangups" cx="300" cy="168" r="6" />
+                            <circle class="chart-point hangups" cx="400" cy="145" r="6" />
+                            <circle class="chart-point hangups" cx="500" cy="185" r="6" />
+                            <circle class="chart-point hangups" cx="600" cy="192" r="6" />
+                            <circle class="chart-point hangups" cx="700" cy="175" r="6" />
+                        </svg>
                         
-                        <!-- Data Points -->
-                        <circle class="chart-dot answered" cx="0" cy="180" r="5" />
-                        <circle class="chart-dot answered" cx="100" cy="150" r="5" />
-                        <circle class="chart-dot answered" cx="200" cy="120" r="5" />
-                        <circle class="chart-dot answered" cx="300" cy="140" r="5" />
-                        <circle class="chart-dot answered" cx="400" cy="90" r="5" />
-                        <circle class="chart-dot answered" cx="500" cy="160" r="5" />
-                        <circle class="chart-dot answered" cx="600" cy="170" r="5" />
-                        <circle class="chart-dot answered" cx="700" cy="140" r="5" />
-                        
-                        <circle class="chart-dot hangups" cx="0" cy="240" r="5" />
-                        <circle class="chart-dot hangups" cx="100" cy="220" r="5" />
-                        <circle class="chart-dot hangups" cx="200" cy="200" r="5" />
-                        <circle class="chart-dot hangups" cx="300" cy="210" r="5" />
-                        <circle class="chart-dot hangups" cx="400" cy="180" r="5" />
-                        <circle class="chart-dot hangups" cx="500" cy="230" r="5" />
-                        <circle class="chart-dot hangups" cx="600" cy="240" r="5" />
-                        <circle class="chart-dot hangups" cx="700" cy="220" r="5" />
-                    </svg>
-                    <div class="chart-labels">
-                        <span>Mon</span>
-                        <span>Tue</span>
-                        <span>Wed</span>
-                        <span>Thu</span>
-                        <span>Fri</span>
-                        <span>Sat</span>
-                        <span>Sun</span>
+                        <!-- X-axis labels -->
+                        <div class="x-axis">
+                            <span class="x-label">Mon</span>
+                            <span class="x-label">Tue</span>
+                            <span class="x-label">Wed</span>
+                            <span class="x-label">Thu</span>
+                            <span class="x-label">Fri</span>
+                            <span class="x-label">Sat</span>
+                            <span class="x-label">Sun</span>
+                        </div>
                     </div>
                 </div>
-                <div class="chart-legend-modern">
-                    <div class="legend-item-modern">
-                        <span class="legend-dot answered"></span>
-                        <span>Answered Calls</span>
-                        <strong>892</strong>
+                
+                <div class="chart-legend-pro">
+                    <div class="legend-item-pro">
+                        <div class="legend-indicator answered"></div>
+                        <span class="legend-text">Answered Calls</span>
+                        <strong class="legend-value">892</strong>
                     </div>
-                    <div class="legend-item-modern">
-                        <span class="legend-dot hangups"></span>
-                        <span>Call Hangups</span>
-                        <strong>355</strong>
+                    <div class="legend-item-pro">
+                        <div class="legend-indicator hangups"></div>
+                        <span class="legend-text">Call Hangups</span>
+                        <strong class="legend-value">355</strong>
                     </div>
                 </div>
             </div>
@@ -202,35 +231,35 @@
                             <td>James Anderson</td>
                             <td>3:24</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Sales Agent</td>
                         </tr>
                         <tr>
                             <td>10:32 AM</td>
                             <td>Emily Roberts</td>
                             <td>2:15</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Customer Support</td>
+                            <td>Dentist Agent</td>
                         </tr>
                         <tr>
                             <td>10:18 AM</td>
                             <td>Michael Chen</td>
                             <td>4:12</td>
                             <td><span class="status-badge callback">Callback Needed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Restaurant Agent</td>
                         </tr>
                         <tr>
                             <td>09:55 AM</td>
                             <td>Sarah Williams</td>
                             <td>1:58</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Booking Assistant</td>
+                            <td>Sales Agent</td>
                         </tr>
                         <tr>
                             <td>09:40 AM</td>
                             <td>David Martinez</td>
                             <td>2:58</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Dentist Agent</td>
                         </tr>
                     </tbody>
                 </table>
@@ -250,7 +279,7 @@
                         <img src="https://ui-avatars.com/api/?name=SA&background=4F46E5&color=fff" alt="Agent Avatar" class="agent-avatar">
                         <span class="agent-status active">Active</span>
                     </div>
-                    <h3>Sales Agent Pro</h3>
+                    <h3>Sales Agent</h3>
                     <div class="agent-info">
                         <div class="info-item">
                             <i class="fas fa-language"></i>
@@ -266,8 +295,8 @@
                     <div class="agent-chart">
                         <svg viewBox="0 0 120 120" class="circular-chart">
                             <circle class="circle-bg" cx="60" cy="60" r="50" />
-                            <circle class="circle-progress" cx="60" cy="60" r="50" stroke-dasharray="220, 314" />
-                            <text x="60" y="65" class="chart-text">70%</text>
+                            <circle class="circle-progress" cx="60" cy="60" r="50" stroke-dasharray="188, 314" />
+                            <text x="60" y="65" class="chart-text">60%</text>
                         </svg>
                         <p class="chart-label">Minutes Usage</p>
                     </div>
@@ -287,18 +316,18 @@
 
                 <div class="agent-card">
                     <div class="agent-header">
-                        <img src="https://ui-avatars.com/api/?name=CS&background=10B981&color=fff" alt="Agent Avatar" class="agent-avatar">
+                        <img src="https://ui-avatars.com/api/?name=DA&background=10B981&color=fff" alt="Agent Avatar" class="agent-avatar">
                         <span class="agent-status active">Active</span>
                     </div>
-                    <h3>Customer Support</h3>
+                    <h3>Dentist Agent</h3>
                     <div class="agent-info">
                         <div class="info-item">
                             <i class="fas fa-language"></i>
                             <span>English</span>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-headset"></i>
-                            <span>Support Chat</span>
+                            <i class="fas fa-phone"></i>
+                            <span>Phone Assistant</span>
                         </div>
                     </div>
                     
@@ -306,16 +335,16 @@
                     <div class="agent-chart">
                         <svg viewBox="0 0 120 120" class="circular-chart">
                             <circle class="circle-bg" cx="60" cy="60" r="50" />
-                            <circle class="circle-progress green" cx="60" cy="60" r="50" stroke-dasharray="157, 314" />
-                            <text x="60" y="65" class="chart-text">50%</text>
+                            <circle class="circle-progress green" cx="60" cy="60" r="50" stroke-dasharray="94, 314" />
+                            <text x="60" y="65" class="chart-text">30%</text>
                         </svg>
                         <p class="chart-label">Minutes Usage</p>
                     </div>
                     
                     <div class="agent-stats">
                         <div class="stat">
-                            <span class="stat-label">Chats Today</span>
-                            <span class="stat-value">89</span>
+                            <span class="stat-label">Calls Today</span>
+                            <span class="stat-value">32</span>
                         </div>
                         <div class="stat">
                             <span class="stat-label">Minutes Used</span>
@@ -327,18 +356,18 @@
 
                 <div class="agent-card">
                     <div class="agent-header">
-                        <img src="https://ui-avatars.com/api/?name=BA&background=8B5CF6&color=fff" alt="Agent Avatar" class="agent-avatar">
+                        <img src="https://ui-avatars.com/api/?name=RA&background=8B5CF6&color=fff" alt="Agent Avatar" class="agent-avatar">
                         <span class="agent-status active">Active</span>
                     </div>
-                    <h3>Booking Assistant</h3>
+                    <h3>Restaurant Agent</h3>
                     <div class="agent-info">
                         <div class="info-item">
                             <i class="fas fa-language"></i>
                             <span>English, German</span>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>Booking & Scheduling</span>
+                            <i class="fas fa-phone"></i>
+                            <span>Phone Assistant</span>
                         </div>
                     </div>
                     
@@ -346,15 +375,15 @@
                     <div class="agent-chart">
                         <svg viewBox="0 0 120 120" class="circular-chart">
                             <circle class="circle-bg" cx="60" cy="60" r="50" />
-                            <circle class="circle-progress purple" cx="60" cy="60" r="50" stroke-dasharray="94, 314" />
-                            <text x="60" y="65" class="chart-text">30%</text>
+                            <circle class="circle-progress purple" cx="60" cy="60" r="50" stroke-dasharray="31, 314" />
+                            <text x="60" y="65" class="chart-text">10%</text>
                         </svg>
                         <p class="chart-label">Minutes Usage</p>
                     </div>
                     
                     <div class="agent-stats">
                         <div class="stat">
-                            <span class="stat-label">Bookings Today</span>
+                            <span class="stat-label">Calls Today</span>
                             <span class="stat-value">23</span>
                         </div>
                         <div class="stat">
@@ -442,7 +471,7 @@
                             <td>+1 555 0123</td>
                             <td>3:24</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Sales Agent</td>
                             <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
                         </tr>
                         <tr>
@@ -451,7 +480,7 @@
                             <td>+1 555 0456</td>
                             <td>2:15</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Customer Support</td>
+                            <td>Dentist Agent</td>
                             <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
                         </tr>
                         <tr>
@@ -460,7 +489,7 @@
                             <td>+1 555 0789</td>
                             <td>4:12</td>
                             <td><span class="status-badge callback">Callback Needed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Restaurant Agent</td>
                             <td><button class="btn-icon"><i class="fas fa-phone"></i></button></td>
                         </tr>
                         <tr>
@@ -469,7 +498,7 @@
                             <td>+1 555 0321</td>
                             <td>1:58</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Booking Assistant</td>
+                            <td>Sales Agent</td>
                             <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
                         </tr>
                         <tr>
@@ -478,7 +507,7 @@
                             <td>+1 555 0654</td>
                             <td>2:58</td>
                             <td><span class="status-badge completed">Completed</span></td>
-                            <td>Sales Agent Pro</td>
+                            <td>Dentist Agent</td>
                             <td><button class="btn-icon"><i class="fas fa-play"></i></button></td>
                         </tr>
                     </tbody>
@@ -494,30 +523,31 @@
                 <!-- Minutes Usage Chart -->
                 <div class="analytics-card">
                     <h3>Minutes Usage Overview</h3>
-                    <div class="minutes-chart">
-                        <div class="minutes-visual">
+                    <div class="minutes-usage-wrapper">
+                        <div class="donut-container">
                             <svg viewBox="0 0 200 200" class="donut-chart">
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#334155" stroke-width="30" />
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="#4F46E5" stroke-width="30" 
-                                        stroke-dasharray="314" stroke-dashoffset="125" transform="rotate(-90 100 100)" />
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#1e293b" stroke-width="24" />
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="#4F46E5" stroke-width="24" 
+                                        stroke-dasharray="314" stroke-dashoffset="125" transform="rotate(-90 100 100)" 
+                                        stroke-linecap="round" />
                             </svg>
-                            <div class="chart-center">
-                                <div class="center-value">248</div>
-                                <div class="center-label">of 400 min</div>
+                            <div class="donut-center">
+                                <div class="donut-value">248</div>
+                                <div class="donut-label">of 400</div>
                             </div>
                         </div>
-                        <div class="minutes-info">
-                            <div class="info-row">
-                                <span>Used</span>
-                                <strong>248 minutes</strong>
+                        <div class="minutes-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Used</span>
+                                <span class="detail-value">248 min</span>
                             </div>
-                            <div class="info-row">
-                                <span>Remaining</span>
-                                <strong>152 minutes</strong>
+                            <div class="detail-row">
+                                <span class="detail-label">Remaining</span>
+                                <span class="detail-value">152 min</span>
                             </div>
-                            <div class="info-row">
-                                <span>Usage</span>
-                                <strong>62%</strong>
+                            <div class="detail-row">
+                                <span class="detail-label">Usage</span>
+                                <span class="detail-value">62%</span>
                             </div>
                         </div>
                     </div>
@@ -526,23 +556,34 @@
                 <!-- Call Distribution -->
                 <div class="analytics-card">
                     <h3>Call Distribution by Agent</h3>
-                    <div class="distribution-chart">
-                        <div class="dist-item">
-                            <div class="dist-bar" style="width: 55%; background: linear-gradient(90deg, #4F46E5, #6366F1);">
-                                <span class="dist-label">Sales Agent Pro</span>
-                                <span class="dist-value">55%</span>
+                    <div class="distribution-wrapper">
+                        <div class="dist-bar-item">
+                            <div class="dist-bar-label">
+                                <span class="agent-name">Sales Agent</span>
+                                <span class="agent-percent">60%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill blue" style="width: 60%"></div>
                             </div>
                         </div>
-                        <div class="dist-item">
-                            <div class="dist-bar" style="width: 30%; background: linear-gradient(90deg, #10B981, #34D399);">
-                                <span class="dist-label">Customer Support</span>
-                                <span class="dist-value">30%</span>
+                        
+                        <div class="dist-bar-item">
+                            <div class="dist-bar-label">
+                                <span class="agent-name">Dentist Agent</span>
+                                <span class="agent-percent">30%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill green" style="width: 30%"></div>
                             </div>
                         </div>
-                        <div class="dist-item">
-                            <div class="dist-bar" style="width: 15%; background: linear-gradient(90deg, #8B5CF6, #A78BFA);">
-                                <span class="dist-label">Booking Assistant</span>
-                                <span class="dist-value">15%</span>
+                        
+                        <div class="dist-bar-item">
+                            <div class="dist-bar-label">
+                                <span class="agent-name">Restaurant Agent</span>
+                                <span class="agent-percent">10%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill purple" style="width: 10%"></div>
                             </div>
                         </div>
                     </div>
