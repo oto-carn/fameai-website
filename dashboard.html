@@ -114,7 +114,7 @@
             </div>
 
             <!-- Call Activity Chart -->
-            <div class="chart-container">
+            <div class="chart-container-pro">
                 <div class="chart-header">
                     <h2>Call Activity (Last 7 Days)</h2>
                     <div class="chart-filters">
@@ -123,91 +123,70 @@
                         <button class="filter-btn">Month</button>
                     </div>
                 </div>
-                <div class="professional-chart">
-                    <!-- Y-axis labels -->
-                    <div class="y-axis">
-                        <span class="y-label">200</span>
-                        <span class="y-label">150</span>
-                        <span class="y-label">100</span>
-                        <span class="y-label">50</span>
-                        <span class="y-label">0</span>
+                
+                <div class="chart-wrapper-pro">
+                    <!-- Y-axis -->
+                    <div class="y-axis-pro">
+                        <span class="y-tick">200</span>
+                        <span class="y-tick">150</span>
+                        <span class="y-tick">100</span>
+                        <span class="y-tick">50</span>
+                        <span class="y-tick">0</span>
                     </div>
                     
-                    <!-- Chart area -->
-                    <div class="chart-area-wrapper">
-                        <div class="chart-grid-lines">
-                            <div class="grid-line-h"></div>
-                            <div class="grid-line-h"></div>
-                            <div class="grid-line-h"></div>
-                            <div class="grid-line-h"></div>
-                            <div class="grid-line-h"></div>
-                        </div>
-                        
-                        <svg class="line-chart-svg" viewBox="0 0 700 250" preserveAspectRatio="none">
-                            <!-- Answered Calls Area -->
+                    <!-- Chart canvas -->
+                    <div class="chart-canvas-pro">
+                        <svg class="chart-svg-pro" viewBox="0 0 800 300" preserveAspectRatio="none">
                             <defs>
-                                <linearGradient id="gradientAnswered" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.4" />
-                                    <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0" />
+                                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#5B8DEF;stop-opacity:0.5" />
+                                    <stop offset="100%" style="stop-color:#5B8DEF;stop-opacity:0" />
                                 </linearGradient>
-                                <linearGradient id="gradientHangups" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:0.3" />
-                                    <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:0" />
+                                <linearGradient id="grayGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4A5568;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#4A5568;stop-opacity:0" />
                                 </linearGradient>
                             </defs>
                             
-                            <!-- Answered Calls -->
-                            <path class="chart-area-fill" d="M 0 150 L 100 125 L 200 100 L 300 115 L 400 75 L 500 130 L 600 135 L 700 110 L 700 250 L 0 250 Z" fill="url(#gradientAnswered)" />
-                            <path class="chart-line-stroke answered" d="M 0 150 L 100 125 L 200 100 L 300 115 L 400 75 L 500 130 L 600 135 L 700 110" />
+                            <!-- Grid lines -->
+                            <line x1="0" y1="0" x2="800" y2="0" stroke="#2d3748" stroke-width="1" opacity="0.3"/>
+                            <line x1="0" y1="75" x2="800" y2="75" stroke="#2d3748" stroke-width="1" opacity="0.3"/>
+                            <line x1="0" y1="150" x2="800" y2="150" stroke="#2d3748" stroke-width="1" opacity="0.3"/>
+                            <line x1="0" y1="225" x2="800" y2="225" stroke="#2d3748" stroke-width="1" opacity="0.3"/>
+                            <line x1="0" y1="300" x2="800" y2="300" stroke="#2d3748" stroke-width="1" opacity="0.3"/>
                             
-                            <!-- Call Hangups -->
-                            <path class="chart-area-fill" d="M 0 190 L 100 175 L 200 160 L 300 168 L 400 145 L 500 185 L 600 192 L 700 175 L 700 250 L 0 250 Z" fill="url(#gradientHangups)" />
-                            <path class="chart-line-stroke hangups" d="M 0 190 L 100 175 L 200 160 L 300 168 L 400 145 L 500 185 L 600 192 L 700 175" />
+                            <!-- Gray line (background) -->
+                            <path class="chart-area-gray" d="M 0 180 Q 100 170, 200 160 T 400 140 T 600 170 T 800 160 L 800 300 L 0 300 Z" fill="url(#grayGradient)" />
+                            <path class="chart-line-gray" d="M 0 180 Q 100 170, 200 160 T 400 140 T 600 170 T 800 160" />
                             
-                            <!-- Data Points Answered -->
-                            <circle class="chart-point answered" cx="0" cy="150" r="6" />
-                            <circle class="chart-point answered" cx="100" cy="125" r="6" />
-                            <circle class="chart-point answered" cx="200" cy="100" r="6" />
-                            <circle class="chart-point answered" cx="300" cy="115" r="6" />
-                            <circle class="chart-point answered" cx="400" cy="75" r="6" />
-                            <circle class="chart-point answered" cx="500" cy="130" r="6" />
-                            <circle class="chart-point answered" cx="600" cy="135" r="6" />
-                            <circle class="chart-point answered" cx="700" cy="110" r="6" />
-                            
-                            <!-- Data Points Hangups -->
-                            <circle class="chart-point hangups" cx="0" cy="190" r="6" />
-                            <circle class="chart-point hangups" cx="100" cy="175" r="6" />
-                            <circle class="chart-point hangups" cx="200" cy="160" r="6" />
-                            <circle class="chart-point hangups" cx="300" cy="168" r="6" />
-                            <circle class="chart-point hangups" cx="400" cy="145" r="6" />
-                            <circle class="chart-point hangups" cx="500" cy="185" r="6" />
-                            <circle class="chart-point hangups" cx="600" cy="192" r="6" />
-                            <circle class="chart-point hangups" cx="700" cy="175" r="6" />
+                            <!-- Blue line (foreground) -->
+                            <path class="chart-area-blue" d="M 0 200 Q 100 180, 200 150 T 400 90 T 600 120 T 800 110 L 800 300 L 0 300 Z" fill="url(#blueGradient)" />
+                            <path class="chart-line-blue" d="M 0 200 Q 100 180, 200 150 T 400 90 T 600 120 T 800 110" />
                         </svg>
                         
-                        <!-- X-axis labels -->
-                        <div class="x-axis">
-                            <span class="x-label">Mon</span>
-                            <span class="x-label">Tue</span>
-                            <span class="x-label">Wed</span>
-                            <span class="x-label">Thu</span>
-                            <span class="x-label">Fri</span>
-                            <span class="x-label">Sat</span>
-                            <span class="x-label">Sun</span>
+                        <!-- X-axis -->
+                        <div class="x-axis-pro">
+                            <span class="x-tick">Feb 28</span>
+                            <span class="x-tick">Mar 16</span>
+                            <span class="x-tick">Mar 30</span>
+                            <span class="x-tick">Apr 14</span>
+                            <span class="x-tick">Apr 28</span>
+                            <span class="x-tick">May 14</span>
+                            <span class="x-tick">May 29</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="chart-legend-pro">
-                    <div class="legend-item-pro">
-                        <div class="legend-indicator answered"></div>
-                        <span class="legend-text">Answered Calls</span>
-                        <strong class="legend-value">892</strong>
+                <div class="chart-legend-bottom">
+                    <div class="legend-item-bottom">
+                        <span class="legend-dot blue-dot"></span>
+                        <span class="legend-label">Answered Calls</span>
+                        <strong class="legend-number">892</strong>
                     </div>
-                    <div class="legend-item-pro">
-                        <div class="legend-indicator hangups"></div>
-                        <span class="legend-text">Call Hangups</span>
-                        <strong class="legend-value">355</strong>
+                    <div class="legend-item-bottom">
+                        <span class="legend-dot gray-dot"></span>
+                        <span class="legend-label">Call Hangups</span>
+                        <strong class="legend-number">355</strong>
                     </div>
                 </div>
             </div>
@@ -617,8 +596,8 @@
                         <div class="performance-item">
                             <i class="fas fa-arrow-up"></i>
                             <div>
-                                <strong>3:24 minutes</strong>
-                                <span>Avg Call Duration</span>
+                                <strong>+25%</strong>
+                                <span>Customer Satisfaction</span>
                             </div>
                         </div>
                     </div>
