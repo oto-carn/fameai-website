@@ -1567,3 +1567,42 @@ body {
         text-align: center;
     }
 }
+
+/* === NOVÉ ŠTÝLY PRE SEKCIU SETTINGS === */
+
+.form-help-text {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+.connect-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    background: #2d3548;
+    border: 1px solid #3d4558;
+    transition: all 0.3s;
+}
+
+.connect-btn:hover {
+    background: #3d4558;
+    border-color: #6366F1;
+    color: #6366F1;
+}
+
+.connection-status {
+    margin-top: 0.75rem;
+    min-height: 1.5rem;
+}
+
+.status-success {
+    color: #10B981;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* === KONIEC NOVÝCH ŠTÝLOV === */
