@@ -21,11 +21,12 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 24px 48px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
+  background: transparent;
 }
 
 .logo img {
@@ -53,7 +54,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 100px 20px 40px;
 }
 
 /* ===== CARD ===== */
@@ -113,6 +114,14 @@ body {
   line-height: 1.4;
   margin-bottom: 32px;
   color: #ffffff;
+}
+
+.optional {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 400;
 }
 
 /* ===== INPUT AREA ===== */
@@ -241,15 +250,6 @@ body {
   cursor: default;
 }
 
-/* Optional label */
-.optional {
-  display: inline-block;
-  margin-left: 8px;
-  font-size: 13px;
-  color: #6b7280;
-  font-weight: 400;
-}
-
 /* ===== NAV BUTTONS ===== */
 .nav-buttons {
   display: flex;
@@ -302,7 +302,7 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(10, 14, 23, 0.92);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 100;
@@ -311,6 +311,10 @@ body {
 
 .modal.hidden {
   display: none;
+}
+
+.modal:not(.hidden) {
+  display: flex;
 }
 
 .modal-content {
