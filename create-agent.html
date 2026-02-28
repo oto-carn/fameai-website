@@ -1,142 +1,57 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create AI Agent</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="create-agent.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FameAI – Onboarding</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="agent-wrapper">
-  <div class="agent-card">
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <img src="logo.png" alt="FameAI Logo" />
+    </div>
+    <button id="backToHome" class="text-btn">Back to Home</button>
+  </header>
 
-    <!-- Typ biznisu -->
-    <div class="question" data-type="all" id="question-business-type">
-      <h2 class="agent-question">Vyber typ biznisu</h2>
-      <select id="business-type">
-        <option value="" disabled selected>Vyber...</option>
-        <option value="restaurant">Restaurant / Cafe</option>
-        <option value="barbershop">Barbershop / Salon</option>
-        <option value="dental">Dental / Medical Clinic</option>
-        <option value="hotel">Hotel / Property Management</option>
-        <option value="ecommerce">E‑commerce / Support</option>
-        <option value="lead">Lead Qualifier / Real Estate Agent</option>
-        <option value="gym">Gym / Fitness</option>
-        <option value="cleaning">Cleaning Service</option>
-      </select>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
+  <!-- Main Card -->
+  <main class="onboarding-container">
+    <div class="card">
+      <!-- Progress -->
+      <div class="progress">
+        <span id="progressText">Step 1 of 25</span>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
 
-    <!-- Všeobecné otázky -->
-    <div class="question" data-type="all">
-      <h2 class="agent-question">Názov firmy / projektu</h2>
-      <input type="text" id="company-name" placeholder="Zadaj názov firmy" required>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
+      <!-- Question -->
+      <h1 id="questionText" class="question">Loading question...</h1>
 
-    <div class="question" data-type="all">
-      <h2 class="agent-question">Adresa + mesto + krajina</h2>
-      <input type="text" id="company-address" placeholder="Adresa, Mesto, Krajina" required>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
+      <!-- Input Area -->
+      <div id="inputArea" class="input-area"></div>
 
-    <div class="question" data-type="all">
-      <h2 class="agent-question">Telefónne číslo pre agenta</h2>
-      <input type="text" id="company-phone" placeholder="+421 XXX XXX XXX" required>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
+      <!-- Navigation Buttons -->
+      <div class="nav-buttons">
+        <button id="backBtn" class="btn btn-secondary">Back</button>
+        <button id="continueBtn" class="btn btn-primary">Continue</button>
+      </div>
     </div>
+  </main>
 
-    <!-- Restaurant otázky -->
-    <div class="question" data-type="restaurant">
-      <h2 class="agent-question">Nahraj PDF / obrázok s menu</h2>
-      <input type="file" id="restaurant-menu" accept=".pdf,.jpg,.png">
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
+  <!-- Confirmation Modal (hidden by default) -->
+  <div id="confirmationModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>✅ Agent Configured</h2>
+      <p>Your AI agent will now be generated based on the information you provided.</p>
+      <p>You will receive a confirmation email at <strong id="confirmEmail"></strong> shortly.</p>
+      <button id="finishBtn" class="btn btn-primary">Go to Dashboard</button>
     </div>
-    <div class="question" data-type="restaurant">
-      <h2 class="agent-question">Počet stolov / kapacita</h2>
-      <input type="number" id="restaurant-tables" placeholder="Počet stolov" required>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-    <div class="question" data-type="restaurant">
-      <h2 class="agent-question">Rezervačné pravidlá (časové okná, storno)</h2>
-      <textarea id="restaurant-reservations" placeholder="Opíš pravidlá" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Barbershop otázky -->
-    <div class="question" data-type="barbershop">
-      <h2 class="agent-question">Služby a počet stoličiek</h2>
-      <textarea id="barber-services" placeholder="Opíš služby a počet stoličiek" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- E-commerce otázky -->
-    <div class="question" data-type="ecommerce">
-      <h2 class="agent-question">Produkty / služby</h2>
-      <textarea id="ecommerce-products" placeholder="Opíš produkty alebo služby" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-    <div class="question" data-type="ecommerce">
-      <h2 class="agent-question">FAQ / Často kladené otázky</h2>
-      <textarea id="ecommerce-faq" placeholder="Opíš FAQ" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Dental / Medical Clinic otázky -->
-    <div class="question" data-type="dental">
-      <h2 class="agent-question">Služby kliniky</h2>
-      <textarea id="clinic-services" placeholder="Opíš služby" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Hotel otázky -->
-    <div class="question" data-type="hotel">
-      <h2 class="agent-question">Počet izieb / typ rezervácií</h2>
-      <textarea id="hotel-rooms" placeholder="Opíš izby a rezervácie" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Lead / Real Estate otázky -->
-    <div class="question" data-type="lead">
-      <h2 class="agent-question">Cieľ volaní / lead info</h2>
-      <textarea id="lead-info" placeholder="Opíš cieľ agentov" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Gym otázky -->
-    <div class="question" data-type="gym">
-      <h2 class="agent-question">Služby a tréningové kapacity</h2>
-      <textarea id="gym-services" placeholder="Opíš služby a kapacity" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Cleaning Service otázky -->
-    <div class="question" data-type="cleaning">
-      <h2 class="agent-question">Typy služieb a oblasť pôsobenia</h2>
-      <textarea id="cleaning-services" placeholder="Opíš služby a oblasti" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-
-    <!-- Fallback / všeobecné otázky -->
-    <div class="question" data-type="all">
-      <h2 class="agent-question">Ako má agent komunikovať s klientom?</h2>
-      <textarea id="general-communication" placeholder="Formálne / priateľsky / marketingovo" required></textarea>
-      <button class="agent-btn" onclick="nextQuestion()">Ďalej</button>
-    </div>
-    <div class="question" data-type="all">
-      <h2 class="agent-question">Má agent prepájať na človeka, ak nerozumie?</h2>
-      <select id="fallback-human">
-        <option value="" disabled selected>Vyber...</option>
-        <option value="yes">Áno</option>
-        <option value="no">Nie</option>
-      </select>
-      <button class="agent-btn" onclick="finishForm()">Dokončiť</button>
-    </div>
-
   </div>
-</div>
 
-<script src="create-agent.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
