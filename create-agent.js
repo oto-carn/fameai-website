@@ -268,12 +268,11 @@ let state = {
   allQuestions: []
 };
 
-// ===== DOM ELEMENTS (budú nastavené v init()) =====
+// ===== DOM ELEMENTS =====
 let questionText, inputArea, progressText, progressFill, backBtn, continueBtn, backToHome, confirmationModal, confirmEmail, finishBtn;
 
 // ===== INIT =====
 function init() {
-  // ✅ Nastav DOM elementy až teraz (keď je HTML načítané)
   questionText = document.getElementById("questionText");
   inputArea = document.getElementById("inputArea");
   progressText = document.getElementById("progressText");
@@ -285,12 +284,10 @@ function init() {
   confirmEmail = document.getElementById("confirmEmail");
   finishBtn = document.getElementById("finishBtn");
 
-  // Build full question list
   state.allQuestions = [...globalQuestions];
   renderQuestion();
   updateProgress();
 
-  // Event listeners
   backBtn.addEventListener("click", goBack);
   continueBtn.addEventListener("click", goNext);
   backToHome.addEventListener("click", () => window.location.href = "index.html");
@@ -305,14 +302,12 @@ function renderQuestion() {
     return;
   }
 
-  // Clear a nastav text
   questionText.innerHTML = "";
   const mainText = document.createTextNode(question.text);
   questionText.appendChild(mainText);
   
   inputArea.innerHTML = "";
 
-  // Render input based on type
   switch (question.type) {
     case "text":
     case "email":
@@ -397,7 +392,6 @@ function renderQuestion() {
       break;
   }
 
-  // Add optional label
   if (question.optional) {
     const optionalSpan = document.createElement("span");
     optionalSpan.className = "optional";
@@ -405,11 +399,9 @@ function renderQuestion() {
     questionText.appendChild(optionalSpan);
   }
 
-  // Update button states
   backBtn.disabled = state.currentStep === 0;
   continueBtn.textContent = state.currentStep === state.allQuestions.length - 1 ? "Finish" : "Continue";
 
-  // Restore toggle state
   if (question.type === "toggle" && state.answers[question.id]) {
     const activeBtn = inputArea.querySelector(`.toggle-btn:nth-child(${state.answers[question.id] === "Yes" ? 1 : 2})`);
     if (activeBtn) {
@@ -431,13 +423,11 @@ function updateProgress() {
 function goNext() {
   const question = state.allQuestions[state.currentStep];
   
-  // ✅ 1. NAJPRV ULOŽ HODNOTU Z INPUTU (toto bolo hlavný problém!)
   const input = inputArea.querySelector("input, textarea, select");
   if (input && !["toggle", "file"].includes(question.type)) {
     state.answers[question.id] = input.value;
   }
   
-  // ✅ 2. TERAZ VALIDUJ (teraz už máme hodnotu v state.answers)
   if (question.required) {
     let value = state.answers[question.id];
     
@@ -457,12 +447,10 @@ function goNext() {
     }
   }
 
-  // ✅ 3. Detekcia módu po prvej otázke (inteligentné triedenie)
   if (question.id === "businessType" && !state.selectedMode) {
     const userInput = state.answers.businessType.toLowerCase().trim();
     let matchedMode = null;
     
-    // Nájdi zhodu v módoch (napr. "restaurant" → "Restaurant")
     for (const mode of Object.keys(modeQuestions)) {
       if (userInput.includes(mode.toLowerCase()) || mode.toLowerCase().includes(userInput)) {
         matchedMode = mode;
@@ -470,11 +458,9 @@ function goNext() {
       }
     }
     
-    // Ak sme našli zhodu, použijeme ju
     if (matchedMode) {
       state.selectedMode = matchedMode;
     } else {
-      // Predvolený mód ak nevieme rozpoznať
       state.selectedMode = "Restaurant";
     }
     
@@ -485,7 +471,6 @@ function goNext() {
     return;
   }
 
-  // ✅ 4. Move to next or finish
   if (state.currentStep < state.allQuestions.length - 1) {
     state.currentStep++;
     renderQuestion();
@@ -507,7 +492,6 @@ function goBack() {
     
     state.currentStep--;
     
-    // Reset mode questions if going back before mode injection
     if (state.currentStep < globalQuestions.length && state.selectedMode) {
       state.allQuestions = [...globalQuestions];
       state.selectedMode = null;
