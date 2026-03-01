@@ -1,16 +1,9 @@
 // ===== DATA STRUCTURE =====
-const businessTypes = [
-  "Restaurant", "Café", "Barber Shop", "Hair Salon", "Gym",
-  "Cleaning Service", "Dental Clinic", "Medical Clinic",
-  "E-commerce Store", "Physical Shop", "Customer Support Center",
-  "Real Estate Agency", "Property Management"
-];
-
 const globalQuestions = [
   {
     id: "businessType",
     text: "What type of business is this AI agent for? (e.g. Restaurant, Barber Shop, Gym, Clinic...)",
-    type: "text",  // ✅ TEXT INPUT namiesto select
+    type: "text",
     required: true,
     placeholder: "Type your business type..."
   },
@@ -300,8 +293,8 @@ function init() {
   // Event listeners
   backBtn.addEventListener("click", goBack);
   continueBtn.addEventListener("click", goNext);
-  backToHome.addEventListener("click", () => window.location.href = "index.html"); // ✅ Opravené
-  finishBtn.addEventListener("click", () => window.location.href = "dashboard.html"); // ✅ Opravené
+  backToHome.addEventListener("click", () => window.location.href = "index.html");
+  finishBtn.addEventListener("click", () => window.location.href = "dashboard.html");
 }
 
 // ===== RENDER QUESTION =====
@@ -438,7 +431,13 @@ function updateProgress() {
 function goNext() {
   const question = state.allQuestions[state.currentStep];
   
-  // Validate required fields
+  // ✅ 1. NAJPRV ULOŽ HODNOTU Z INPUTU (toto bolo hlavný problém!)
+  const input = inputArea.querySelector("input, textarea, select");
+  if (input && !["toggle", "file"].includes(question.type)) {
+    state.answers[question.id] = input.value;
+  }
+  
+  // ✅ 2. TERAZ VALIDUJ (teraz už máme hodnotu v state.answers)
   if (question.required) {
     let value = state.answers[question.id];
     
@@ -458,18 +457,12 @@ function goNext() {
     }
   }
 
-  // Save current answer
-  const input = inputArea.querySelector("input, textarea, select");
-  if (input && !["toggle", "file"].includes(question.type)) {
-    state.answers[question.id] = input.value;
-  }
-
-  // Detekcia módu po prvej otázke
+  // ✅ 3. Detekcia módu po prvej otázke (inteligentné triedenie)
   if (question.id === "businessType" && !state.selectedMode) {
     const userInput = state.answers.businessType.toLowerCase().trim();
     let matchedMode = null;
     
-    // Nájdi zhodu v módoch
+    // Nájdi zhodu v módoch (napr. "restaurant" → "Restaurant")
     for (const mode of Object.keys(modeQuestions)) {
       if (userInput.includes(mode.toLowerCase()) || mode.toLowerCase().includes(userInput)) {
         matchedMode = mode;
@@ -492,7 +485,7 @@ function goNext() {
     return;
   }
 
-  // Move to next or finish
+  // ✅ 4. Move to next or finish
   if (state.currentStep < state.allQuestions.length - 1) {
     state.currentStep++;
     renderQuestion();
@@ -503,6 +496,7 @@ function goNext() {
   }
 }
 
+// ===== GO BACK =====
 function goBack() {
   if (state.currentStep > 0) {
     const question = state.allQuestions[state.currentStep];
@@ -513,6 +507,7 @@ function goBack() {
     
     state.currentStep--;
     
+    // Reset mode questions if going back before mode injection
     if (state.currentStep < globalQuestions.length && state.selectedMode) {
       state.allQuestions = [...globalQuestions];
       state.selectedMode = null;
