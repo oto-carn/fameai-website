@@ -4,16 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FameAI – Create Your AI Agent</title>
-  
-  <!-- Google Fonts - opravené URL bez medzier -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- CSS - onboarding špecifické štýly -->
   <link rel="stylesheet" href="create-agent.css" />
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="logo">
       <img src="logo.png" alt="FameAI Logo" />
@@ -21,10 +16,8 @@
     <button id="backToHome" class="text-btn">Back to Home</button>
   </header>
 
-  <!-- Main Card -->
   <main class="onboarding-container">
     <div class="card">
-      <!-- Progress -->
       <div class="progress">
         <span id="progressText">Step 1 of 25</span>
         <div class="progress-bar">
@@ -32,13 +25,10 @@
         </div>
       </div>
 
-      <!-- Question -->
       <h1 id="questionText" class="question">Loading question...</h1>
 
-      <!-- Input Area -->
       <div id="inputArea" class="input-area"></div>
 
-      <!-- Navigation Buttons -->
       <div class="nav-buttons">
         <button id="backBtn" class="btn btn-secondary">Back</button>
         <button id="continueBtn" class="btn btn-primary">Continue</button>
@@ -46,7 +36,6 @@
     </div>
   </main>
 
-  <!-- Confirmation Modal (hidden by default) -->
   <div id="confirmationModal" class="modal hidden">
     <div class="modal-content">
       <h2>✅ Agent Configured</h2>
@@ -56,7 +45,6 @@
     </div>
   </div>
 
-  <!-- JavaScript - onboarding logika -->
   <script src="create-agent.js"></script>
 </body>
 </html>
