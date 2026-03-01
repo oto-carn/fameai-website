@@ -9,10 +9,10 @@ const businessTypes = [
 const globalQuestions = [
   {
     id: "businessType",
-    text: "What type of business is this AI agent for?",
-    type: "select",
-    options: businessTypes,
-    required: true
+    text: "What type of business is this AI agent for? (e.g. Restaurant, Barber Shop, Gym, Clinic...)",
+    type: "text",  // ✅ TEXT INPUT namiesto select
+    required: true,
+    placeholder: "Type your business type..."
   },
   {
     id: "businessName",
@@ -275,21 +275,24 @@ let state = {
   allQuestions: []
 };
 
-// ===== DOM ELEMENTS =====
-const questionText = document.getElementById("questionText");
-const inputArea = document.getElementById("inputArea");
-const progressText = document.getElementById("progressText");
-const progressFill = document.getElementById("progressFill");
-const backBtn = document.getElementById("backBtn");
-const continueBtn = document.getElementById("continueBtn");
-const backToHome = document.getElementById("backToHome");
-const confirmationModal = document.getElementById("confirmationModal");
-const confirmEmail = document.getElementById("confirmEmail");
-const finishBtn = document.getElementById("finishBtn");
+// ===== DOM ELEMENTS (budú nastavené v init()) =====
+let questionText, inputArea, progressText, progressFill, backBtn, continueBtn, backToHome, confirmationModal, confirmEmail, finishBtn;
 
 // ===== INIT =====
 function init() {
-  // Build full question list: global + mode-specific (mode added later)
+  // ✅ Nastav DOM elementy až teraz (keď je HTML načítané)
+  questionText = document.getElementById("questionText");
+  inputArea = document.getElementById("inputArea");
+  progressText = document.getElementById("progressText");
+  progressFill = document.getElementById("progressFill");
+  backBtn = document.getElementById("backBtn");
+  continueBtn = document.getElementById("continueBtn");
+  backToHome = document.getElementById("backToHome");
+  confirmationModal = document.getElementById("confirmationModal");
+  confirmEmail = document.getElementById("confirmEmail");
+  finishBtn = document.getElementById("finishBtn");
+
+  // Build full question list
   state.allQuestions = [...globalQuestions];
   renderQuestion();
   updateProgress();
@@ -297,19 +300,23 @@ function init() {
   // Event listeners
   backBtn.addEventListener("click", goBack);
   continueBtn.addEventListener("click", goNext);
-  backToHome.addEventListener("click", () => window.location.href = "https://fameaiapp.com");
-  finishBtn.addEventListener("click", () => window.location.href = "/dashboard");
+  backToHome.addEventListener("click", () => window.location.href = "index.html"); // ✅ Opravené
+  finishBtn.addEventListener("click", () => window.location.href = "dashboard.html"); // ✅ Opravené
 }
 
 // ===== RENDER QUESTION =====
 function renderQuestion() {
   const question = state.allQuestions[state.currentStep];
-  if (!question) return;
+  if (!question) {
+    console.error("No question found at step", state.currentStep);
+    return;
+  }
 
-  // Update text
-  questionText.textContent = question.text;
-
-  // Clear input area
+  // Clear a nastav text
+  questionText.innerHTML = "";
+  const mainText = document.createTextNode(question.text);
+  questionText.appendChild(mainText);
+  
   inputArea.innerHTML = "";
 
   // Render input based on type
@@ -389,7 +396,7 @@ function renderQuestion() {
       fileLabel.textContent = "Click to upload file";
       const fileName = document.createElement("span");
       fileName.className = "file-name";
-      fileName.textContent = state.answers[question.id]?.name || "";
+      fileName.textContent = state.answers[question.id]?.name || "No file selected";
       fileContainer.appendChild(fileInput);
       fileContainer.appendChild(fileLabel);
       fileContainer.appendChild(fileName);
@@ -397,35 +404,19 @@ function renderQuestion() {
       break;
   }
 
-  // Add optional label if applicable
+  // Add optional label
   if (question.optional) {
     const optionalSpan = document.createElement("span");
     optionalSpan.className = "optional";
-    optionalSpan.textContent = "(optional)";
+    optionalSpan.textContent = " (optional)";
     questionText.appendChild(optionalSpan);
-  }
-
-  // Add Google Calendar connect button if needed
-  if (question.id === "googleCalendar" && state.answers[question.id] === "Yes") {
-    const connectBtn = document.createElement("button");
-    connectBtn.type = "button";
-    connectBtn.className = "google-connect";
-    connectBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg> Connect Google Calendar`;
-    connectBtn.addEventListener("click", () => {
-      // Placeholder for OAuth flow
-      connectBtn.classList.add("connected");
-      connectBtn.innerHTML = "✓ Calendar Connected";
-      connectBtn.disabled = true;
-      state.answers["googleCalendarConnected"] = true;
-    });
-    inputArea.appendChild(connectBtn);
   }
 
   // Update button states
   backBtn.disabled = state.currentStep === 0;
   continueBtn.textContent = state.currentStep === state.allQuestions.length - 1 ? "Finish" : "Continue";
 
-  // Restore toggle state if exists
+  // Restore toggle state
   if (question.type === "toggle" && state.answers[question.id]) {
     const activeBtn = inputArea.querySelector(`.toggle-btn:nth-child(${state.answers[question.id] === "Yes" ? 1 : 2})`);
     if (activeBtn) {
@@ -451,22 +442,17 @@ function goNext() {
   if (question.required) {
     let value = state.answers[question.id];
     
-    // Special handling for file inputs
     if (question.type === "file") {
       if (!value || !(value instanceof File)) {
         alert("This field is required. Please upload a file.");
         return;
       }
-    } 
-    // Special handling for toggles
-    else if (question.type === "toggle") {
+    } else if (question.type === "toggle") {
       if (!value || (value !== "Yes" && value !== "No")) {
         alert("Please select Yes or No.");
         return;
       }
-    }
-    // Default validation
-    else if (!value || (typeof value === "string" && value.trim() === "")) {
+    } else if (!value || (typeof value === "string" && value.trim() === "")) {
       alert("This field is required.");
       return;
     }
@@ -478,12 +464,32 @@ function goNext() {
     state.answers[question.id] = input.value;
   }
 
-  // Check if we need to inject mode-specific questions
+  // Detekcia módu po prvej otázke
   if (question.id === "businessType" && !state.selectedMode) {
-    state.selectedMode = state.answers.businessType;
+    const userInput = state.answers.businessType.toLowerCase().trim();
+    let matchedMode = null;
+    
+    // Nájdi zhodu v módoch
+    for (const mode of Object.keys(modeQuestions)) {
+      if (userInput.includes(mode.toLowerCase()) || mode.toLowerCase().includes(userInput)) {
+        matchedMode = mode;
+        break;
+      }
+    }
+    
+    // Ak sme našli zhodu, použijeme ju
+    if (matchedMode) {
+      state.selectedMode = matchedMode;
+    } else {
+      // Predvolený mód ak nevieme rozpoznať
+      state.selectedMode = "Restaurant";
+    }
+    
     const modeQs = modeQuestions[state.selectedMode] || [];
-    // Insert mode questions after global ones
     state.allQuestions = [...globalQuestions, ...modeQs];
+    updateProgress();
+    renderQuestion();
+    return;
   }
 
   // Move to next or finish
@@ -492,7 +498,6 @@ function goNext() {
     renderQuestion();
     updateProgress();
   } else {
-    // Show confirmation
     confirmEmail.textContent = state.answers.adminEmail || "your email";
     confirmationModal.classList.remove("hidden");
   }
@@ -500,7 +505,6 @@ function goNext() {
 
 function goBack() {
   if (state.currentStep > 0) {
-    // Save current answer before going back
     const question = state.allQuestions[state.currentStep];
     const input = inputArea.querySelector("input, textarea, select");
     if (input && !["toggle", "file"].includes(question.type)) {
@@ -509,7 +513,6 @@ function goBack() {
     
     state.currentStep--;
     
-    // If going back before mode injection, reset mode questions
     if (state.currentStep < globalQuestions.length && state.selectedMode) {
       state.allQuestions = [...globalQuestions];
       state.selectedMode = null;
