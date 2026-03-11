@@ -305,7 +305,6 @@ function renderQuestion() {
   questionText.innerHTML = "";
   const mainText = document.createTextNode(question.text);
   questionText.appendChild(mainText);
-  
   inputArea.innerHTML = "";
 
   switch (question.type) {
