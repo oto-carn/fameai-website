@@ -1,6 +1,6 @@
 // Import Firebase SDKs via CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 // Your Firebase config
@@ -18,10 +18,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const googleProvider = new GoogleAuthProvider();
 
 // ===== AUTH FUNCTIONS =====
 export const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
+export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 export const logOut = () => signOut(auth);
 export const getCurrentUser = () => auth.currentUser;
 export const onAuthChange = (callback) => onAuthStateChanged(auth, callback);
@@ -59,4 +61,4 @@ export const getPromptById = async (userId, promptId) => {
   const docRef = doc(db, "users", userId, "prompts", promptId);
   const docSnap = await getDoc(docRef);
   return docSnap.exists() ? docSnap.data() : null;
-};,
+};
