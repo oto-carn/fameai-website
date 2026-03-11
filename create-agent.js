@@ -1,3 +1,6 @@
+// ===== FIREBASE IMPORTS =====
+import { getCurrentUser, savePrompt } from './firebase-config.js';
+
 // ===== DATA STRUCTURE =====
 const globalQuestions = [
   {
@@ -419,14 +422,16 @@ function updateProgress() {
 }
 
 // ===== NAVIGATION =====
-function goNext() {
+async function goNext() {
   const question = state.allQuestions[state.currentStep];
   
+  // Ulož hodnotu z inputu
   const input = inputArea.querySelector("input, textarea, select");
   if (input && !["toggle", "file"].includes(question.type)) {
     state.answers[question.id] = input.value;
   }
   
+  // Validácia povinných polí
   if (question.required) {
     let value = state.answers[question.id];
     
@@ -446,6 +451,7 @@ function goNext() {
     }
   }
 
+  // Detekcia módu po prvej otázke
   if (question.id === "businessType" && !state.selectedMode) {
     const userInput = state.answers.businessType.toLowerCase().trim();
     let matchedMode = null;
@@ -470,13 +476,51 @@ function goNext() {
     return;
   }
 
+  // Finish - uložiť do Firestore
   if (state.currentStep < state.allQuestions.length - 1) {
     state.currentStep++;
     renderQuestion();
     updateProgress();
   } else {
+    await saveToFirestore();
+  }
+}
+
+// ===== ULOŽENIE DO FIRESTORE =====
+async function saveToFirestore() {
+  const user = getCurrentUser();
+  
+  // Ak nie je prihlásený, presmeruj na login
+  if (!user) {
+    alert("Please login or create an account to save your agent.");
+    localStorage.setItem('tempAgentAnswers', JSON.stringify(state.answers));
+    localStorage.setItem('tempAgentMode', state.selectedMode);
+    window.location.href = "login.html";
+    return;
+  }
+  
+  try {
+    // Ulož prompt do Firestore pod user ID
+    const promptId = await savePrompt(user.uid, {
+      serviceMode: state.selectedMode,
+      answers: state.answers,
+      status: "completed",
+      createdAt: new Date().toISOString()
+    });
+    
+    // Zobraziť confirmation modal
     confirmEmail.textContent = state.answers.adminEmail || "your email";
     confirmationModal.classList.remove("hidden");
+    
+    // Vyčisti localStorage
+    localStorage.removeItem('tempAgentAnswers');
+    localStorage.removeItem('tempAgentMode');
+    
+    console.log("Prompt saved with ID:", promptId);
+    
+  } catch (error) {
+    console.error("Error saving prompt:", error);
+    alert("Error saving your agent. Please try again.");
   }
 }
 
