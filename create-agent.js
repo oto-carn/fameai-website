@@ -1,5 +1,5 @@
 // ===== FIREBASE IMPORTS =====
-import { getCurrentUser, savePrompt } from './firebase-config.js';
+import { onAuthChange, savePrompt } from './firebase-config.js';
 
 // ===== DATA STRUCTURE =====
 const globalQuestions = [
@@ -268,7 +268,8 @@ let state = {
   currentStep: 0,
   answers: {},
   selectedMode: null,
-  allQuestions: []
+  allQuestions: [],
+  currentUser: null  // FIX: store user from async Firebase auth
 };
 
 // ===== DOM ELEMENTS =====
@@ -287,12 +288,35 @@ function init() {
   confirmEmail = document.getElementById("confirmEmail");
   finishBtn = document.getElementById("finishBtn");
 
+  // FIX: Listen for auth state — Firebase is async, never use getCurrentUser() on page load
+  onAuthChange((user) => {
+    state.currentUser = user;
+
+    // If user just logged in and has saved answers waiting → save them now
+    if (user) {
+      const savedAnswers = localStorage.getItem('tempAgentAnswers');
+      const savedMode = localStorage.getItem('tempAgentMode');
+      if (savedAnswers && savedMode) {
+        state.answers = JSON.parse(savedAnswers);
+        state.selectedMode = savedMode;
+        state.allQuestions = [...globalQuestions, ...(modeQuestions[savedMode] || [])];
+        // Auto-save immediately
+        saveToFirestore();
+        return;
+      }
+    }
+  });
+
+  // Load saved progress if present (for cases where user was mid-form, not post-login)
   const savedAnswers = localStorage.getItem('tempAgentAnswers');
   const savedMode = localStorage.getItem('tempAgentMode');
   if (savedAnswers && savedMode) {
     state.answers = JSON.parse(savedAnswers);
     state.selectedMode = savedMode;
     state.allQuestions = [...globalQuestions, ...(modeQuestions[savedMode] || [])];
+    // Jump to last unanswered question
+    const answeredCount = Object.keys(state.answers).length;
+    state.currentStep = Math.min(answeredCount, state.allQuestions.length - 1);
   } else {
     state.allQuestions = [...globalQuestions];
   }
@@ -322,7 +346,7 @@ function renderQuestion() {
   switch (question.type) {
     case "text":
     case "email":
-    case "url":
+    case "url": {
       const input = document.createElement("input");
       input.type = question.type;
       input.id = question.id;
@@ -330,16 +354,18 @@ function renderQuestion() {
       if (question.placeholder) input.placeholder = question.placeholder;
       inputArea.appendChild(input);
       break;
+    }
 
-    case "textarea":
+    case "textarea": {
       const textarea = document.createElement("textarea");
       textarea.id = question.id;
       textarea.value = state.answers[question.id] || "";
       if (question.placeholder) textarea.placeholder = question.placeholder;
       inputArea.appendChild(textarea);
       break;
+    }
 
-    case "select":
+    case "select": {
       const select = document.createElement("select");
       select.id = question.id;
       const defaultOption = document.createElement("option");
@@ -357,8 +383,9 @@ function renderQuestion() {
       });
       inputArea.appendChild(select);
       break;
+    }
 
-    case "toggle":
+    case "toggle": {
       const toggleGroup = document.createElement("div");
       toggleGroup.className = "toggle-group";
       ["Yes", "No"].forEach(val => {
@@ -375,14 +402,18 @@ function renderQuestion() {
       });
       inputArea.appendChild(toggleGroup);
       break;
+    }
 
-    case "file":
+    case "file": {
       const fileContainer = document.createElement("div");
       fileContainer.className = "file-upload";
       const fileInput = document.createElement("input");
       fileInput.type = "file";
       fileInput.id = question.id;
       fileInput.accept = question.accept || "*/*";
+      const fileName = document.createElement("span");
+      fileName.className = "file-name";
+      fileName.textContent = state.answers[question.id]?.name || "No file selected";
       fileInput.addEventListener("change", (e) => {
         if (e.target.files[0]) {
           fileName.textContent = e.target.files[0].name;
@@ -393,14 +424,12 @@ function renderQuestion() {
       fileLabel.className = "file-upload-label";
       fileLabel.setAttribute("for", question.id);
       fileLabel.textContent = "Click to upload file";
-      const fileName = document.createElement("span");
-      fileName.className = "file-name";
-      fileName.textContent = state.answers[question.id]?.name || "No file selected";
       fileContainer.appendChild(fileInput);
       fileContainer.appendChild(fileLabel);
       fileContainer.appendChild(fileName);
       inputArea.appendChild(fileContainer);
       break;
+    }
   }
 
   if (question.optional) {
@@ -433,7 +462,7 @@ function updateProgress() {
 // ===== BUSINESS TYPE DETECTION =====
 function detectBusinessMode(userInput) {
   const input = userInput.toLowerCase().trim();
-  
+
   const exactMatches = {
     "restaurant": "Restaurant",
     "café": "Café",
@@ -451,28 +480,28 @@ function detectBusinessMode(userInput) {
     "real estate": "Real Estate Agency",
     "property": "Property Management"
   };
-  
+
   if (exactMatches[input]) return exactMatches[input];
-  
+
   for (const [key, mode] of Object.entries(exactMatches)) {
     if (input.includes(key)) return mode;
   }
-  
+
   return "Restaurant";
 }
 
 // ===== NAVIGATION =====
 async function goNext() {
   const question = state.allQuestions[state.currentStep];
-  
+
   const input = inputArea.querySelector("input, textarea, select");
   if (input && !["toggle", "file"].includes(question.type)) {
     state.answers[question.id] = input.value;
   }
-  
+
   if (question.required) {
     let value = state.answers[question.id];
-    
+
     if (question.type === "file") {
       if (!value || !(value instanceof File)) {
         alert("This field is required. Please upload a file.");
@@ -492,10 +521,10 @@ async function goNext() {
   if (question.id === "businessType" && !state.selectedMode) {
     const userInput = state.answers.businessType;
     state.selectedMode = detectBusinessMode(userInput);
-    
+
     const modeQs = modeQuestions[state.selectedMode] || [];
     state.allQuestions = [...globalQuestions, ...modeQs];
-    
+
     updateProgress();
     renderQuestion();
     return;
@@ -510,14 +539,18 @@ async function goNext() {
   }
 }
 
-// ===== ULOŽENIE DO FIRESTORE =====
+// ===== SAVE TO FIRESTORE =====
 async function saveToFirestore() {
-  const user = getCurrentUser();
-  
+  // FIX: Use state.currentUser (set by onAuthChange) NOT getCurrentUser()
+  const user = state.currentUser;
+
   if (!user) {
+    // Save to localStorage and redirect to login
     localStorage.setItem('tempAgentAnswers', JSON.stringify(state.answers));
     localStorage.setItem('tempAgentMode', state.selectedMode);
-    
+    // FIX: redirect back to create-agent after login, not dashboard
+    localStorage.setItem('postLoginRedirect', 'create-agent.html');
+
     if (confirmationModal) {
       confirmationModal.querySelector('.modal-content').innerHTML = `
         <h2>✅ Agent Ready!</h2>
@@ -526,32 +559,43 @@ async function saveToFirestore() {
         <button id="loginNowBtn" class="btn btn-primary" style="margin-top: 20px;">Sign In / Create Account</button>
       `;
       confirmationModal.classList.remove("hidden");
-      
+
       document.getElementById('loginNowBtn').addEventListener('click', () => {
         window.location.href = "login.html";
       });
     }
     return;
   }
-  
+
   try {
     const promptId = await savePrompt(user.uid, {
       serviceMode: state.selectedMode,
       answers: state.answers,
-      status: "completed",
+      status: "pending_activation",
       createdAt: new Date().toISOString()
     });
-    
+
     localStorage.removeItem('tempAgentAnswers');
     localStorage.removeItem('tempAgentMode');
-    
+    localStorage.removeItem('postLoginRedirect');
+
     if (confirmationModal) {
-      confirmEmail.textContent = state.answers.adminEmail || "your email";
+      // Show success modal
+      confirmationModal.querySelector('.modal-content').innerHTML = `
+        <h2>🎉 Agent Saved!</h2>
+        <p>Your AI agent configuration has been saved successfully.</p>
+        <p>Confirmation sent to: <strong>${state.answers.adminEmail || "your email"}</strong></p>
+        <button id="goToPlansBtn" class="btn btn-primary" style="margin-top: 20px;">Choose a Plan →</button>
+      `;
       confirmationModal.classList.remove("hidden");
+
+      document.getElementById('goToPlansBtn').addEventListener('click', () => {
+        window.location.href = `plans.html?promptId=${promptId}`;
+      });
     }
-    
+
     console.log("Prompt saved with ID:", promptId);
-    
+
   } catch (error) {
     console.error("Error saving prompt:", error);
     alert("Error saving your agent. Please try again.");
@@ -566,14 +610,14 @@ function goBack() {
     if (input && !["toggle", "file"].includes(question.type)) {
       state.answers[question.id] = input.value;
     }
-    
+
     state.currentStep--;
-    
+
     if (state.currentStep < globalQuestions.length && state.selectedMode) {
       state.allQuestions = [...globalQuestions];
       state.selectedMode = null;
     }
-    
+
     renderQuestion();
     updateProgress();
   }
