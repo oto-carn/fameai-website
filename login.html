@@ -202,7 +202,9 @@
       errorMessage.classList.remove('show');
       setTimeout(() => {
         successMessage.classList.remove('show');
-        window.location.href = 'dashboard.html';
+        // FIX: If user came from create-agent, go back there so tempAnswers get saved
+        const redirect = localStorage.getItem('postLoginRedirect') || 'dashboard.html';
+        window.location.href = redirect;
       }, 1500);
     }
 
